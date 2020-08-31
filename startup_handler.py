@@ -1,25 +1,11 @@
 import bpy
 from bpy.app.handlers import persistent
 
-import socket
+from .internet_functions import download_file, is_connected
 
 
-def is_connected():
-    try:
-        # connect to the host -- tells us if the host is actually
-        # reachable
-        socket.create_connection(("1.1.1.1", 53))
-        return True
-    except OSError:
-        pass
-    return False
-
-def download_json():
-    json_adress = 
-    file_path = r"C:\Users\tonton\Desktop\aaaa\test.json"
-    
-    import urllib.request
-    urllib.request.urlretrieve(json_adress, file_path)
+url = r"https://raw.githubusercontent.com/samytichadou/an_template_test/master/misc_dev/test.json?token=AGIPBI6PDXT2V7V2KD4WY6K7JUG5G"
+filepath = r"C:\Users\tonton\Desktop\aaaa\test.json"
 
 ### HANDLER ###
 @persistent
@@ -29,7 +15,9 @@ def antStartupHandler(scene):
     print("AN Templates") #debug
     print() #debug
 
-    if is_connected():
-        print("Internet connection")
-    else:
+    if not is_connected():
         print("No Internet connection")
+        # raise error message TODO
+    else:
+        print("Internet connection")
+        download_file(url, filepath)

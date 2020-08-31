@@ -21,7 +21,7 @@ Created by Samy Tichadou (tonton)
 bl_info = {  
  "name": "AN templates",  
  "author": "Samy Tichadou (tonton)",  
- "version": (2, 0),  
+ "version": (0, 1),  
  "blender": (2, 90, 0), 
  "location": "",  
  "description": "",  
@@ -40,11 +40,22 @@ import bpy
 
 from .startup_handler import antStartupHandler
 
+from .properties import *
+
+from .op_open_url import ANTEMPLATES_OT_open_url
+
 # register
 ##################################
 
 classes = (
-            )
+            ANTemplatesNodetrees,
+            ANTemplatesBlenderVersions,
+            ANTemplatesANVersions,
+            ANTemplatesCategories,
+            ANTemplatesProperties,
+
+            ANTEMPLATES_OT_open_url,
+        )
 
 def register():
 
@@ -52,6 +63,13 @@ def register():
     from bpy.utils import register_class
     for cls in classes :
         register_class(cls)
+
+    ### PROPERTIES ###
+    bpy.types.WindowManager.an_templates_nodetrees = \
+        bpy.props.CollectionProperty(type = ANTemplatesNodetrees, name="AN Template Properties")
+
+    bpy.types.WindowManager.an_templates_properties = \
+        bpy.props.PointerProperty(type = ANTemplatesProperties, name="BPM general settings")
 
     ### HANDLER ###
     bpy.app.handlers.load_post.append(antStartupHandler)
@@ -63,6 +81,10 @@ def unregister():
     from bpy.utils import unregister_class
     for cls in reversed(classes) :
         unregister_class(cls)
+
+    ### PROPERTIES ###
+    del bpy.types.WindowManager.an_templates_nodetrees
+    del bpy.types.WindowManager.an_templates_properties
 
     ### HANDLER ###
     bpy.app.handlers.load_post.remove(antStartupHandler)

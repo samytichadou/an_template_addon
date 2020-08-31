@@ -3,18 +3,25 @@
         {
             "nodetree1": [
                 {
-                    "hide": false,
-                    "name": "Matrices",
-                    "text": "custom name",
-                    "removeable": false,
-                    "moveable": false,
-                    "moveGroup": 0,
-                    "isUsed": true,
-                    "useIsUsedProperty": false,
-                    "dataIsModified": true,
-                    "defaultDrawType": "TEXT_PROPERTY"
-                },
+                    "description" : "description",
+                    "blender_version" : "version",
+                    "an_version" : "version",
+                    "category" : "category",
+                    "tags" : "tags",
+                    "hash": "url",
+                    "image_preview_url": "url",
+                    "video_preview_url": "url"
+                }
             ]
         }   
+    ],
+    "blender_versions": [
+
+    ],
+    "an_versions": [
+
+    ],
+    "categories": [
+        
     ]
 }
