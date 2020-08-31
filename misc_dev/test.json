@@ -1,0 +1,20 @@
+{
+    "nodetrees": [
+        {
+            "nodetree1": [
+                {
+                    "hide": false,
+                    "name": "Matrices",
+                    "text": "custom name",
+                    "removeable": false,
+                    "moveable": false,
+                    "moveGroup": 0,
+                    "isUsed": true,
+                    "useIsUsedProperty": false,
+                    "dataIsModified": true,
+                    "defaultDrawType": "TEXT_PROPERTY"
+                },
+            ]
+        }   
+    ]
+}
