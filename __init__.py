@@ -44,6 +44,8 @@ from .properties import *
 
 from .op_open_url import ANTEMPLATES_OT_open_url
 
+from .gui import ANTEMPLATES_PT_panel
+
 # register
 ##################################
 
@@ -55,6 +57,8 @@ classes = (
             ANTemplatesProperties,
 
             ANTEMPLATES_OT_open_url,
+
+            ANTEMPLATES_PT_panel,
         )
 
 def register():
