@@ -66,10 +66,10 @@ def register():
 
     ### PROPERTIES ###
     bpy.types.WindowManager.an_templates_nodetrees = \
-        bpy.props.CollectionProperty(type = ANTemplatesNodetrees, name="AN Template Properties")
+        bpy.props.CollectionProperty(type = ANTemplatesNodetrees, name="AN Template Nodetrees")
 
     bpy.types.WindowManager.an_templates_properties = \
-        bpy.props.PointerProperty(type = ANTemplatesProperties, name="BPM general settings")
+        bpy.props.PointerProperty(type = ANTemplatesProperties, name="AN Template Properties")
 
     ### HANDLER ###
     bpy.app.handlers.load_post.append(antStartupHandler)
