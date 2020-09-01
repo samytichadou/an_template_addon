@@ -24,11 +24,9 @@ def set_properties_from_dataset(datasetin, datasetout, avoid_list):
 
 
 # load json in collection
-def loadJsonInCollection(json_file, collection, json_coll_name):
+def loadJsonInCollection(dataset, collection, json_coll_name):
     # remove existing in collection
     collection.clear()
-
-    dataset = read_json(json_file)
 
     for f in dataset[json_coll_name]:
         
@@ -50,8 +48,12 @@ def set_properties_from_json(filepath):
     winman = bpy.data.window_managers[0]
     properties_coll = winman.an_templates_properties
 
-    loadJsonInCollection(filepath, properties_coll.blender_versions, 'blender_versions')
+    dataset = read_json(filepath)
 
-    loadJsonInCollection(filepath, properties_coll.an_versions, 'an_versions')
+    loadJsonInCollection(dataset, properties_coll.blender_versions, 'blender_versions')
 
-    loadJsonInCollection(filepath, properties_coll.categories, 'categories')
+    loadJsonInCollection(dataset, properties_coll.an_versions, 'an_versions')
+
+    loadJsonInCollection(dataset, properties_coll.categories, 'categories')
+
+    properties_coll.manifest_hash = dataset["manifest_hash"]

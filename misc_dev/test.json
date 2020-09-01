@@ -37,5 +37,6 @@
         {
             "name" : "Utility"
         }
-    ]
+    ],
+    "manifest_hash": "manifest_hash"
 }

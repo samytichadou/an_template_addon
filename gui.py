@@ -28,10 +28,10 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
             
             col = layout.column(align=True)
 
-            col.label(text=active_nodetree.description)
-            col.label(text=active_nodetree.blender_version)
-            col.label(text=active_nodetree.an_version)
-            col.label(text=active_nodetree.category)
-            col.label(text=active_nodetree.tags)
-            col.label(text=active_nodetree.hash)
-            col.label(text=active_nodetree.file_url)
+            col.label(text=active_nodetree.description, icon="INFO")
+            col.label(text=active_nodetree.blender_version, icon="BLENDER")
+            col.label(text=active_nodetree.an_version, icon="ONIONSKIN_ON")
+            col.label(text=active_nodetree.category, icon="FILE_FOLDER")
+            col.label(text=active_nodetree.tags, icon="VIEWZOOM")
+            col.label(text=active_nodetree.hash, icon="RNA")
+            col.label(text=active_nodetree.file_url, icon="URL")
