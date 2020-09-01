@@ -16,6 +16,7 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
             row = layout.row(align=True)
             row.operator('antemplates.open_url', text='', icon='IMAGE').url = item.image_preview_url
             row.operator('antemplates.open_url', text='', icon='FILE_MOVIE').url = item.video_preview_url
+            row.operator('antemplates.open_url', text='', icon='HELP').url = item.readme_url
             
         elif self.layout_type in {'GRID'}: 
             layout.alignment = 'CENTER' 
@@ -23,6 +24,7 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
             row = layout.row(align=True)
             row.operator('antemplates.open_url', text='', icon='IMAGE').url = item.image_preview_url
             row.operator('antemplates.open_url', text='', icon='FILE_MOVIE').url = item.video_preview_url
+            row.operator('antemplates.open_url', text='', icon='HELP').url = item.readme_url
 
     # # Called once to filter/reorder items.
     # def filter_items(self, context, data, propname):

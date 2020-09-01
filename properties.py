@@ -12,6 +12,7 @@ class ANTemplatesNodetrees(bpy.types.PropertyGroup) :
     image_preview_url : bpy.props.StringProperty(name="Image Preview")
     video_preview_url : bpy.props.StringProperty(name="Video Preview")
     file_url : bpy.props.StringProperty(name="File URL")
+    readme_url : bpy.props.StringProperty(name="Readme URL")
 
 class ANTemplatesBlenderVersions(bpy.types.PropertyGroup) :
     '''name : StringProperty() '''

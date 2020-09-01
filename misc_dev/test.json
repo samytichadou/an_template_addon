@@ -8,9 +8,10 @@
             "category" : "category",
             "tags" : "tags",
             "hash": "hash",
-            "image_preview_url": "image_url",
-            "video_preview_url": "video_url",
-            "file_url": "file_url"  
+            "image_preview_url": "https://github.com/samytichadou/animation_nodes_examples/blob/master/Blender_2_8/motion_design/abstract_wave_instance_noise/AN_EXAMPLE_abstract_wave_instance_noise_preview.png",
+            "video_preview_url": "https://www.youtube.com/watch?v=t_uYw1zt6n0&feature=youtu.be&list=PL57BAmPXpXuOLKN-CjVJPmWcsqEqg7Fku",
+            "file_url": "file_url",
+            "readme_url" : "https://github.com/samytichadou/animation_nodes_examples/blob/master/Blender_2_8/motion_design/abstract_wave_instance_noise/readme.md"
         }   
     ],
     "blender_versions": [
