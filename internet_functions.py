@@ -10,8 +10,15 @@ def is_connected():
     return False
     
 
-def download_file(url, filepath):
+def read_manifest(url):
+    import requests
     
+    file_object = requests.get(url)
+
+    return file_object.json()
+
+
+def download_file(url, filepath):
     import requests
     
     file_object = requests.get(url)

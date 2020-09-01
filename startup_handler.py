@@ -1,12 +1,11 @@
 import bpy
 from bpy.app.handlers import persistent
 
-from .internet_functions import download_file, is_connected
+from .internet_functions import read_manifest, is_connected
 from .json_functions import set_nodetrees_from_json, set_properties_from_json
 
 
 url = r"https://raw.githubusercontent.com/samytichadou/an_template_test/master/misc_dev/test.json"
-filepath = r"C:\Users\tonton\Desktop\aaaa\test.json"
 
 ### HANDLER ###
 @persistent
@@ -23,8 +22,8 @@ def antStartupHandler(scene):
         print("Internet connection") #debug
 
         print("Downloading manifest") #debug
-        download_file(url, filepath)
+        manifest_dataset = read_manifest(url)
 
         print("Loading manifest") #debug
-        set_nodetrees_from_json(filepath)
-        set_properties_from_json(filepath)
+        set_nodetrees_from_json(manifest_dataset)
+        set_properties_from_json(manifest_dataset)

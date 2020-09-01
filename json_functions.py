@@ -37,18 +37,16 @@ def loadJsonInCollection(dataset, collection, json_coll_name):
 
 
 # set up nodetrees collection from json file
-def set_nodetrees_from_json(filepath):
+def set_nodetrees_from_json(dataset):
     winman = bpy.data.window_managers[0]
     nodetrees_coll = winman.an_templates_nodetrees
-    loadJsonInCollection(filepath, nodetrees_coll, 'nodetrees')
+    loadJsonInCollection(dataset, nodetrees_coll, 'nodetrees')
 
 
 # set up properties collection from json file
-def set_properties_from_json(filepath):
+def set_properties_from_json(dataset):
     winman = bpy.data.window_managers[0]
     properties_coll = winman.an_templates_properties
-
-    dataset = read_json(filepath)
 
     loadJsonInCollection(dataset, properties_coll.blender_versions, 'blender_versions')
 
