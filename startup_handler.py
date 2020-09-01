@@ -3,7 +3,7 @@ from bpy.app.handlers import persistent
 
 from .internet_functions import read_manifest, is_connected
 from .json_functions import set_nodetrees_from_json, set_properties_from_json
-from .addon_prefs import getAddonPreferences
+from .addon_prefs import get_addon_preferences
 
 
 #url = r"https://raw.githubusercontent.com/samytichadou/an_template_test/master/misc_dev/test.json"
@@ -11,7 +11,7 @@ from .addon_prefs import getAddonPreferences
 ### HANDLER ###
 @persistent
 def antStartupHandler(scene):
-    prefs = getAddonPreferences()
+    prefs = get_addon_preferences()
     
     print() #debug
     print("AN Templates") #debug

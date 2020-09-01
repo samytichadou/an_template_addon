@@ -26,6 +26,6 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
 
 
 # get addon preferences
-def getAddonPreferences():
+def get_addon_preferences():
     addon = bpy.context.preferences.addons.get(addon_name)
     return getattr(addon, "preferences", None)

@@ -18,6 +18,8 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         winman = context.window_manager
         layout = self.layout
 
+        layout.operator('antemplates.clear_downloads')
+
         layout.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", winman.an_templates_properties, "nodetrees_index", rows = 3)
 
 
