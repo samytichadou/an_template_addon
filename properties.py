@@ -26,3 +26,4 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     blender_versions : bpy.props.CollectionProperty(type = ANTemplatesBlenderVersions, name="Blender Versions")
     an_versions : bpy.props.CollectionProperty(type = ANTemplatesANVersions, name="Animation Nodes Verions")
     categories : bpy.props.CollectionProperty(type = ANTemplatesCategories, name="Categories")
+    nodetrees_index : bpy.props.IntProperty(name="Nodetrees Index")
