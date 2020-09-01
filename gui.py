@@ -38,6 +38,7 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
             col.label(text=active_nodetree.category)
             col.label(text=active_nodetree.tags)
             col.label(text=active_nodetree.hash)
+            col.label(text=active_nodetree.file_url)
 
 
     # @classmethod

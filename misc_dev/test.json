@@ -8,8 +8,9 @@
             "category" : "category",
             "tags" : "tags",
             "hash": "hash",
-            "image_preview_url": "url",
-            "video_preview_url": "url"  
+            "image_preview_url": "image_url",
+            "video_preview_url": "video_url",
+            "file_url": "file_url"  
         }   
     ],
     "blender_versions": [

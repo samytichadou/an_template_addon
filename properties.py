@@ -11,6 +11,7 @@ class ANTemplatesNodetrees(bpy.types.PropertyGroup) :
     hash : bpy.props.StringProperty()
     image_preview_url : bpy.props.StringProperty(name="Image Preview")
     video_preview_url : bpy.props.StringProperty(name="Video Preview")
+    file_url : bpy.props.StringProperty(name="File URL")
 
 class ANTemplatesBlenderVersions(bpy.types.PropertyGroup) :
     '''name : StringProperty() '''
