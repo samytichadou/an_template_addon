@@ -10,10 +10,6 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        # tree = cls.getTree()
-        # if tree is None: return False
-        # return tree.bl_idname == "an_AnimationNodeTree"
-
         if context.area.type == "NODE_EDITOR":
             if context.area.ui_type == "an_AnimationNodeTree":
                 return True
@@ -39,8 +35,3 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
             col.label(text=active_nodetree.tags)
             col.label(text=active_nodetree.hash)
             col.label(text=active_nodetree.file_url)
-
-
-    # @classmethod
-    # def getTree(cls):
-    #     return bpy.context.space_data.edit_tree
