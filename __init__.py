@@ -47,6 +47,8 @@ from .op_open_url import ANTEMPLATES_OT_open_url
 from .gui import ANTEMPLATES_PT_panel
 from .ui_list import ANTEMPLATES_UL_panel_ui_list
 
+from .addon_prefs import ANTEMPLATESAddonPrefs
+
 # register
 ##################################
 
@@ -61,6 +63,8 @@ classes = (
 
             ANTEMPLATES_PT_panel,
             ANTEMPLATES_UL_panel_ui_list,
+
+            ANTEMPLATESAddonPrefs,
         )
 
 def register():
