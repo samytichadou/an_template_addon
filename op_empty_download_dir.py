@@ -15,6 +15,16 @@ class ANTEMPLATES_OT_clear_downloads(bpy.types.Operator):
     def poll(cls, context):
         return True
 
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+
+    def draw(self, context):
+        layout = self.layout
+        layout.label(text="You are about to delete downloaded templates", icon="QUESTION")
+        layout.label(text="Are you sure ?")
+
+
     def execute(self, context):
 
         prefs = get_addon_preferences()
