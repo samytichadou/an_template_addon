@@ -4,6 +4,7 @@ import string
 import random
 
 from .json_functions import read_json, create_json_file
+from .global_variables import nodetree_infos
 
 
 # return direct subfolders
@@ -116,7 +117,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                 
                 for filepath in return_direct_files(subfolder):
 
-                    if os.path.basename(filepath) == "nodetree_infos.json":
+                    if os.path.basename(filepath) == nodetree_infos:
 
                         nodetree_datas = read_json(filepath)
 

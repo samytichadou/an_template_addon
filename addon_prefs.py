@@ -24,6 +24,7 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         layout.prop(self, "manifest_url")
         layout.prop(self, "download_folder")
         layout.operator("antemplates.create_manifest")
+        layout.operator("antemplates.create_nodetree_info")
 
 
 # get addon preferences
