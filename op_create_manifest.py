@@ -67,7 +67,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
     bl_label = "Create Manifest"
     bl_options = {'REGISTER'}#, 'INTERNAL'}
 
-    github_url : bpy.props.StringProperty(name="Github URL")
+    #github_url : bpy.props.StringProperty(name="Github URL")
 
     template_folder : bpy.props.StringProperty(name="Template Folder")
 
@@ -84,7 +84,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
     def draw(self, context):
         layout = self.layout
-        layout.prop(self, "github_url")
+        #layout.prop(self, "github_url")
         layout.prop(self, "template_folder")
         layout.prop(self, "output_path")
 
