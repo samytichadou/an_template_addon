@@ -1,5 +1,7 @@
 import bpy
 import os
+import string
+import random
 
 
 # return direct subfolders
@@ -32,6 +34,53 @@ def return_direct_files(folderpath):
     return file_paths
 
 
+# get nodetrees infos from md file
+def get_infos_from_md(file):
+
+    infos = []
+
+    # Using readlines() 
+    file1 = open(file, 'r') 
+    Lines = file1.readlines() 
+    
+    # Strips the newline character 
+    for line in Lines: 
+
+        if line.startswith("__"):
+            
+            prop_id = (line.split("__")[1]).split(" :")[0]
+            prop_value = (line.split(" : ")[1]).split("\n")[0]
+            
+            infos.append([prop_id, prop_value])
+
+    return infos
+
+
+# generate hash number
+def generate_hash(length):
+    
+    letters = string.ascii_letters
+    digits = string.digits
+    
+    rd_string = "".join(random.choice(letters + digits) for i in range(length))
+
+    return rd_string
+
+
+# initialize json manifest datas
+def initialize_json_manifest_datas() :
+
+    datas = {}
+
+    datas["nodetrees"] = []
+    datas["blender_versions"] = []
+    datas["an_versions"] = []
+    datas["categories"] = []
+    datas["manifest_hash"] = generate_hash(10)
+
+    return datas
+
+
 class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
     """Create Manifest from Github URL and Template Folder"""
     bl_idname = "antemplates.create_manifest"
@@ -60,6 +109,8 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
     def execute(self, context):
 
         categories = []
+
+        manifest_datas = initialize_json_manifest_datas()
         
         for folder in return_direct_subfolders(self.template_folder):
 
@@ -73,8 +124,17 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                 for filepath in return_direct_files(subfolder):
 
                     if os.path.basename(filepath) == "readme.md":
+
                         readme_file = filepath
+
                         # create json entry for the nodetree
+
+                        nodetree_infos = get_infos_from_md(readme_file)
+
+                        for data in nodetree_infos:
+                            print(data)
+                            
+
                         break
 
 

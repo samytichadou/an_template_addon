@@ -9,6 +9,12 @@ def read_json(filepath):
     return dataset
 
 
+# create json file
+def create_json_file(datas, path) :
+    with open(path, "w") as write_file :
+        json.dump(datas, write_file, indent=4, sort_keys=False)
+
+
 # set attributes from json
 def set_properties_from_dataset(datasetin, datasetout, avoid_list):
     for prop in datasetin:
@@ -24,7 +30,7 @@ def set_properties_from_dataset(datasetin, datasetout, avoid_list):
 
 
 # load json in collection
-def loadJsonInCollection(dataset, collection, json_coll_name):
+def load_json_in_collection(dataset, collection, json_coll_name):
     # remove existing in collection
     collection.clear()
 
@@ -40,7 +46,7 @@ def loadJsonInCollection(dataset, collection, json_coll_name):
 def set_nodetrees_from_json(dataset):
     winman = bpy.data.window_managers[0]
     nodetrees_coll = winman.an_templates_nodetrees
-    loadJsonInCollection(dataset, nodetrees_coll, 'nodetrees')
+    load_json_in_collection(dataset, nodetrees_coll, 'nodetrees')
 
 
 # set up properties collection from json file
@@ -48,10 +54,10 @@ def set_properties_from_json(dataset):
     winman = bpy.data.window_managers[0]
     properties_coll = winman.an_templates_properties
 
-    loadJsonInCollection(dataset, properties_coll.blender_versions, 'blender_versions')
+    load_json_in_collection(dataset, properties_coll.blender_versions, 'blender_versions')
 
-    loadJsonInCollection(dataset, properties_coll.an_versions, 'an_versions')
+    load_json_in_collection(dataset, properties_coll.an_versions, 'an_versions')
 
-    loadJsonInCollection(dataset, properties_coll.categories, 'categories')
+    load_json_in_collection(dataset, properties_coll.categories, 'categories')
 
     properties_coll.manifest_hash = dataset["manifest_hash"]
