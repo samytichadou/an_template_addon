@@ -96,13 +96,12 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
         json_path = self.output_path
 
         if not os.path.isdir(os.path.dirname(json_path)):
-            print("Incorrect Output Path")
+            print("Incorrect Output Path") #debug
             return {'FINISHED'}
 
         if not json_path.endswith(".json"):
-            print("ends")
             json_path += ".json"
-            print(json_path)
+            print(json_path) #debug
 
         manifest_datas = initialize_json_manifest_datas()
         
@@ -133,9 +132,9 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
                         break
 
-        print("Creating manifest")
+        print("Creating manifest") #debug
 
-        print(manifest_datas)
+        print(manifest_datas) #debug
 
         create_json_file(manifest_datas, json_path)
 
