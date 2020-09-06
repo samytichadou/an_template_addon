@@ -3,6 +3,8 @@ import os
 import string
 import random
 
+from .json_functions import read_json
+
 
 # return direct subfolders
 def return_direct_subfolders(folderpath):
@@ -32,28 +34,6 @@ def return_direct_files(folderpath):
             file_paths.append(item_path)
 
     return file_paths
-
-
-# get nodetrees infos from md file
-def get_infos_from_md(file):
-
-    infos = []
-
-    # Using readlines() 
-    file1 = open(file, 'r') 
-    Lines = file1.readlines() 
-    
-    # Strips the newline character 
-    for line in Lines: 
-
-        if line.startswith("__"):
-            
-            prop_id = (line.split("__")[1]).split(" :")[0]
-            prop_value = (line.split(" : ")[1]).split("\n")[0]
-            
-            infos.append([prop_id, prop_value])
-
-    return infos
 
 
 # generate hash number
@@ -123,15 +103,13 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                 
                 for filepath in return_direct_files(subfolder):
 
-                    if os.path.basename(filepath) == "readme.md":
+                    if os.path.basename(filepath) == "nodetree_infos.json":
 
-                        readme_file = filepath
+                        nodetree_datas = read_json(filepath)
 
                         # create json entry for the nodetree
 
-                        nodetree_infos = get_infos_from_md(readme_file)
-
-                        for data in nodetree_infos:
+                        for data in nodetree_datas:
                             print(data)
                             
 

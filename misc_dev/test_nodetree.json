@@ -1,0 +1,11 @@
+{
+    "name" : "test_name",
+    "description" : "desc",
+    "blender_version" : "2.9",
+    "an_version" : "2.1.7",
+    "tags" : "tags other tags",
+    "image_preview_url" : "http",
+    "video_preview_url" : "http",
+    "file_url" : "http3",
+    "readme_url" : "http"
+}
