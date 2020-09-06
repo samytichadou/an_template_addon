@@ -10,7 +10,7 @@ from .global_variables import addon_print_prefix
 
 ### HANDLER ###
 @persistent
-def antStartupHandler(scene):
+def ant_startup_handler(scene):
     prefs = get_addon_preferences()
 
     print(addon_print_prefix + "Loading") #debug

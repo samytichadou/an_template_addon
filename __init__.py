@@ -38,7 +38,7 @@ import bpy
 # IMPORT SPECIFICS
 ##################################
 
-from .startup_handler import antStartupHandler
+from .startup_handler import ant_startup_handler
 
 from .properties import *
 
@@ -88,7 +88,7 @@ def register():
         bpy.props.PointerProperty(type = ANTemplatesProperties, name="AN Template Properties")
 
     ### HANDLER ###
-    bpy.app.handlers.load_post.append(antStartupHandler)
+    bpy.app.handlers.load_post.append(ant_startup_handler)
 
 
 def unregister():
@@ -103,4 +103,4 @@ def unregister():
     del bpy.types.WindowManager.an_templates_properties
 
     ### HANDLER ###
-    bpy.app.handlers.load_post.remove(antStartupHandler)
+    bpy.app.handlers.load_post.remove(ant_startup_handler)
