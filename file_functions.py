@@ -2,15 +2,18 @@ import os
 import shutil
 
 
+from .global_variables import addon_print_prefix
+
+
 # create directory
 def create_directory(filepath):
     try:
         os.mkdir(filepath)
     except OSError:
-        print ("Creation of the directory %s failed" % filepath) #debug
+        print (addon_print_prefix + "Creation of the directory %s failed" % filepath) #debug
         return False
     else:
-        print ("Successfully created the directory %s " % filepath) #debug
+        print (addon_print_prefix + "Successfully created the directory %s " % filepath) #debug
         return True
 
 
@@ -22,4 +25,4 @@ def empty_directory(filepath):
     # create folder
     create_directory(filepath)
 
-    print ("Successfully emptied %s " % filepath) #debug
+    print (addon_print_prefix + "Successfully emptied %s " % filepath) #debug

@@ -3,6 +3,7 @@ import os
 
 
 from .json_functions import create_json_file
+from .global_variables import addon_print_prefix
 
 
 class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
@@ -56,12 +57,11 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
         json_path = self.output_path
 
         if not os.path.isdir(os.path.dirname(json_path)):
-            print("Incorrect Output Path") #debug
+            print(addon_print_prefix + "Incorrect Output Path") #debug
             return {'FINISHED'}
 
         if not json_path.endswith(".json"):
             json_path += ".json"
-            print(json_path) #debug
 
         # create dataset
         datas = {}
@@ -76,7 +76,7 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
         datas["file_url"] =             self.file_url
         datas["readme_url"] =           self.readme_url
 
-        print("Creating nodetree info file") #debug
+        print(addon_print_prefix + "Creating Nodetree Info File : " + json_path) #debug
 
         print(datas) #debug
 

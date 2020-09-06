@@ -1,8 +1,10 @@
 import bpy
 import os
 
+
 from .addon_prefs import get_addon_preferences
 from .file_functions import empty_directory
+from .global_variables import addon_print_prefix
 
 
 class ANTEMPLATES_OT_clear_downloads(bpy.types.Operator):
@@ -34,6 +36,6 @@ class ANTEMPLATES_OT_clear_downloads(bpy.types.Operator):
             empty_directory(download_folder)
 
         else:
-            print("Download directory does not exist : %s" % download_folder) #debug
+            print(addon_print_prefix + "Download directory does not exist : %s" % download_folder) #debug
 
         return {'FINISHED'}

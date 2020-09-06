@@ -5,7 +5,7 @@ import random
 
 
 from .json_functions import read_json, create_json_file
-from .global_variables import nodetree_infos
+from .global_variables import nodetree_infos, addon_print_prefix
 
 
 # return direct subfolders
@@ -95,12 +95,13 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
         json_path = self.output_path
 
         if not os.path.isdir(os.path.dirname(json_path)):
-            print("Incorrect Output Path") #debug
+            print(addon_print_prefix + "Incorrect Output Path") #debug
             return {'FINISHED'}
 
         if not json_path.endswith(".json"):
             json_path += ".json"
-            print(json_path) #debug
+
+        # create manifest datas
 
         manifest_datas = initialize_json_manifest_datas()
         
@@ -131,7 +132,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
                         break
 
-        print("Creating manifest") #debug
+        print(addon_print_prefix + "Creating Manifest : " + json_path) #debug
 
         print(manifest_datas) #debug
 
