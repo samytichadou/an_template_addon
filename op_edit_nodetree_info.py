@@ -4,6 +4,7 @@ import os
 
 from .json_functions import create_json_file, read_json
 from .global_variables import addon_print_prefix
+from .op_create_manifest import generate_hash
 
 
 class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
@@ -22,6 +23,7 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
     video_preview_url : bpy.props.StringProperty(name="Video Preview URL")
     file_url :          bpy.props.StringProperty(name="File URL")
     readme_url :        bpy.props.StringProperty(name="Readme URL")
+    hash :              bpy.props.StringProperty(name="Hash")
 
 
     @classmethod
@@ -48,6 +50,7 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
         self.video_preview_url =    datas["video_preview_url"]
         self.file_url =             datas["file_url"]
         self.readme_url =           datas["readme_url"]
+        self.hash =           datas["hash"]
             
         return context.window_manager.invoke_props_dialog(self)
 
@@ -64,6 +67,7 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
         layout.prop(self, "video_preview_url")
         layout.prop(self, "file_url")
         layout.prop(self, "readme_url")
+        layout.label(text="Hash : " + self.hash)
 
 
     def execute(self, context):
@@ -83,6 +87,7 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
         datas["video_preview_url"] =    self.video_preview_url
         datas["file_url"] =             self.file_url
         datas["readme_url"] =           self.readme_url
+        datas["hash"] =                 generate_hash(10)
 
         print(addon_print_prefix + "Creating Nodetree Info File : " + json_path) #debug
 

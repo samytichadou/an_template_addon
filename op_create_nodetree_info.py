@@ -4,6 +4,7 @@ import os
 
 from .json_functions import create_json_file
 from .global_variables import addon_print_prefix
+from .op_create_manifest import generate_hash
 
 
 class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
@@ -76,6 +77,7 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
         datas["video_preview_url"] =    self.video_preview_url
         datas["file_url"] =             self.file_url
         datas["readme_url"] =           self.readme_url
+        datas["hash"] =                 generate_hash(10)
 
         print(addon_print_prefix + "Creating Nodetree Info File : " + json_path) #debug
 

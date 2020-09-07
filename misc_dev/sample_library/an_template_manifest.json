@@ -10,6 +10,7 @@
             "video_preview_url": "",
             "file_url": "",
             "readme_url": "",
+            "hash": "TiRk74l5Mj",
             "category": "category 1"
         }
     ],
@@ -28,5 +29,5 @@
             "name": "category 1"
         }
     ],
-    "manifest_hash": "MFcQvB7t9d"
+    "manifest_hash": "8ur9uO4vQj"
 }
