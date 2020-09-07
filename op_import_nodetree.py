@@ -8,6 +8,55 @@ from .file_functions import create_directory
 from .internet_functions import is_connected, download_file
 
 
+# clear lib user
+def clearDataUsers(lib):
+    lib.use_fake_user = False
+    while lib.users != 0:
+        lib.user_clear()
+    try:
+        for datas in lib.users_id:
+            datas.use_fake_user = False
+            datas.user_clear()
+    except AttributeError:
+        pass
+
+
+# link nodetree
+def link_nodetree(filepath, name):
+
+    imported = []
+    lib = bpy.data.libraries.load(filepath, link=False, relative=True)
+    #blend_name = os.path.basename(filepath)
+
+    # import
+
+    with lib as (data_from, data_to):
+        data_to.node_groups = data_from.node_groups
+
+    for new_node in data_to.node_groups:
+
+        if new_node.bl_idname != "an_AnimationNodeTree" or new_node.name != name:
+            bpy.data.node_groups.remove(bpy.data.node_groups[new_node.name])
+        else:
+           imported.append(new_node)
+
+    # remove lib
+    #clearDataUsers(bpy.data.libraries[blend_name])
+    #bpy.data.orphans_purge()
+
+
+    if len(imported) == 0:
+        return False
+    else:
+        return True
+
+
+# link nodetree
+def old_link_nodetree(filepath, name):
+    path = os.path.join(filepath, "NodeTree")
+    bpy.ops.wm.append(filename=name, directory=path)
+
+
 class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
     """Edit Nodetree Info File"""
     bl_idname = "antemplates.import_nodetree"
@@ -61,10 +110,15 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
         else:
             print(addon_print_prefix + "Nodetree Already Downloaded") #debug    
 
+        print(addon_print_prefix + "Importing : " + nodetree.name) #debug
+
         # import nodetree
+        if link_nodetree(nodetree_filepath, nodetree.name):
 
+            print(addon_print_prefix + "Nodetree Successfully Imported") #debug
 
+        else:
 
-        print(addon_print_prefix + "Nodetree Successfully Imported") #debug
+            print(addon_print_prefix + "Unable to Import Nodetree") #debug
 
         return {'FINISHED'}
