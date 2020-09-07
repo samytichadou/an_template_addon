@@ -11,7 +11,7 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
     """Edit Nodetree Info File"""
     bl_idname = "antemplates.edit_nodetree_info"
     bl_label = "Edit Nodetree Info"
-    bl_options = {'REGISTER'}#, 'INTERNAL'}
+    bl_options = {'REGISTER', 'INTERNAL'}
 
 
     name :              bpy.props.StringProperty(name="Name")

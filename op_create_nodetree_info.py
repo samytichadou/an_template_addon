@@ -11,7 +11,7 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
     """Create Nodetree Info File"""
     bl_idname = "antemplates.create_nodetree_info"
     bl_label = "Create Nodetree Info"
-    bl_options = {'REGISTER'}#, 'INTERNAL'}
+    bl_options = {'REGISTER', 'INTERNAL'}
 
     name :              bpy.props.StringProperty(name="Name")
     description :       bpy.props.StringProperty(name="Description")

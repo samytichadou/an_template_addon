@@ -67,7 +67,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
     """Create Manifest from Github URL and Template Folder"""
     bl_idname = "antemplates.create_manifest"
     bl_label = "Create Manifest"
-    bl_options = {'REGISTER'}#, 'INTERNAL'}
+    bl_options = {'REGISTER', 'INTERNAL'}
 
 
     @classmethod
