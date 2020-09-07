@@ -1,0 +1,32 @@
+{
+    "nodetrees": [
+        {
+            "name": "nodetree 1",
+            "description": "simple nodetree",
+            "blender_version": "2.83",
+            "an_version": "2.1.7",
+            "tags": "move object simple",
+            "image_preview_url": "",
+            "video_preview_url": "",
+            "file_url": "",
+            "readme_url": "",
+            "category": "category 1"
+        }
+    ],
+    "blender_versions": [
+        {
+            "name": "2.83"
+        }
+    ],
+    "an_versions": [
+        {
+            "name": "2.1.7"
+        }
+    ],
+    "categories": [
+        {
+            "name": "category 1"
+        }
+    ],
+    "manifest_hash": "M6bqT4suyX"
+}
