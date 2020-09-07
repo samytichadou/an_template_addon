@@ -52,5 +52,5 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
             col.label(text=active_nodetree.an_version, icon="ONIONSKIN_ON")
             col.label(text=active_nodetree.category, icon="FILE_FOLDER")
             col.label(text=active_nodetree.tags, icon="VIEWZOOM")
-            col.label(text=str(active_nodetree.hash), icon="RNA")
+            col.label(text=active_nodetree.hash, icon="RNA")
             col.label(text=active_nodetree.file_url, icon="URL")
