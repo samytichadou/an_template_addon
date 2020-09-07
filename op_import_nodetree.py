@@ -22,13 +22,16 @@ def clearDataUsers(lib):
 
 
 # link nodetree
-def link_nodetree(filepath, name):
+def link_nodetree(filepath, name, original_scene, active_scene):
+
+    old_scenes = []
+    for scn in bpy.data.scenes:
+        old_scenes.append(scn)
 
     imported = []
     lib = bpy.data.libraries.load(filepath, link=False, relative=True)
-    #blend_name = os.path.basename(filepath)
 
-    # import
+    # import nodetree
 
     with lib as (data_from, data_to):
         data_to.node_groups = data_from.node_groups
@@ -40,21 +43,32 @@ def link_nodetree(filepath, name):
         else:
            imported.append(new_node)
 
-    # remove lib
-    #clearDataUsers(bpy.data.libraries[blend_name])
-    #bpy.data.orphans_purge()
+    # deal with scenes 
 
+    if not original_scene:
+
+        # set nodetree active scene
+        for nodetree in imported:
+            nodetree.globalScene = active_scene
+
+        # remove new scenes if needed
+        for scn in bpy.data.scenes:
+            if scn in old_scenes:
+                continue
+            else:
+                # remove or move objects from scene TODO
+                bpy.data.scenes.remove(scn, do_unlink=True)
+
+
+    # return if imported
 
     if len(imported) == 0:
+        # remove scenes if imported TODO
         return False
     else:
+        # if nodetree already imported, extra scenes, remove them TODO
         return True
 
-
-# link nodetree
-def old_link_nodetree(filepath, name):
-    path = os.path.join(filepath, "NodeTree")
-    bpy.ops.wm.append(filename=name, directory=path)
 
 
 class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
@@ -77,7 +91,9 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
 
         winman = context.window_manager
         nodetree_collection = winman.an_templates_nodetrees
-        nodetree = nodetree_collection[winman.an_templates_properties.nodetrees_index]
+        properties_coll = winman.an_templates_properties
+        nodetree = nodetree_collection[properties_coll.nodetrees_index]
+        original_scene = properties_coll.import_original_scene
 
         prefs = get_addon_preferences()
 
@@ -113,7 +129,7 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
         print(addon_print_prefix + "Importing : " + nodetree.name) #debug
 
         # import nodetree
-        if link_nodetree(nodetree_filepath, nodetree.name):
+        if link_nodetree(nodetree_filepath, nodetree.name, original_scene, context.scene):
 
             print(addon_print_prefix + "Nodetree Successfully Imported") #debug
 

@@ -27,14 +27,18 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         layout.prop(self, "manifest_url")
         layout.prop(self, "download_folder")
 
-        box = layout.box()
+        bigbox = layout.box()
+
+        bigbox.label(text="Developpers", icon="SCRIPT")
+
+        box = bigbox.box()
         col = box.column(align=True)
         col.label(text="Manifest")
         col.prop(properties_coll, "template_folder", text="Templates")
         col.prop(properties_coll, "output_manifest_file", text="Manifest")
         col.operator("antemplates.create_manifest")
 
-        box = layout.box()
+        box = bigbox.box()
         col = box.column(align=True)
         col.label(text="Nodetree Infos")
         col.prop(properties_coll, "output_nodetree_info_file", text="")

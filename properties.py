@@ -30,6 +30,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     categories : bpy.props.CollectionProperty(type = ANTemplatesCategories, name="Categories")
     nodetrees_index : bpy.props.IntProperty(name="Nodetrees Index")
     manifest_hash : bpy.props.StringProperty(name="Manifest Hash")
+    import_original_scene : bpy.props.BoolProperty(name="Import Original Scene")
 
     output_nodetree_info_file : bpy.props.StringProperty(name="Output Nodetree Info", subtype="FILE_PATH")
     template_folder : bpy.props.StringProperty(name="Output Manifest", subtype="DIR_PATH")
