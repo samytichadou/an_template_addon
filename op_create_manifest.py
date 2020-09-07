@@ -69,33 +69,31 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
     bl_label = "Create Manifest"
     bl_options = {'REGISTER'}#, 'INTERNAL'}
 
-    template_folder : bpy.props.StringProperty(name="Template Folder")
-
-    output_path : bpy.props.StringProperty(name="Output Path")
 
     @classmethod
     def poll(cls, context):
-        return True
-
-
-    def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)
-
-
-    def draw(self, context):
-        layout = self.layout
-        layout.prop(self, "template_folder")
-        layout.prop(self, "output_path")
+        winman = bpy.data.window_managers[0]
+        properties_coll = winman.an_templates_properties
+        return properties_coll.output_manifest_file != "" and os.path.isdir(properties_coll.template_folder)
 
 
     def execute(self, context):
+
+        winman = context.window_manager
+        properties_coll = winman.an_templates_properties
         
         # check and correct output path
 
-        json_path = self.output_path
+        json_path = properties_coll.output_manifest_file
+
+        template_folder = properties_coll.template_folder
 
         if not os.path.isdir(os.path.dirname(json_path)):
             print(addon_print_prefix + "Incorrect Output Path") #debug
+            return {'FINISHED'}
+
+        if not os.path.isdir(template_folder):
+            print(addon_print_prefix + "Incorrect Template Folder Path") #debug
             return {'FINISHED'}
 
         if not json_path.endswith(".json"):
@@ -105,7 +103,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
         manifest_datas = initialize_json_manifest_datas()
         
-        for folder in return_direct_subfolders(self.template_folder):
+        for folder in return_direct_subfolders(template_folder):
 
             # get categories
             category = os.path.basename(folder)

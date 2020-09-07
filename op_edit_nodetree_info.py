@@ -2,15 +2,16 @@ import bpy
 import os
 
 
-from .json_functions import create_json_file
+from .json_functions import create_json_file, read_json
 from .global_variables import addon_print_prefix
 
 
-class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
-    """Create Nodetree Info File"""
-    bl_idname = "antemplates.create_nodetree_info"
-    bl_label = "Create Nodetree Info"
+class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
+    """Edit Nodetree Info File"""
+    bl_idname = "antemplates.edit_nodetree_info"
+    bl_label = "Edit Nodetree Info"
     bl_options = {'REGISTER'}#, 'INTERNAL'}
+
 
     name :              bpy.props.StringProperty(name="Name")
     description :       bpy.props.StringProperty(name="Description")
@@ -27,10 +28,27 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
     def poll(cls, context):
         winman = bpy.data.window_managers[0]
         properties_coll = winman.an_templates_properties
-        return properties_coll.output_nodetree_info_file != ""
+        return os.path.isfile(properties_coll.output_nodetree_info_file)
 
 
     def invoke(self, context, event):
+
+        winman = context.window_manager
+        json_path = winman.an_templates_properties.output_nodetree_info_file
+        datas = read_json(json_path)
+        
+        # fill properties from json
+
+        self.name =                 datas["name"]
+        self.description =          datas["description"]
+        self.blender_version =      datas["blender_version"]
+        self.an_version =           datas["an_version"]
+        self.tags =                 datas["tags"]
+        self.image_preview_url =    datas["image_preview_url"]
+        self.video_preview_url =    datas["video_preview_url"]
+        self.file_url =             datas["file_url"]
+        self.readme_url =           datas["readme_url"]
+            
         return context.window_manager.invoke_props_dialog(self)
 
 
@@ -51,18 +69,7 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
     def execute(self, context):
 
         winman = context.window_manager
-        properties_coll = winman.an_templates_properties
-        
-        # check and correct output path
-
-        json_path = properties_coll.output_nodetree_info_file
-
-        if not os.path.isdir(os.path.dirname(json_path)):
-            print(addon_print_prefix + "Incorrect Output Path") #debug
-            return {'FINISHED'}
-
-        if not json_path.endswith(".json"):
-            json_path += ".json"
+        json_path = winman.an_templates_properties.output_nodetree_info_file
 
         # create dataset
         datas = {}

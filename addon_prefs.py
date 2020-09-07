@@ -20,11 +20,26 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
 
 
     def draw(self, context):
+        winman = context.window_manager
+        properties_coll = winman.an_templates_properties
+
         layout = self.layout
         layout.prop(self, "manifest_url")
         layout.prop(self, "download_folder")
-        layout.operator("antemplates.create_manifest")
-        layout.operator("antemplates.create_nodetree_info")
+
+        box = layout.box()
+        col = box.column(align=True)
+        col.label(text="Manifest")
+        col.prop(properties_coll, "template_folder", text="Templates")
+        col.prop(properties_coll, "output_manifest_file", text="Manifest")
+        col.operator("antemplates.create_manifest")
+
+        box = layout.box()
+        col = box.column(align=True)
+        col.label(text="Nodetree Infos")
+        col.prop(properties_coll, "output_nodetree_info_file", text="")
+        col.operator("antemplates.create_nodetree_info")
+        col.operator("antemplates.edit_nodetree_info")
 
 
 # get addon preferences
