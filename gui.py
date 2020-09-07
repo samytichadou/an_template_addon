@@ -39,6 +39,7 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
 
         layout.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", winman.an_templates_properties, "nodetrees_index", rows = 3)
 
+        layout.operator("antemplates.import_nodetree")
 
         idx = winman.an_templates_properties.nodetrees_index
 

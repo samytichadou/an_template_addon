@@ -8,7 +8,7 @@ from .global_variables import addon_print_prefix
 # create directory
 def create_directory(filepath):
     try:
-        os.mkdir(filepath)
+        os.makedirs(filepath)
     except OSError:
         print (addon_print_prefix + "Creation of the directory %s failed" % filepath) #debug
         return False

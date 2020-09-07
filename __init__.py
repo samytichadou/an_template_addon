@@ -47,6 +47,7 @@ from .op_empty_download_dir import ANTEMPLATES_OT_clear_downloads
 from .op_create_manifest import ANTEMPLATES_OT_create_manifest
 from .op_create_nodetree_info import ANTEMPLATES_OT_create_nodetree_info
 from .op_edit_nodetree_info import ANTEMPLATES_OT_edit_nodetree_info
+from .op_import_nodetree import ANTEMPLATES_OT_import_nodetree
 
 from .gui import ANTEMPLATES_PT_panel
 from .ui_list import ANTEMPLATES_UL_panel_ui_list
@@ -68,6 +69,7 @@ classes = (
             ANTEMPLATES_OT_create_manifest,
             ANTEMPLATES_OT_create_nodetree_info,
             ANTEMPLATES_OT_edit_nodetree_info,
+            ANTEMPLATES_OT_import_nodetree,
 
             ANTEMPLATES_PT_panel,
             ANTEMPLATES_UL_panel_ui_list,
