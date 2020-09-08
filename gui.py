@@ -41,6 +41,7 @@ class ANTEMPLATES_PT_import_options_subpanel(bpy.types.Panel):
     bl_parent_id = "ANTEMPLATES_PT_panel"
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
+    bl_options = {'DEFAULT_CLOSED'}
 
 
     def draw(self, context):
@@ -73,6 +74,7 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
     bl_parent_id = "ANTEMPLATES_PT_panel"
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
+    bl_options = {'DEFAULT_CLOSED'}
 
 
     def draw(self, context):
