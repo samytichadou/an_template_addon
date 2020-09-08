@@ -10,10 +10,10 @@ def create_directory(filepath):
     try:
         os.makedirs(filepath)
     except OSError:
-        print (addon_print_prefix + "Creation of the directory %s failed" % filepath) #debug
+        #print (addon_print_prefix + "Creation of the directory %s failed" % filepath) #debug
         return False
     else:
-        print (addon_print_prefix + "Successfully created the directory %s " % filepath) #debug
+        #print (addon_print_prefix + "Successfully created the directory %s " % filepath) #debug
         return True
 
 

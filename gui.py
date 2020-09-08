@@ -8,11 +8,13 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
     bl_region_type = "UI"
     bl_category = "Templates"
 
+
     @classmethod
     def poll(cls, context):
         if context.area.type == "NODE_EDITOR":
             if context.area.ui_type == "an_AnimationNodeTree":
                 return True
+
 
     def draw(self, context):
 
@@ -39,7 +41,21 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
 
         layout.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", winman.an_templates_properties, "nodetrees_index", rows = 3)
 
-        layout.prop(properties_coll, "import_original_scene")
+        col = layout.column(align=True)
+        col.prop(properties_coll, "import_original_scene")
+        col.prop(properties_coll, "keep_original_objects")
+
+        col2 = layout.column(align=True)
+        if not properties_coll.import_original_scene and properties_coll.keep_original_objects:
+            col2.enabled=True
+        else:
+            col2.enabled=False
+        col2.prop(properties_coll, "original_objects_collection", text="")
+        row = col2.row()
+        if properties_coll.original_objects_collection != "SPECIFIC":
+            row.enabled=False
+        row.prop(properties_coll, "original_object_specific_collection", text="")
+        
         layout.operator("antemplates.import_nodetree")
 
         idx = winman.an_templates_properties.nodetrees_index

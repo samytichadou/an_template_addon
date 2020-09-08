@@ -11,24 +11,32 @@ from .internet_functions import is_connected, download_file
 # clear lib user
 def clearDataUsers(lib):
     lib.use_fake_user = False
-    while lib.users != 0:
-        lib.user_clear()
+
     try:
         for datas in lib.users_id:
             datas.use_fake_user = False
             datas.user_clear()
+
     except AttributeError:
+        print("F")
         pass
+
+    lib.user_clear()
 
 
 # link nodetree
-def link_nodetree(filepath, name, original_scene, active_scene):
+def link_nodetree(filepath, name, properties_coll, context):
+    active_scene = context.scene
+    original_scene = properties_coll.import_original_scene
+    original_objects = properties_coll.keep_original_objects
+    collection_behavior = properties_coll.original_objects_collection
 
     old_scenes = []
     for scn in bpy.data.scenes:
         old_scenes.append(scn)
 
     imported = []
+    dupe = False
     lib = bpy.data.libraries.load(filepath, link=False, relative=True)
 
     # import nodetree
@@ -38,10 +46,65 @@ def link_nodetree(filepath, name, original_scene, active_scene):
 
     for new_node in data_to.node_groups:
 
-        if new_node.bl_idname != "an_AnimationNodeTree" or new_node.name != name:
-            bpy.data.node_groups.remove(bpy.data.node_groups[new_node.name])
+        if new_node.bl_idname == "an_AnimationNodeTree":
+            if new_node.name == name:
+                imported.append(new_node)
+            elif name + ".00" in new_node.name:
+                bpy.data.node_groups.remove(bpy.data.node_groups[new_node.name])
+                print(addon_print_prefix + "Nodetree already exists, remove it") #debug
+            else:
+                bpy.data.node_groups.remove(bpy.data.node_groups[new_node.name])
+
         else:
-           imported.append(new_node)
+            bpy.data.node_groups.remove(bpy.data.node_groups[new_node.name])
+
+
+    # return if not imported
+
+    if len(imported) == 0:
+
+        # remove new scenes if needed
+        for scn in bpy.data.scenes:
+            if scn in old_scenes:
+                continue
+            else:
+                for object in scn.objects:
+                    bpy.data.objects.remove(object, do_unlink=True)
+                bpy.data.scenes.remove(scn, do_unlink=True)
+
+        return False
+
+
+    # deal with objects 
+
+    if not original_objects:
+        for scn in bpy.data.scenes:
+            if scn in old_scenes:
+                continue
+            else:
+                for object in scn.objects:
+                    bpy.data.objects.remove(object, do_unlink=True)
+
+    elif original_objects and not original_scene:
+
+        if collection_behavior == "SPECIFIC":
+            try:
+                coll = active_scene.collection.children[properties_coll.original_object_specific_collection]
+            except KeyError:
+                coll = bpy.data.collections.new(properties_coll.original_object_specific_collection)
+                active_scene.collection.children.link(coll)
+        elif collection_behavior == "SCENE":
+            coll = active_scene.collection
+        else:
+            coll = context.collection
+
+        for scn in bpy.data.scenes:
+            if scn in old_scenes:
+                continue
+            else:
+                for object in scn.objects:
+                    coll.objects.link(object)
+
 
     # deal with scenes 
 
@@ -56,19 +119,22 @@ def link_nodetree(filepath, name, original_scene, active_scene):
             if scn in old_scenes:
                 continue
             else:
-                # remove or move objects from scene TODO
                 bpy.data.scenes.remove(scn, do_unlink=True)
 
 
-    # return if imported
+    # deal with library
 
-    if len(imported) == 0:
-        # remove scenes if imported TODO
-        return False
-    else:
-        # if nodetree already imported, extra scenes, remove them TODO
-        return True
+    blend_name = os.path.basename(filepath)
 
+    if bpy.data.libraries[blend_name]:
+
+        clearDataUsers(bpy.data.libraries[blend_name])
+
+        #bpy.data.orphans_purge()
+
+
+    # if nodetree already imported, extra scenes, remove them TODO
+    return True
 
 
 class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
@@ -93,7 +159,6 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
         nodetree_collection = winman.an_templates_nodetrees
         properties_coll = winman.an_templates_properties
         nodetree = nodetree_collection[properties_coll.nodetrees_index]
-        original_scene = properties_coll.import_original_scene
 
         prefs = get_addon_preferences()
 
@@ -116,8 +181,8 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
                 return {'FINISHED'}
             
             # download file
-            download_file(nodetree.file_url ,nodetree_filepath)
             print(addon_print_prefix + "Downloading File") #debug
+            download_file(nodetree.file_url ,nodetree_filepath)
             
             if not os.path.isfile(nodetree_filepath):
                 print(addon_print_prefix + "Unable to Download File") #debug
@@ -129,7 +194,7 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
         print(addon_print_prefix + "Importing : " + nodetree.name) #debug
 
         # import nodetree
-        if link_nodetree(nodetree_filepath, nodetree.name, original_scene, context.scene):
+        if link_nodetree(nodetree_filepath, nodetree.name, properties_coll, context):
 
             print(addon_print_prefix + "Nodetree Successfully Imported") #debug
 
