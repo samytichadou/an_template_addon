@@ -29,6 +29,8 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         
         layout.operator("antemplates.import_nodetree")
 
+        # import nodetree properties
+        # make it responsive TODO
         col = layout.column(align=True)
         col.prop(properties_coll, "import_original_scene")
         col.prop(properties_coll, "keep_original_objects")
@@ -44,6 +46,7 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
             row.enabled=False
         row.prop(properties_coll, "original_object_specific_collection", text="")
 
+        # nodetree properties
         idx = winman.an_templates_properties.nodetrees_index
 
         if idx in range(0, len(winman.an_templates_nodetrees)):
