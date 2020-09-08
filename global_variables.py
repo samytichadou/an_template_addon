@@ -8,3 +8,6 @@ raw_github_prefix = "https://raw.githubusercontent.com"
 
 # common
 addon_print_prefix = "AN Templates --- "
+
+# files
+manifest_file = "manifest.json"

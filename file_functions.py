@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-from .global_variables import addon_print_prefix
+from .global_variables import addon_print_prefix, manifest_file
 
 
 # create directory
@@ -19,10 +19,9 @@ def create_directory(filepath):
 
 # empty directory
 def empty_directory(filepath):
-    # delete folder
-    shutil.rmtree(filepath, ignore_errors=False, onerror=None)
 
-    # create folder
-    create_directory(filepath)
+    for f in os.listdir(filepath):
+        if f != manifest_file:
+            os.remove(os.path.join(filepath, f))
 
     print (addon_print_prefix + "Successfully emptied %s " % filepath) #debug
