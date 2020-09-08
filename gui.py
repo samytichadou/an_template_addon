@@ -29,7 +29,22 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         
         layout.operator("antemplates.import_nodetree")
 
-        # import nodetree properties
+
+class ANTEMPLATES_PT_import_options_subpanel(bpy.types.Panel):
+    bl_idname = "ANTEMPLATES_PT_import_options_subpanel"
+    bl_label = "Import Options"
+    bl_parent_id = "ANTEMPLATES_PT_panel"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
+
+
+    def draw(self, context):
+
+        winman = context.window_manager
+        properties_coll = winman.an_templates_properties
+
+        layout = self.layout
+
         # make it responsive TODO
         col = layout.column(align=True)
         col.prop(properties_coll, "import_original_scene")
@@ -46,8 +61,21 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
             row.enabled=False
         row.prop(properties_coll, "original_object_specific_collection", text="")
 
-        # nodetree properties
-        # make it hideable TODO
+
+class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
+    bl_idname = "ANTEMPLATES_PT_nodetree_infos_subpanel"
+    bl_label = "Nodetree Infos"
+    bl_parent_id = "ANTEMPLATES_PT_panel"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
+
+
+    def draw(self, context):
+
+        winman = context.window_manager
+
+        layout = self.layout
+        
         idx = winman.an_templates_properties.nodetrees_index
 
         if idx in range(0, len(winman.an_templates_nodetrees)):

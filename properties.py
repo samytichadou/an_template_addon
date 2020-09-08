@@ -30,10 +30,10 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     categories : bpy.props.CollectionProperty(type = ANTemplatesCategories, name="Categories")
     nodetrees_index : bpy.props.IntProperty(name="Nodetrees Index")
     manifest_hash : bpy.props.StringProperty(name="Manifest Hash")
+
     import_original_scene : bpy.props.BoolProperty(name="Import Original Scene")
     keep_original_objects : bpy.props.BoolProperty(name="Keep Original Objects")
     original_object_specific_collection : bpy.props.StringProperty(name="Specific Collection", default = "Collection")
-
     original_objects_collection_items = [
         ('SPECIFIC', 'Specific', ""),
         ('ACTIVE', 'Active', ""),
@@ -44,3 +44,6 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     output_nodetree_info_file : bpy.props.StringProperty(name="Output Nodetree Info", subtype="FILE_PATH")
     template_folder : bpy.props.StringProperty(name="Output Manifest", subtype="DIR_PATH")
     output_manifest_file : bpy.props.StringProperty(name="Output Manifest", subtype="FILE_PATH")
+
+    show_import_options : bpy.props.BoolProperty(name="Show Import Options")
+    show_nodetree_infos : bpy.props.BoolProperty(name="Show Nodetree Infos")
