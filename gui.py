@@ -47,6 +47,7 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         row.prop(properties_coll, "original_object_specific_collection", text="")
 
         # nodetree properties
+        # make it hideable TODO
         idx = winman.an_templates_properties.nodetrees_index
 
         if idx in range(0, len(winman.an_templates_nodetrees)):
