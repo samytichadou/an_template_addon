@@ -93,6 +93,9 @@ def register():
     bpy.types.WindowManager.an_templates_properties = \
         bpy.props.PointerProperty(type = ANTemplatesProperties, name="AN Template Properties")
 
+    # bpy.types.WindowManager.an_templates_categories = \
+    #     bpy.props.CollectionProperty(type = ANTemplatesCategories, name="AN Template Categories")
+
     ### HANDLER ###
     bpy.app.handlers.load_post.append(ant_startup_handler)
 
@@ -107,6 +110,7 @@ def unregister():
     ### PROPERTIES ###
     del bpy.types.WindowManager.an_templates_nodetrees
     del bpy.types.WindowManager.an_templates_properties
+    # del bpy.types.WindowManager.an_templates_categories
 
     ### HANDLER ###
     bpy.app.handlers.load_post.remove(ant_startup_handler)

@@ -19,12 +19,18 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
     def draw(self, context):
 
         winman = context.window_manager
+        properties_coll = winman.an_templates_properties
 
         layout = self.layout
 
         layout.operator('antemplates.clear_downloads', icon="TRASH")
 
-        layout.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", winman.an_templates_properties, "nodetrees_index", rows = 3)
+        col = layout.column(align=True)
+        col.prop(properties_coll, "nodetree_blender_versions_enum", text="", icon="BLENDER")
+        col.prop(properties_coll, "nodetree_an_versions_enum", text="", icon="ONIONSKIN_ON")
+        col.prop(properties_coll, "nodetree_categories_enum", text="", icon="FILE_FOLDER")
+
+        layout.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", properties_coll, "nodetrees_index", rows = 3)
         
         layout.operator("antemplates.import_nodetree")
 

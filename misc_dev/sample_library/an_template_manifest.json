@@ -12,21 +12,43 @@
             "readme_url": "https://github.com/samytichadou/animation_nodes_examples/blob/master/Blender_2_8/utility/fill_plane/README.md",
             "hash": "haFH4gYpmk",
             "category": "category 1"
+        },
+        {
+            "name": "Fill Plane2",
+            "description": "simple nodetree",
+            "blender_version": "2.9",
+            "an_version": "2.1.6",
+            "tags": "move object simple",
+            "image_preview_url": "https://github.com/samytichadou/animation_nodes_examples/blob/master/Blender_2_8/utility/fill_plane/AN_EXAMPLE_fill_plane_preview.png",
+            "video_preview_url": "https://youtu.be/Y_LdB8h_rrE?list=PL57BAmPXpXuOLKN-CjVJPmWcsqEqg7Fku",
+            "file_url": "https://github.com/samytichadou/animation_nodes_examples/blob/master/Blender_2_8/utility/fill_plane/AN_EXAMPLE_fill_plane.blend?raw=true",
+            "readme_url": "https://github.com/samytichadou/animation_nodes_examples/blob/master/Blender_2_8/utility/fill_plane/README.md",
+            "hash": "haFH4gYpmk",
+            "category": "category 2"
         }
     ],
     "blender_versions": [
         {
             "name": "2.83"
+        },
+        {
+            "name": "2.9"
         }
     ],
     "an_versions": [
         {
             "name": "2.1.7"
+        },
+        {
+            "name": "2.1.6"
         }
     ],
     "categories": [
         {
             "name": "category 1"
+        },
+        {
+            "name": "category 2"
         }
     ],
     "manifest_hash": "VzIoZH6ODu"
