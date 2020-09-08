@@ -26,11 +26,11 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         layout.operator('antemplates.clear_downloads', icon="TRASH")
 
         col = layout.column(align=True)
-        col.prop(properties_coll, "nodetree_blender_versions_enum", text="", icon="BLENDER")
-        col.prop(properties_coll, "nodetree_an_versions_enum", text="", icon="ONIONSKIN_ON")
-        col.prop(properties_coll, "nodetree_categories_enum", text="", icon="FILE_FOLDER")
-
-        layout.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", properties_coll, "nodetrees_index", rows = 3)
+        # col.prop(properties_coll, "nodetree_blender_versions_enum", text="", icon="BLENDER")
+        # col.prop(properties_coll, "nodetree_an_versions_enum", text="", icon="ONIONSKIN_ON")
+        # col.prop(properties_coll, "nodetree_categories_enum", text="", icon="FILE_FOLDER")
+        col.prop(properties_coll, "nodetree_search", text="", icon='VIEWZOOM')
+        col.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", properties_coll, "nodetrees_index", rows = 3)
         
         layout.operator("antemplates.import_nodetree")
 
