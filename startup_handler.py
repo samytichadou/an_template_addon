@@ -49,3 +49,5 @@ def ant_startup_handler(scene):
     print(addon_print_prefix + "Loading Manifest") #debug
     set_nodetrees_from_json(manifest_dataset)
     set_properties_from_json(manifest_dataset)
+
+    print(addon_print_prefix + "Manifest Successfully Loaded") #debug
