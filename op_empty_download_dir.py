@@ -13,6 +13,7 @@ class ANTEMPLATES_OT_clear_downloads(bpy.types.Operator):
     bl_label = "Clear Downloads"
     bl_options = {'REGISTER', 'INTERNAL'}
 
+
     @classmethod
     def poll(cls, context):
         return True
