@@ -19,7 +19,6 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
     def draw(self, context):
 
         winman = context.window_manager
-        properties_coll = winman.an_templates_properties
 
         layout = self.layout
 
