@@ -85,8 +85,8 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     show_import_options : bpy.props.BoolProperty(name="Show Import Options")
     show_nodetree_infos : bpy.props.BoolProperty(name="Show Nodetree Infos")
 
-    nodetree_blender_versions_enum : bpy.props.EnumProperty(name="Blender Versions", items = get_blender_versions_callback)
-    nodetree_an_versions_enum : bpy.props.EnumProperty(name="Animation Nodes Versions", items = get_an_versions_callback)
-    nodetree_categories_enum : bpy.props.EnumProperty(name="Categories", items = get_categories_callback)
+    # nodetree_blender_versions_enum : bpy.props.EnumProperty(name="Blender Versions", items = get_blender_versions_callback)
+    # nodetree_an_versions_enum : bpy.props.EnumProperty(name="Animation Nodes Versions", items = get_an_versions_callback)
+    # nodetree_categories_enum : bpy.props.EnumProperty(name="Categories", items = get_categories_callback)
     
     nodetree_search : bpy.props.StringProperty(name = "Search", options={'TEXTEDIT_UPDATE','SKIP_SAVE'})

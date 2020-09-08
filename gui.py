@@ -26,12 +26,30 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         layout.operator('antemplates.clear_downloads', icon="TRASH")
 
         col = layout.column(align=True)
-        # col.prop(properties_coll, "nodetree_blender_versions_enum", text="", icon="BLENDER")
-        # col.prop(properties_coll, "nodetree_an_versions_enum", text="", icon="ONIONSKIN_ON")
-        # col.prop(properties_coll, "nodetree_categories_enum", text="", icon="FILE_FOLDER")
         col.prop(properties_coll, "nodetree_search", text="", icon='VIEWZOOM')
         col.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", properties_coll, "nodetrees_index", rows = 3)
         
+        idx = winman.an_templates_properties.nodetrees_index
+
+        row = layout.row(align=True)
+        
+        active_nodetree = None
+
+        if idx in range(0, len(winman.an_templates_nodetrees)):
+            active_nodetree = winman.an_templates_nodetrees[winman.an_templates_properties.nodetrees_index]
+
+        else:
+            row.enabled=False
+
+        op1 = row.operator('antemplates.open_url', text="Image", icon='IMAGE')
+        op2 = row.operator('antemplates.open_url', text="Video", icon='FILE_MOVIE')
+        op3 = row.operator('antemplates.open_url', text="Readme", icon='HELP')
+
+        if active_nodetree is not None:
+            op1.url = active_nodetree.image_preview_url
+            op2.url = active_nodetree.video_preview_url
+            op3.url = active_nodetree.readme_url
+
         layout.operator("antemplates.import_nodetree")
 
 
@@ -86,7 +104,7 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
         idx = winman.an_templates_properties.nodetrees_index
 
         if idx in range(0, len(winman.an_templates_nodetrees)):
-            active_nodetree = winman.an_templates_nodetrees[winman.an_templates_properties.nodetrees_index]
+            active_nodetree = winman.an_templates_nodetrees[idx]
             
             col = layout.column(align=True)
 
