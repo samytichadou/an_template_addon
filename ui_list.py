@@ -84,9 +84,9 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
             icon="SORT_ASC"
         row.prop(self, "use_filter_sort_reverse", text="", icon=icon)
 
-        col.prop(self, "nodetree_categories_enum",text="", icon="BLENDER")
-        col.prop(self, "nodetree_blender_versions_enum", text="", icon="ONIONSKIN_ON")
-        col.prop(self, "nodetree_an_versions_enum", text="", icon="FILE_FOLDER")
+        col.prop(self, "nodetree_categories_enum",text="", icon="FILE_FOLDER")
+        col.prop(self, "nodetree_blender_versions_enum", text="", icon="BLENDER")
+        col.prop(self, "nodetree_an_versions_enum", text="", icon="ONIONSKIN_ON")
 
 
     # Called once to filter/reorder items.
