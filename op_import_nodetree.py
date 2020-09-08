@@ -77,6 +77,8 @@ def link_nodetree(filepath, name, properties_coll, context):
 
     # deal with objects 
 
+    # when instance from object instancer, check for right collection TODO
+
     if not original_objects:
         for scn in bpy.data.scenes:
             if scn in old_scenes:
