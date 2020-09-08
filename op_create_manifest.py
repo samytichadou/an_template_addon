@@ -122,10 +122,21 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                         nodetree_datas["category"] = category
                         manifest_datas["nodetrees"].append(nodetree_datas)
 
-                        if nodetree_datas["blender_version"] not in manifest_datas["blender_versions"]:
+                        # find better way to check dupe TODO
+                        chk_bv = False
+                        for b in manifest_datas["blender_versions"]:
+                            if b["name"] == nodetree_datas["blender_version"]:
+                                chk_bv = True
+                                break
+                        if not chk_bv:
                             manifest_datas["blender_versions"].append({"name" : nodetree_datas["blender_version"]})
 
-                        if nodetree_datas["an_version"] not in manifest_datas["an_versions"]:
+                        chk_av = False
+                        for b in manifest_datas["an_versions"]:
+                            if b["name"] == nodetree_datas["an_version"]:
+                                chk_av = True
+                                break
+                        if not chk_av:
                             manifest_datas["an_versions"].append({"name" : nodetree_datas["an_version"]})
 
                         break
