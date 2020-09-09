@@ -35,8 +35,11 @@ def link_nodetree(filepath, name, properties_coll, context):
     for scn in bpy.data.scenes:
         old_scenes.append(scn)
 
+    old_collections = []
+    for coll in bpy.data.collections:
+        old_collections.append(coll)
+
     imported = []
-    dupe = False
     lib = bpy.data.libraries.load(filepath, link=False, relative=True)
 
     # import nodetree
@@ -77,8 +80,6 @@ def link_nodetree(filepath, name, properties_coll, context):
 
     # deal with objects 
 
-    # when instance from object instancer, check for right collection TODO
-
     if not original_objects:
         for scn in bpy.data.scenes:
             if scn in old_scenes:
@@ -88,25 +89,44 @@ def link_nodetree(filepath, name, properties_coll, context):
                     bpy.data.objects.remove(object, do_unlink=True)
 
     elif original_objects and not original_scene:
-
+        
+        # target collection
         if collection_behavior == "SPECIFIC":
             try:
                 coll = active_scene.collection.children[properties_coll.original_object_specific_collection]
             except KeyError:
                 coll = bpy.data.collections.new(properties_coll.original_object_specific_collection)
+                old_collections.append(coll)
                 active_scene.collection.children.link(coll)
         elif collection_behavior == "SCENE":
             coll = active_scene.collection
         else:
             coll = context.collection
 
+        # get objects
         for scn in bpy.data.scenes:
             if scn in old_scenes:
                 continue
             else:
                 for object in scn.objects:
-                    coll.objects.link(object)
+                    if "instance_" not in object.name:
+                        coll.objects.link(object)
 
+        # remove instance objects TODO
+
+        # create instance objects TODO
+
+
+    # deal with collections
+
+    #remove new collections if needed
+    if original_objects and not original_scene:
+        for coll in bpy.data.collections:
+            if coll in old_collections:
+                continue
+            else:
+                bpy.data.collections.remove(coll, do_unlink=True)
+    
 
     # deal with scenes 
 
