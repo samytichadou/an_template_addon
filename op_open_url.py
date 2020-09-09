@@ -11,7 +11,11 @@ class ANTEMPLATES_OT_open_url(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return True
+        winman = context.window_manager
+        properties_coll = winman.an_templates_properties
+        nodetree_collection = winman.an_templates_nodetrees
+        if properties_coll.nodetrees_index in range(0, len(nodetree_collection)):
+            return True
 
     def execute(self, context):
         webbrowser.open(self.url)

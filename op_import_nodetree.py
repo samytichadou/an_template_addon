@@ -210,7 +210,7 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        winman = bpy.data.window_managers[0]
+        winman = context.window_manager
         properties_coll = winman.an_templates_properties
         nodetree_collection = winman.an_templates_nodetrees
         if properties_coll.nodetrees_index in range(0, len(nodetree_collection)):
