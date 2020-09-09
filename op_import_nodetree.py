@@ -24,9 +24,25 @@ def clearDataUsers(lib):
     lib.user_clear()
 
 
-# link nodetree
-def link_nodetree(filepath, name, properties_coll, context):
+# create an collection for scene
+def return_an_collection(target_scene):
+
+    try:
+        an_coll = bpy.data.collections["Animation Nodes Object Container"]
+    except KeyError:
+        an_coll = bpy.data.collections.new("Animation Nodes Object Container")
+
+    try:
+        target_scene.collection.children.link(an_coll)
+    except RuntimeError:
+        pass
+
+    return an_coll
+
+
+def link_nodetree(filepath, name, context):
     active_scene = context.scene
+    properties_coll = context.window_manager.an_templates_properties
     original_scene = properties_coll.import_original_scene
     original_objects = properties_coll.keep_original_objects
     collection_behavior = properties_coll.original_objects_collection
@@ -36,7 +52,6 @@ def link_nodetree(filepath, name, properties_coll, context):
 
 
     # get old scenes and collections
-
     old_scenes = []
     for scn in bpy.data.scenes:
         old_scenes.append(scn)
@@ -46,7 +61,23 @@ def link_nodetree(filepath, name, properties_coll, context):
         old_collections.append(coll)
 
 
-     # import nodetree
+    # get target coll and an target coll if needed 
+    if not original_scene and original_objects:
+        # target coll
+        if collection_behavior == "SPECIFIC":
+            try:
+                target_coll = active_scene.collection.children[properties_coll.original_object_specific_collection]
+            except KeyError:
+                target_coll = bpy.data.collections.new(properties_coll.original_object_specific_collection)
+                old_collections.append(target_coll)
+                active_scene.collection.children.link(target_coll)
+        elif collection_behavior == "SCENE":
+            target_coll = active_scene.collection
+        else:
+            target_coll = context.collection
+
+
+    # import nodetree
 
     with lib as (data_from, data_to):
         data_to.node_groups = data_from.node_groups
@@ -70,111 +101,103 @@ def link_nodetree(filepath, name, properties_coll, context):
 
     if len(imported) == 0:
 
-        # remove new scenes if needed
+        # remove scenes and objects
         for scn in bpy.data.scenes:
-            if scn in old_scenes:
-                continue
-            else:
+            if scn not in old_scenes:
                 for object in scn.objects:
                     bpy.data.objects.remove(object, do_unlink=True)
                 bpy.data.scenes.remove(scn, do_unlink=True)
+
+        # remove collections
+        for coll in bpy.data.collections:
+            if coll not in old_collections:
+                bpy.data.collections.remove(coll, do_unlink=True)
 
         return False
 
 
-    # deal with objects 
+    # not scn / not obj
+    if not original_scene and not original_objects:
 
-    if not original_objects:
+        # remove scenes and objects
         for scn in bpy.data.scenes:
-            if scn in old_scenes:
-                continue
-            else:
+            if scn not in old_scenes:
+                for object in scn.objects:
+                    bpy.data.objects.remove(object, do_unlink=True)
+                bpy.data.scenes.remove(scn, do_unlink=True)
+
+        # remove collections
+        for coll in bpy.data.collections:
+            if coll not in old_collections:
+                bpy.data.collections.remove(coll, do_unlink=True)
+
+
+    # scn / not obj
+    elif original_scene and not original_objects:
+
+        # remove objects
+        for scn in bpy.data.scenes:
+            if scn not in old_scenes:
                 for object in scn.objects:
                     bpy.data.objects.remove(object, do_unlink=True)
 
-    elif original_objects and not original_scene:
-        
-        # target collection
-        if collection_behavior == "SPECIFIC":
-            try:
-                coll = active_scene.collection.children[properties_coll.original_object_specific_collection]
-            except KeyError:
-                coll = bpy.data.collections.new(properties_coll.original_object_specific_collection)
-                old_collections.append(coll)
-                active_scene.collection.children.link(coll)
-        elif collection_behavior == "SCENE":
-            coll = active_scene.collection
-        else:
-            coll = context.collection
-
-        # an collection
-        try:
-            an_coll = bpy.data.collections["Animation Nodes Object Container"]
-        except KeyError:
-            an_coll = bpy.data.collections.new("Animation Nodes Object Container")
-        
-        try:
-            active_scene.collection.children.link(an_coll)
-        except RuntimeError:
-            pass
-
-        # get objects
-        chk_instances = False
-        for scn in bpy.data.scenes:
-            if scn in old_scenes:
-                continue
-            else:
-                for object in scn.objects:
-                    if "instance_" not in object.name:
-                        coll.objects.link(object)
-                    else:
-                        chk_instances = True
-
-        if chk_instances:
-            old_collections.append(an_coll)
-
-
-    # deal with collections
-
-    #remove new collections if needed
-    if original_objects and original_scene:
-        pass
-    else:
+        # remove collections
         for coll in bpy.data.collections:
-            if coll in old_collections:
-                continue
-            else:
+            if coll not in old_collections:
                 bpy.data.collections.remove(coll, do_unlink=True)
+
+
+    # not scn / obj
+    elif not original_scene and original_objects:
+
+        # link collections
+        for coll in bpy.data.collections:
+            if coll not in old_collections:
+
+                if coll.name == "Animation Nodes Object Container":
+                    active_scene.collection.children.link(coll)
+
+                elif "Animation Nodes Object Container.00" in coll.name:
+                    an_coll = return_an_collection(active_scene)
+                    for obj in coll.objects:
+                        an_coll.objects.link(obj)
+                    bpy.data.collections.remove(coll, do_unlink=True)
+
+                else:
+                    for obj in coll.objects:
+                        target_coll.objects.link(obj)
+                    bpy.data.collections.remove(coll, do_unlink=True)
+
+        # remove scenes
+        for scn in bpy.data.scenes:
+            if scn not in old_scenes:
+                bpy.data.scenes.remove(scn, do_unlink=True)
+
     
+    # scn / obj
+    elif original_scene and original_objects:
+        
+        # target scene
+        for nodetree in imported:
+            target_scn = nodetree.globalScene
+            break
 
-    # deal with scenes 
+        # link an collection if needed
+        for coll in bpy.data.collections:
+            if coll not in old_collections:
 
+                if "Animation Nodes Object Container.00" in coll.name:
+                    an_coll = return_an_collection(target_scn)
+                    for obj in coll.objects:
+                        an_coll.objects.link(obj)
+                    bpy.data.collections.remove(coll, do_unlink=True)
+
+
+    # set nodetree active scene if needed
     if not original_scene:
-
-        # set nodetree active scene
         for nodetree in imported:
             nodetree.globalScene = active_scene
 
-        # remove new scenes if needed
-        for scn in bpy.data.scenes:
-            if scn in old_scenes:
-                continue
-            else:
-                bpy.data.scenes.remove(scn, do_unlink=True)
-
-
-    # deal with library
-
-    blend_name = os.path.basename(filepath)
-
-    if bpy.data.libraries[blend_name]:
-
-        clearDataUsers(bpy.data.libraries[blend_name])
-
-        #bpy.data.orphans_purge()
-
-
-    # if nodetree already imported, extra scenes, remove them TODO
     return True
 
 
@@ -235,7 +258,7 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
         print(addon_print_prefix + "Importing : " + nodetree.name) #debug
 
         # import nodetree
-        if link_nodetree(nodetree_filepath, nodetree.name, properties_coll, context):
+        if link_nodetree(nodetree_filepath, nodetree.name, context):
 
             print(addon_print_prefix + "Nodetree Successfully Imported") #debug
 
