@@ -9,7 +9,7 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
 
     manifest_url : bpy.props.StringProperty(
         name = "Github Manifest URL",
-        default = "https://raw.githubusercontent.com/samytichadou/an_template_test/master/misc_dev/test.json",
+        default = "https://raw.githubusercontent.com/samytichadou/animation_nodes_examples/master/library/manifest.json",
         )
 
     download_folder : bpy.props.StringProperty(
