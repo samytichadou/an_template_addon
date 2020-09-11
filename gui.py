@@ -156,4 +156,5 @@ class ANTEMPLATES_PT_settings_panel(bpy.types.Panel):
 
         layout = self.layout
 
-        layout.operator('antemplates.clear_downloads', icon="TRASH")
+        layout.operator("antemplates.refresh_templates", icon="FILE_REFRESH")
+        layout.operator("antemplates.clear_downloads", icon="TRASH")

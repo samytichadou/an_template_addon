@@ -49,6 +49,7 @@ from .op_create_nodetree_info import ANTEMPLATES_OT_create_nodetree_info
 from .op_edit_nodetree_info import ANTEMPLATES_OT_edit_nodetree_info
 from .op_import_nodetree import ANTEMPLATES_OT_import_nodetree
 from .op_tag_search import ANTEMPLATES_MT_search_tag_menu, ANTEMPLATES_OT_search_tag_menu_caller, ANTEMPLATES_OT_search_tag
+from .op_refresh_templates import ANTEMPLATES_OT_refresh_templates
 
 from .gui import ANTEMPLATES_PT_templates_panel, ANTEMPLATES_PT_import_options_subpanel, ANTEMPLATES_PT_nodetree_infos_subpanel, ANTEMPLATES_PT_settings_panel
 from .ui_list import ANTEMPLATES_UL_panel_ui_list
@@ -75,6 +76,7 @@ classes = (
             ANTEMPLATES_MT_search_tag_menu,
             ANTEMPLATES_OT_search_tag_menu_caller,
             ANTEMPLATES_OT_search_tag,
+            ANTEMPLATES_OT_refresh_templates,
 
             ANTEMPLATES_PT_templates_panel,
             ANTEMPLATES_PT_import_options_subpanel,
