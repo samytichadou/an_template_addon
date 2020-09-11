@@ -4,8 +4,8 @@ import bpy
 from .op_create_manifest import get_separated_tags
 
 
-class ANTEMPLATES_PT_panel(bpy.types.Panel):
-    bl_idname = "ANTEMPLATES_PT_panel"
+class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
+    bl_idname = "ANTEMPLATES_PT_templates_panel"
     bl_label = "Templates"
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
@@ -63,7 +63,7 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
 class ANTEMPLATES_PT_import_options_subpanel(bpy.types.Panel):
     bl_idname = "ANTEMPLATES_PT_import_options_subpanel"
     bl_label = "Import Options"
-    bl_parent_id = "ANTEMPLATES_PT_panel"
+    bl_parent_id = "ANTEMPLATES_PT_templates_panel"
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
     bl_options = {'DEFAULT_CLOSED'}
@@ -96,7 +96,7 @@ class ANTEMPLATES_PT_import_options_subpanel(bpy.types.Panel):
 class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
     bl_idname = "ANTEMPLATES_PT_nodetree_infos_subpanel"
     bl_label = "Nodetree Infos"
-    bl_parent_id = "ANTEMPLATES_PT_panel"
+    bl_parent_id = "ANTEMPLATES_PT_templates_panel"
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
     bl_options = {'DEFAULT_CLOSED'}
@@ -135,3 +135,25 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
                     ct = 0
                 else:
                     tag_reformat += ", "
+
+
+class ANTEMPLATES_PT_settings_panel(bpy.types.Panel):
+    bl_idname = "ANTEMPLATES_PT_settings_panel"
+    bl_label = "Settings"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
+    bl_category = "Templates"
+
+
+    @classmethod
+    def poll(cls, context):
+        if context.area.type == "NODE_EDITOR":
+            if context.area.ui_type == "an_AnimationNodeTree":
+                return True
+
+
+    def draw(self, context):
+
+        layout = self.layout
+
+        layout.operator('antemplates.clear_downloads', icon="TRASH")
