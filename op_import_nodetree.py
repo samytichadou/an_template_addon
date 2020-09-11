@@ -48,6 +48,7 @@ def link_nodetree(filepath, name, context):
     collection_behavior = properties_coll.original_objects_collection
 
     imported = []
+    obj_linked = []
     lib = bpy.data.libraries.load(filepath, link=False, relative=True)
 
 
@@ -168,9 +169,11 @@ def link_nodetree(filepath, name, context):
                         target_coll.objects.link(obj)
                     bpy.data.collections.remove(coll, do_unlink=True)
 
-        # remove scenes
+        # remove scenes and get obj from its root collection
         for scn in bpy.data.scenes:
             if scn not in old_scenes:
+                for obj in scn.collection.objects:
+                    target_coll.objects.link(obj)
                 bpy.data.scenes.remove(scn, do_unlink=True)
 
     
