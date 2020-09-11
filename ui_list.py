@@ -42,7 +42,7 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
 
     nodetree_blender_versions_enum : bpy.props.EnumProperty(name="Blender Versions", items = get_blender_versions_callback)
     nodetree_an_versions_enum : bpy.props.EnumProperty(name="Animation Nodes Versions", items = get_an_versions_callback)
-    nodetree_categories_enum : bpy.props.EnumProperty(name="Categories", items = get_categories_callback)
+    #nodetree_categories_enum : bpy.props.EnumProperty(name="Categories", items = get_categories_callback)
 
 
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
@@ -84,7 +84,7 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
             icon="SORT_ASC"
         row.prop(self, "use_filter_sort_reverse", text="", icon=icon)
 
-        col.prop(self, "nodetree_categories_enum",text="", icon="FILE_FOLDER")
+        #col.prop(self, "nodetree_categories_enum",text="", icon="FILE_FOLDER")
         col.prop(self, "nodetree_blender_versions_enum", text="", icon="BLENDER")
         col.prop(self, "nodetree_an_versions_enum", text="", icon="ONIONSKIN_ON")
 
