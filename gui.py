@@ -22,6 +22,7 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         properties_coll = winman.an_templates_properties
 
         layout = self.layout
+        #layout.use_property_split = True # Active single-column layout
 
         col = layout.column(align=True)
         row = col.row(align=True)
@@ -39,12 +40,15 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         if idx in range(0, len(winman.an_templates_nodetrees)):
             active_nodetree = winman.an_templates_nodetrees[winman.an_templates_properties.nodetrees_index]
 
-        else:
-            row.enabled=False
+        row.operator("antemplates.import_nodetree", text="", icon="IMPORT")
 
-        op1 = row.operator('antemplates.open_url', text="Image", icon='IMAGE')
-        op2 = row.operator('antemplates.open_url', text="Video", icon='FILE_MOVIE')
-        op3 = row.operator('antemplates.open_url', text="Readme", icon='HELP')
+        row.separator()
+
+        row.label(text="", icon="URL")
+
+        op1 = row.operator('antemplates.open_url', text="", icon='IMAGE')
+        op2 = row.operator('antemplates.open_url', text="", icon='FILE_MOVIE')
+        op3 = row.operator('antemplates.open_url', text="", icon='HELP')
 
         if active_nodetree is not None:
             op1.url = active_nodetree.image_preview_url
