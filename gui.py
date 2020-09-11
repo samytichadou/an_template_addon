@@ -1,6 +1,9 @@
 import bpy
 
 
+from .op_create_manifest import get_separated_tags
+
+
 class ANTEMPLATES_PT_panel(bpy.types.Panel):
     bl_idname = "ANTEMPLATES_PT_panel"
     bl_label = "Templates"
@@ -116,6 +119,19 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
             col.label(text=active_nodetree.blender_version, icon="BLENDER")
             col.label(text=active_nodetree.an_version, icon="ONIONSKIN_ON")
             col.label(text=active_nodetree.category, icon="FILE_FOLDER")
-            col.label(text=active_nodetree.tags, icon="VIEWZOOM")
-            col.label(text=active_nodetree.hash, icon="RNA")
-            col.label(text=active_nodetree.file_url, icon="URL")
+            #col.label(text=active_nodetree.hash, icon="RNA")
+            #col.label(text=active_nodetree.file_url, icon="URL")
+            
+            col.label(text="Tags :", icon="VIEWZOOM")
+            limit = 3
+            ct = 0
+            tag_reformat = ""
+            for tag in get_separated_tags(active_nodetree.tags):
+                tag_reformat += tag
+                ct += 1
+                if ct == limit:
+                    col.label(text=tag_reformat)
+                    tag_reformat = ""
+                    ct = 0
+                else:
+                    tag_reformat += ", "
