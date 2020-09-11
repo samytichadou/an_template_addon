@@ -5,7 +5,7 @@ import os
 from .addon_prefs import get_addon_preferences
 from .global_variables import addon_print_prefix, manifest_file
 from .file_functions import create_directory
-from .internet_functions import is_connected, download_file
+from .internet_functions import is_connected, download_file, read_manifest
 from .json_functions import set_nodetrees_from_json, set_properties_from_json, read_json
 
 
@@ -63,6 +63,13 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
 
     def execute(self, context):
 
-        load_manifest()
+        manifest_dataset = read_manifest(get_addon_preferences().manifest_url)
+
+        if manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
+            print(addon_print_prefix + "Manifest Up to Date, Aborting")
+
+        else:
+
+            load_manifest()
 
         return {'FINISHED'}
