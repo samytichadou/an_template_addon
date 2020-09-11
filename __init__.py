@@ -62,6 +62,7 @@ classes = (
             ANTemplatesBlenderVersions,
             ANTemplatesANVersions,
             ANTemplatesCategories,
+            ANTemplatesTags,
             ANTemplatesProperties,
 
             ANTEMPLATES_OT_open_url,

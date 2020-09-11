@@ -18,15 +18,14 @@ def create_json_file(datas, path) :
 # set attributes from json
 def set_properties_from_dataset(datasetin, datasetout, avoid_list):
     for prop in datasetin:
-
         chk_avoid = False
         for a in avoid_list:
             if a in prop:
                 chk_avoid = True
 
         if not chk_avoid:
-
             setattr(datasetout, '%s' % prop, datasetin[prop])
+
 
 
 # load json in collection
@@ -35,9 +34,11 @@ def load_json_in_collection(dataset, collection, json_coll_name):
     collection.clear()
 
     for f in dataset[json_coll_name]:
-        
         new = collection.add()
-        set_properties_from_dataset(f, new, ())
+        if isinstance(f, str):
+            new.name = f
+        else:
+            set_properties_from_dataset(f, new, ())
 
     return dataset
 
@@ -51,6 +52,7 @@ def set_nodetrees_from_json(dataset):
 
 # set up properties collection from json file
 def set_properties_from_json(dataset):
+    
     winman = bpy.data.window_managers[0]
     properties_coll = winman.an_templates_properties
 
@@ -60,6 +62,6 @@ def set_properties_from_json(dataset):
 
     load_json_in_collection(dataset, properties_coll.categories, 'categories')
 
-    load_json_in_collection(dataset, properties_coll.categories, 'tags')
+    load_json_in_collection(dataset, properties_coll.tags, 'tags')
 
     properties_coll.manifest_hash = dataset["manifest_hash"]

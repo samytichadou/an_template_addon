@@ -116,7 +116,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
             # get categories
             category = os.path.basename(folder)
-            manifest_datas["categories"].append({"name" : category})
+            manifest_datas["categories"].append(category)
 
             # get nodetrees
             for subfolder in return_direct_subfolders(folder):
@@ -135,22 +135,11 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                             if tag not in manifest_datas["tags"]:
                                 manifest_datas["tags"].append(tag)
 
-                        # find better way to check dupe TODO
-                        chk_bv = False
-                        for b in manifest_datas["blender_versions"]:
-                            if b["name"] == nodetree_datas["blender_version"]:
-                                chk_bv = True
-                                break
-                        if not chk_bv:
-                            manifest_datas["blender_versions"].append({"name" : nodetree_datas["blender_version"]})
+                        if nodetree_datas["blender_version"] not in manifest_datas["blender_versions"]:
+                            manifest_datas["blender_versions"].append(nodetree_datas["blender_version"])
 
-                        chk_av = False
-                        for b in manifest_datas["an_versions"]:
-                            if b["name"] == nodetree_datas["an_version"]:
-                                chk_av = True
-                                break
-                        if not chk_av:
-                            manifest_datas["an_versions"].append({"name" : nodetree_datas["an_version"]})
+                        if nodetree_datas["an_version"] not in manifest_datas["an_versions"]:
+                            manifest_datas["an_versions"].append(nodetree_datas["an_version"])
 
                         break
 
