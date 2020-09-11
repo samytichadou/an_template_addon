@@ -79,8 +79,6 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     original_objects_collection : bpy.props.EnumProperty(name="Original Objects Collection", items = original_objects_collection_items, default='SCENE')
 
     output_nodetree_info_file : bpy.props.StringProperty(name="Output Nodetree Info", subtype="FILE_PATH")
-    template_folder : bpy.props.StringProperty(name="Output Manifest", subtype="DIR_PATH")
-    output_manifest_file : bpy.props.StringProperty(name="Output Manifest", subtype="FILE_PATH")
 
     show_import_options : bpy.props.BoolProperty(name="Show Import Options")
     show_nodetree_infos : bpy.props.BoolProperty(name="Show Nodetree Infos")

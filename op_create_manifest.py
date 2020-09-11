@@ -6,6 +6,7 @@ import random
 
 from .json_functions import read_json, create_json_file
 from .global_variables import nodetree_infos, addon_print_prefix
+from .addon_prefs import get_addon_preferences
 
 
 # return direct subfolders
@@ -72,21 +73,19 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        winman = bpy.data.window_managers[0]
-        properties_coll = winman.an_templates_properties
-        return properties_coll.output_manifest_file != "" and os.path.isdir(properties_coll.template_folder)
+        prefs = get_addon_preferences()
+        return prefs.output_manifest_file != "" and os.path.isdir(prefs.template_folder)
 
 
     def execute(self, context):
 
-        winman = context.window_manager
-        properties_coll = winman.an_templates_properties
+        prefs = get_addon_preferences()
         
         # check and correct output path
 
-        json_path = properties_coll.output_manifest_file
+        json_path = prefs.output_manifest_file
 
-        template_folder = properties_coll.template_folder
+        template_folder = prefs.template_folder
 
         if not os.path.isdir(os.path.dirname(json_path)):
             print(addon_print_prefix + "Incorrect Output Path") #debug

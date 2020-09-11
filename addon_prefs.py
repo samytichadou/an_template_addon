@@ -18,6 +18,16 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         subtype = "DIR_PATH",
         )
 
+    template_folder : bpy.props.StringProperty(
+        name="Output Manifest", 
+        subtype="DIR_PATH"
+        )
+
+    output_manifest_file : bpy.props.StringProperty(
+        name="Output Manifest", 
+        subtype="FILE_PATH"
+        )
+
 
     def draw(self, context):
         winman = context.window_manager
@@ -35,8 +45,9 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         box = bigbox.box()
         col = box.column(align=True)
         col.label(text="Manifest")
-        col.prop(properties_coll, "template_folder", text="Templates")
-        col.prop(properties_coll, "output_manifest_file", text="Manifest")
+        col.prop(self, "template_folder", text="Templates")
+        col.prop(self, "output_manifest_file", text="Manifest")
+
         col.operator("antemplates.create_manifest")
 
         box = bigbox.box()
