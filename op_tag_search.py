@@ -53,4 +53,6 @@ class ANTEMPLATES_OT_search_tag(bpy.types.Operator):
 
         context.window_manager.an_templates_properties.nodetree_search = self.tag
 
+        context.area.tag_redraw()
+
         return {'FINISHED'}
