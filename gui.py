@@ -54,8 +54,6 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
             op2.url = active_nodetree.video_preview_url
             op3.url = active_nodetree.readme_url
 
-        layout.operator("antemplates.import_nodetree")
-
 
 class ANTEMPLATES_PT_import_options_subpanel(bpy.types.Panel):
     bl_idname = "ANTEMPLATES_PT_import_options_subpanel"
