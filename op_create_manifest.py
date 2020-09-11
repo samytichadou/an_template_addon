@@ -59,9 +59,19 @@ def initialize_json_manifest_datas() :
     datas["blender_versions"] = []
     datas["an_versions"] = []
     datas["categories"] = []
+    datas["tags"] = []
     datas["manifest_hash"] = generate_hash(10)
 
     return datas
+
+
+# get separated tags
+def get_separated_tags(tag_line):
+    tags = []
+    if tag_line != "":
+        for t in tag_line.split(","):
+            tags.append(t.strip())
+    return tags
 
 
 class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
@@ -120,6 +130,10 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                         # create json entry for the nodetree
                         nodetree_datas["category"] = category
                         manifest_datas["nodetrees"].append(nodetree_datas)
+
+                        for tag in get_separated_tags(nodetree_datas["tags"]):
+                            if tag not in manifest_datas["tags"]:
+                                manifest_datas["tags"].append(tag)
 
                         # find better way to check dupe TODO
                         chk_bv = False

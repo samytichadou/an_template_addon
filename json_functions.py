@@ -60,4 +60,6 @@ def set_properties_from_json(dataset):
 
     load_json_in_collection(dataset, properties_coll.categories, 'categories')
 
+    load_json_in_collection(dataset, properties_coll.categories, 'tags')
+
     properties_coll.manifest_hash = dataset["manifest_hash"]

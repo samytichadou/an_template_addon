@@ -27,6 +27,10 @@ class ANTemplatesCategories(bpy.types.PropertyGroup) :
     '''name : StringProperty() '''
 
 
+class ANTemplatesTags(bpy.types.PropertyGroup) :
+    '''name : StringProperty() '''
+
+
 def get_categories_callback(scene, context):
 
     items = []
@@ -44,6 +48,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     blender_versions : bpy.props.CollectionProperty(type = ANTemplatesBlenderVersions, name="Blender Versions")
     an_versions : bpy.props.CollectionProperty(type = ANTemplatesANVersions, name="Animation Nodes Verions")
     categories : bpy.props.CollectionProperty(type = ANTemplatesCategories, name="Categories")
+    tags : bpy.props.CollectionProperty(type = ANTemplatesTags, name="Tags")
     nodetrees_index : bpy.props.IntProperty(name="Nodetrees Index")
     manifest_hash : bpy.props.StringProperty(name="Manifest Hash")
 
