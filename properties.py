@@ -24,28 +24,28 @@ class ANTemplatesCategories(bpy.types.PropertyGroup) :
     '''name : StringProperty() '''
 
 
-def get_blender_versions_callback(scene, context):
+# def get_blender_versions_callback(scene, context):
 
-    items = []
+#     items = []
 
-    items.append(("ALL", "All", ""))
+#     items.append(("ALL", "All", ""))
 
-    for i in context.window_manager.an_templates_properties.blender_versions:
-        items.append((i.name, i.name, ""))
+#     for i in context.window_manager.an_templates_properties.blender_versions:
+#         items.append((i.name, i.name, ""))
 
-    return items
+#     return items
 
 
-def get_an_versions_callback(scene, context):
+# def get_an_versions_callback(scene, context):
 
-    items = []
+#     items = []
 
-    items.append(("ALL", "All", ""))
+#     items.append(("ALL", "All", ""))
 
-    for i in context.window_manager.an_templates_properties.an_versions:
-        items.append((i.name, i.name, ""))
+#     for i in context.window_manager.an_templates_properties.an_versions:
+#         items.append((i.name, i.name, ""))
 
-    return items
+#     return items
 
 
 def get_categories_callback(scene, context):
@@ -87,6 +87,6 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
 
     # nodetree_blender_versions_enum : bpy.props.EnumProperty(name="Blender Versions", items = get_blender_versions_callback)
     # nodetree_an_versions_enum : bpy.props.EnumProperty(name="Animation Nodes Versions", items = get_an_versions_callback)
-    # nodetree_categories_enum : bpy.props.EnumProperty(name="Categories", items = get_categories_callback)
+    nodetree_categories_enum : bpy.props.EnumProperty(name="Categories", items = get_categories_callback)
     
     nodetree_search : bpy.props.StringProperty(name = "Search", options={'TEXTEDIT_UPDATE','SKIP_SAVE'})

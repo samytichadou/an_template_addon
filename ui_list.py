@@ -94,8 +94,10 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
 
         helper_funcs = bpy.types.UI_UL_list
 
-        search = context.window_manager.an_templates_properties.nodetree_search
-        category = self.nodetree_categories_enum
+        properties_coll = context.window_manager.an_templates_properties
+        search = properties_coll.nodetree_search
+        #category = self.nodetree_categories_enum
+        category = properties_coll.nodetree_categories_enum
         blender_version = self.nodetree_blender_versions_enum
         an_version = self.nodetree_an_versions_enum
 

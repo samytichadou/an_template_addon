@@ -27,6 +27,7 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
 
         col = layout.column(align=True)
         col.prop(properties_coll, "nodetree_search", text="", icon='VIEWZOOM')
+        col.prop(properties_coll, "nodetree_categories_enum", text="", icon="FILE_FOLDER")
         col.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", properties_coll, "nodetrees_index", rows = 3)
         
         idx = winman.an_templates_properties.nodetrees_index
