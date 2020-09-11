@@ -42,25 +42,16 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
 
     nodetree_blender_versions_enum : bpy.props.EnumProperty(name="Blender Versions", items = get_blender_versions_callback)
     nodetree_an_versions_enum : bpy.props.EnumProperty(name="Animation Nodes Versions", items = get_an_versions_callback)
-    #nodetree_categories_enum : bpy.props.EnumProperty(name="Categories", items = get_categories_callback)
 
 
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 
         if self.layout_type in {'DEFAULT', 'COMPACT'}: 
             layout.label(text = item.name)
-            # row = layout.row(align=True)
-            # row.operator('antemplates.open_url', text='', icon='IMAGE').url = item.image_preview_url
-            # row.operator('antemplates.open_url', text='', icon='FILE_MOVIE').url = item.video_preview_url
-            # row.operator('antemplates.open_url', text='', icon='HELP').url = item.readme_url
             
         elif self.layout_type in {'GRID'}: 
             layout.alignment = 'CENTER' 
             layout.label(text = item.name)
-            # row = layout.row(align=True)
-            # row.operator('antemplates.open_url', text='', icon='IMAGE').url = item.image_preview_url
-            # row.operator('antemplates.open_url', text='', icon='FILE_MOVIE').url = item.video_preview_url
-            # row.operator('antemplates.open_url', text='', icon='HELP').url = item.readme_url
 
 
     def draw_filter(self, context, layout):
@@ -84,7 +75,6 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
             icon="SORT_ASC"
         row.prop(self, "use_filter_sort_reverse", text="", icon=icon)
 
-        #col.prop(self, "nodetree_categories_enum",text="", icon="FILE_FOLDER")
         col.prop(self, "nodetree_blender_versions_enum", text="", icon="BLENDER")
         col.prop(self, "nodetree_an_versions_enum", text="", icon="ONIONSKIN_ON")
 
@@ -96,7 +86,7 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
 
         properties_coll = context.window_manager.an_templates_properties
         search = properties_coll.nodetree_search
-        #category = self.nodetree_categories_enum
+        tag_search = properties_coll.nodetree_tag_search
         category = properties_coll.nodetree_categories_enum
         blender_version = self.nodetree_blender_versions_enum
         an_version = self.nodetree_an_versions_enum
@@ -111,9 +101,20 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
         if search or category!= "ALL" or blender_version!="ALL" or an_version!="ALL" or self.use_filter_sort_alpha:
             flt_flags = [self.bitflag_filter_item] * len(col)
 
-            # name search
-            if search :
-                flt_flags = helper_funcs.filter_items_by_name(search, self.bitflag_filter_item, col, "name", flags=None, reverse=False)
+            # name search only
+            # if search and not tag_search:
+            #     flt_flags = helper_funcs.filter_items_by_name(search, self.bitflag_filter_item, col, "name", flags=None, reverse=False)
+
+            # search
+            if search:
+                for idx, item in enumerate(col):
+                    if search.lower() in item.name.lower():
+                        continue
+                    if tag_search:
+                        if search.lower() in item.tags.lower():
+                            continue
+                    #else:
+                    flt_flags[idx] = 0
 
             # category search
             if category != "ALL":

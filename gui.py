@@ -24,7 +24,9 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         layout = self.layout
 
         col = layout.column(align=True)
-        col.prop(properties_coll, "nodetree_search", text="", icon='VIEWZOOM')
+        row = col.row(align=True)
+        row.prop(properties_coll, "nodetree_search", text="", icon='VIEWZOOM')
+        row.prop(properties_coll, "nodetree_tag_search", text="", icon='STYLUS_PRESSURE')
         col.prop(properties_coll, "nodetree_categories_enum", text="", icon="FILE_FOLDER")
         col.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", properties_coll, "nodetrees_index", rows = 3)
         
