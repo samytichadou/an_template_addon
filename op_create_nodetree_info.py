@@ -7,6 +7,34 @@ from .global_variables import addon_print_prefix
 from .op_create_manifest import generate_hash
 
 
+# draw nodetree info properties
+def draw_nodetree_info_properties(prop_container, layout, tags_coll):
+    layout.prop(prop_container, "name")
+    layout.prop(prop_container, "description")
+    layout.prop(prop_container, "blender_version")
+    layout.prop(prop_container, "an_version")
+    layout.prop(prop_container, "image_preview_url")
+    layout.prop(prop_container, "video_preview_url")
+    layout.prop(prop_container, "file_url")
+    layout.prop(prop_container, "readme_url")
+    layout.prop(prop_container, "tags")
+
+    coll = layout.column(align=True)
+    coll.label(text="Existing Tags : ")
+    limit = 3
+    ct = 0
+    tag_reformat = ""
+    for tag in tags_coll:
+        tag_reformat += tag.name
+        ct += 1
+        if ct == limit:
+            coll.label(text=tag_reformat)
+            tag_reformat = ""
+            ct = 0
+        else:
+            tag_reformat += ", "
+
+
 class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
     """Create Nodetree Info File"""
     bl_idname = "antemplates.create_nodetree_info"
@@ -37,17 +65,7 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
 
 
     def draw(self, context):
-        layout = self.layout
-
-        layout.prop(self, "name")
-        layout.prop(self, "description")
-        layout.prop(self, "blender_version")
-        layout.prop(self, "an_version")
-        layout.prop(self, "tags")
-        layout.prop(self, "image_preview_url")
-        layout.prop(self, "video_preview_url")
-        layout.prop(self, "file_url")
-        layout.prop(self, "readme_url")
+        draw_nodetree_info_properties(self, self.layout, context.window_manager.an_templates_properties.tags)
 
 
     def execute(self, context):

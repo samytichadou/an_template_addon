@@ -5,6 +5,7 @@ import os
 from .json_functions import create_json_file, read_json
 from .global_variables import addon_print_prefix
 from .op_create_manifest import generate_hash
+from .op_create_nodetree_info import draw_nodetree_info_properties
 
 
 class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
@@ -50,7 +51,7 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
         self.video_preview_url =    datas["video_preview_url"]
         self.file_url =             datas["file_url"]
         self.readme_url =           datas["readme_url"]
-        self.hash =           datas["hash"]
+        self.hash =                 datas["hash"]
             
         return context.window_manager.invoke_props_dialog(self)
 
@@ -58,15 +59,8 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
     def draw(self, context):
         layout = self.layout
 
-        layout.prop(self, "name")
-        layout.prop(self, "description")
-        layout.prop(self, "blender_version")
-        layout.prop(self, "an_version")
-        layout.prop(self, "tags")
-        layout.prop(self, "image_preview_url")
-        layout.prop(self, "video_preview_url")
-        layout.prop(self, "file_url")
-        layout.prop(self, "readme_url")
+        draw_nodetree_info_properties(self, layout, context.window_manager.an_templates_properties.tags)
+
         layout.label(text="Hash : " + self.hash)
 
 
