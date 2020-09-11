@@ -22,6 +22,7 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
         properties_coll = winman.an_templates_properties
 
         layout = self.layout
+        #layout.use_property_split = True # Active single-column layout
 
         col = layout.column(align=True)
         row = col.row(align=True)
