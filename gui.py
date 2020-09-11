@@ -23,8 +23,6 @@ class ANTEMPLATES_PT_panel(bpy.types.Panel):
 
         layout = self.layout
 
-        layout.operator('antemplates.clear_downloads', icon="TRASH")
-
         col = layout.column(align=True)
         col.prop(properties_coll, "nodetree_search", text="", icon='VIEWZOOM')
         col.prop(properties_coll, "nodetree_categories_enum", text="", icon="FILE_FOLDER")
