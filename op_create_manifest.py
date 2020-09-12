@@ -133,9 +133,6 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                         nodetree_datas["category"] = category
                         manifest_datas["nodetrees"].append(nodetree_datas)
 
-                        # for tag in get_separated_tags(nodetree_datas["tags"]):
-                        #     if tag not in manifest_datas["tags"]:
-                        #         manifest_datas["tags"].append(tag)
                         for tag in get_separated_tags(nodetree_datas["tags"]):
                             if tag not in tag_list:
                                 tag_list.append(tag)
