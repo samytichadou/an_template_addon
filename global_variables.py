@@ -11,3 +11,6 @@ addon_print_prefix = "AN Templates --- "
 
 # files
 manifest_file = "manifest.json"
+
+# mail
+submission_mail_subject = "Template Submission from "
