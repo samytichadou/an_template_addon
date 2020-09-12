@@ -8,7 +8,7 @@ class ANTEMPLATES_MT_search_tag_menu(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        
+
         for t in context.window_manager.an_templates_properties.tags:
             tag_name = t.name
             op = layout.operator("antemplates.search_tag", text=tag_name)
