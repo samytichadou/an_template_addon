@@ -43,6 +43,16 @@ def get_categories_callback(scene, context):
     return items
 
 
+def get_categories_only_callback(scene, context):
+
+    items = []
+
+    for i in context.window_manager.an_templates_properties.categories:
+        items.append((i.name, i.name, ""))
+
+    return items
+
+
 class ANTemplatesProperties(bpy.types.PropertyGroup) :
     '''name : StringProperty() '''
     blender_versions : bpy.props.CollectionProperty(type = ANTemplatesBlenderVersions, name="Blender Versions")
@@ -71,3 +81,12 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     
     nodetree_search : bpy.props.StringProperty(name = "Search", description = "Search for Nodetree and Tags if activated, use a + between Tags", options={'TEXTEDIT_UPDATE','SKIP_SAVE'})
     nodetree_tag_search : bpy.props.BoolProperty(name = "Tag Search Toggle", default = True)
+
+    submission_nodetree : bpy.props.PointerProperty(name="Nodetree", type=bpy.types.NodeTree)
+    submission_readme : bpy.props.PointerProperty(name="Readme", type=bpy.types.Text)
+    submission_tags : bpy.props.StringProperty(name="Tags, Comma Separated")
+    submission_category : bpy.props.EnumProperty(name="Category", items = get_categories_only_callback)
+    submission_small_description : bpy.props.StringProperty(name="Small Description")
+    submission_author_mail : bpy.props.StringProperty(name="Your Mail")
+    submission_author_name : bpy.props.StringProperty(name="Your Name")
+    submission_side_notes : bpy.props.StringProperty(name="Side Notes")
