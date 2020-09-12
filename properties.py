@@ -69,5 +69,5 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
 
     nodetree_categories_enum : bpy.props.EnumProperty(name="Categories", items = get_categories_callback)
     
-    nodetree_search : bpy.props.StringProperty(name = "Search", options={'TEXTEDIT_UPDATE','SKIP_SAVE'})
+    nodetree_search : bpy.props.StringProperty(name = "Search", description = "Search for Nodetree and Tags, use a + between Tags", options={'TEXTEDIT_UPDATE','SKIP_SAVE'})
     nodetree_tag_search : bpy.props.BoolProperty(name = "Tag Search Toggle", default = True)

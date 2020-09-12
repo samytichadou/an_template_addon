@@ -101,17 +101,19 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
         if search or category!= "ALL" or blender_version!="ALL" or an_version!="ALL" or self.use_filter_sort_alpha:
             flt_flags = [self.bitflag_filter_item] * len(col)
 
-            # name search only
-            # if search and not tag_search:
-            #     flt_flags = helper_funcs.filter_items_by_name(search, self.bitflag_filter_item, col, "name", flags=None, reverse=False)
-
             # search
             if search:
                 for idx, item in enumerate(col):
                     if search.lower() in item.name.lower():
                         continue
                     if tag_search:
-                        if search.lower() in item.tags.lower():
+                        chk_tag = True
+                        for tag in search.lower().split("+"):
+                            tag = tag.strip()
+                            if tag not in item.tags.lower():
+                                chk_tag = False
+                                break
+                        if chk_tag:
                             continue
                     #else:
                     flt_flags[idx] = 0
