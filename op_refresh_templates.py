@@ -63,13 +63,17 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
 
     def execute(self, context):
 
-        manifest_dataset = read_manifest(get_addon_preferences().manifest_url)
+        prefs = get_addon_preferences()
 
-        if manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
+        manifest_dataset = read_manifest(prefs.manifest_url)
+
+        if not os.path.isfile(os.path.join(prefs.download_folder, manifest_file)):
+            load_manifest()
+
+        elif manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
             print(addon_print_prefix + "Manifest Up to Date, Aborting")
 
         else:
-
             load_manifest()
 
         return {'FINISHED'}
