@@ -17,7 +17,7 @@ class ANTEMPLATES_MT_search_tag_menu(bpy.types.Menu):
 
 # menu caller
 class ANTEMPLATES_OT_search_tag_menu_caller(bpy.types.Operator):
-    """Search Specific Tag"""
+    """Search Specific Tag, add an ending + in search bar if you want to add specific tag"""
     bl_idname = "antemplates.search_tag_menu_caller"
     bl_label = "Search Tag"
     bl_options = {'REGISTER', 'INTERNAL'}
@@ -51,7 +51,12 @@ class ANTEMPLATES_OT_search_tag(bpy.types.Operator):
         if not properties_call.nodetree_tag_search:
             properties_call.nodetree_tag_search = True
 
-        context.window_manager.an_templates_properties.nodetree_search = self.tag
+        search = properties_call.nodetree_search
+
+        if search.strip().endswith("+"):
+            properties_call.nodetree_search += self.tag
+        else:
+            properties_call.nodetree_search = self.tag
 
         context.area.tag_redraw()
 
