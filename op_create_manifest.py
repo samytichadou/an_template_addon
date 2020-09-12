@@ -21,7 +21,7 @@ def return_direct_subfolders(folderpath):
         if os.path.isdir(item_path):
             folder_paths.append(item_path)
 
-    return folder_paths
+    return sorted(folder_paths)
 
 
 # return direct files in folder
