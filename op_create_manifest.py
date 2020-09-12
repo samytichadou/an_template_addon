@@ -110,6 +110,8 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
         # create manifest datas
 
+        tag_list = []
+
         manifest_datas = initialize_json_manifest_datas()
         
         for folder in return_direct_subfolders(template_folder):
@@ -131,9 +133,12 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                         nodetree_datas["category"] = category
                         manifest_datas["nodetrees"].append(nodetree_datas)
 
+                        # for tag in get_separated_tags(nodetree_datas["tags"]):
+                        #     if tag not in manifest_datas["tags"]:
+                        #         manifest_datas["tags"].append(tag)
                         for tag in get_separated_tags(nodetree_datas["tags"]):
-                            if tag not in manifest_datas["tags"]:
-                                manifest_datas["tags"].append(tag)
+                            if tag not in tag_list:
+                                tag_list.append(tag)
 
                         if nodetree_datas["blender_version"] not in manifest_datas["blender_versions"]:
                             manifest_datas["blender_versions"].append(nodetree_datas["blender_version"])
@@ -142,6 +147,8 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
                             manifest_datas["an_versions"].append(nodetree_datas["an_version"])
 
                         break
+
+        manifest_datas["tags"] = sorted(tag_list)
 
         print(addon_print_prefix + "Creating Manifest : " + json_path) #debug
 
