@@ -2,7 +2,7 @@ import bpy
 import webbrowser
 
 
-from .global_variables import addon_print_prefix
+from .print_functions import print_and_report
 
 
 class ANTEMPLATES_OT_open_url(bpy.types.Operator):
@@ -23,10 +23,10 @@ class ANTEMPLATES_OT_open_url(bpy.types.Operator):
 
     def execute(self, context):
         if self.url == "":
-            print(addon_print_prefix + "No URL to Open")
+            print_and_report(self, "No URL", "WARNING") #debug
         else:
             webbrowser.open(self.url)
-            print(addon_print_prefix + "Opening URL in Web Browser : %s" % self.url)
+            print_and_report(self, "Opening URL in Web Browser : %s" % self.url, "INFO") #debug
         return {'FINISHED'}
 
 
@@ -53,7 +53,7 @@ class ANTEMPLATES_OT_open_url_image(bpy.types.Operator):
         url = nodetree_collection[properties_coll.nodetrees_index].image_preview_url
 
         webbrowser.open(url)
-        print(addon_print_prefix + "Opening URL in Web Browser : %s" % url)
+        print_and_report(self, "Opening URL in Web Browser : %s" % url, "INFO") #debug
         return {'FINISHED'}
 
 
@@ -80,7 +80,7 @@ class ANTEMPLATES_OT_open_url_video(bpy.types.Operator):
         url = nodetree_collection[properties_coll.nodetrees_index].video_preview_url
 
         webbrowser.open(url)
-        print(addon_print_prefix + "Opening URL in Web Browser : %s" % url)
+        print_and_report(self, "Opening URL in Web Browser : %s" % url, "INFO") #debug
         return {'FINISHED'}
 
 
@@ -107,5 +107,5 @@ class ANTEMPLATES_OT_open_url_readme(bpy.types.Operator):
         url = nodetree_collection[properties_coll.nodetrees_index].readme_url
 
         webbrowser.open(url)
-        print(addon_print_prefix + "Opening URL in Web Browser : %s" % url)
+        print_and_report(self, "Opening URL in Web Browser : %s" % url, "INFO") #debug
         return {'FINISHED'}

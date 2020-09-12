@@ -5,8 +5,9 @@ import random
 
 
 from .json_functions import read_json, create_json_file
-from .global_variables import nodetree_infos, addon_print_prefix
+from .global_variables import nodetree_infos
 from .addon_prefs import get_addon_preferences
+from .print_functions import print_and_report
 
 
 # return direct subfolders
@@ -98,11 +99,11 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
         template_folder = prefs.template_folder
 
         if not os.path.isdir(os.path.dirname(json_path)):
-            print(addon_print_prefix + "Incorrect Output Path") #debug
+            print_and_report(self, "Incorrect Output Path", "WARNING") #debug
             return {'FINISHED'}
 
         if not os.path.isdir(template_folder):
-            print(addon_print_prefix + "Incorrect Template Folder Path") #debug
+            print_and_report(self, "Incorrect Template Folder Path", "WARNING") #debug
             return {'FINISHED'}
 
         if not json_path.endswith(".json"):
@@ -147,10 +148,12 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
         manifest_datas["tags"] = sorted(tag_list)
 
-        print(addon_print_prefix + "Creating Manifest : " + json_path) #debug
+        print_and_report(None, "Creating Manifest : %s" % json_path, "INFO") #debug
 
         print(manifest_datas) #debug
 
         create_json_file(manifest_datas, json_path)
+
+        print_and_report(self, "Manifest Successfully Created", "INFO") #debug
 
         return {'FINISHED'}
