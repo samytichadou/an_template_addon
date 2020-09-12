@@ -7,9 +7,14 @@ addon_name = os.path.basename(os.path.dirname(__file__))
 class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
     bl_idname = addon_name
 
+    custom_library : bpy.props.BoolProperty(
+        name = "Custom Library",
+        description = "Use Custom Library instead of Animation Nodes Templates Library",
+        )
+
     manifest_url : bpy.props.StringProperty(
         name = "Github Manifest URL",
-        default = "https://raw.githubusercontent.com/samytichadou/animation_nodes_examples/master/library/manifest.json",
+        default = "",
         )
 
     download_folder : bpy.props.StringProperty(
@@ -34,7 +39,11 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         properties_coll = winman.an_templates_properties
 
         layout = self.layout
-        layout.prop(self, "manifest_url")
+        layout.prop(self, "custom_library")
+        row = layout.row()
+        if not self.custom_library:
+            row.enabled=False
+        row.prop(self, "manifest_url")
         layout.prop(self, "download_folder")
 
         bigbox = layout.box()

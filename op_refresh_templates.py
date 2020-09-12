@@ -3,7 +3,7 @@ import os
 
 
 from .addon_prefs import get_addon_preferences
-from .global_variables import manifest_file
+from .global_variables import manifest_file, manifest_url
 from .file_functions import create_directory
 from .internet_functions import is_connected, download_file, read_manifest
 from .json_functions import set_nodetrees_from_json, set_properties_from_json, read_json
@@ -19,6 +19,11 @@ def load_manifest(self):
 
     manifest_path = os.path.join(prefs.download_folder, manifest_file)
 
+    if prefs.custom_library:
+        specific_manifest_url = prefs.manifest_url
+    else:
+        specific_manifest_url = manifest_url
+
     if not os.path.isdir(prefs.download_folder):
         print_and_report(None, "Creating Download Folder", "INFO") #debug
         create_directory(prefs.download_folder)
@@ -32,7 +37,7 @@ def load_manifest(self):
         print_and_report(None, "Internet Connection Available", "INFO") #debug
 
         print_and_report(None, "Downloading Manifest", "INFO") #debug
-        download_file(prefs.manifest_url, manifest_path)
+        download_file(specific_manifest_url, manifest_path)
 
     try:
 
@@ -66,7 +71,12 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
 
         prefs = get_addon_preferences()
 
-        manifest_dataset = read_manifest(prefs.manifest_url)
+        if prefs.custom_library:
+            specific_manifest_url = prefs.manifest_url
+        else:
+            specific_manifest_url = manifest_url
+
+        manifest_dataset = read_manifest(specific_manifest_url)
 
         if not os.path.isfile(os.path.join(prefs.download_folder, manifest_file)):
             load_manifest(self)
