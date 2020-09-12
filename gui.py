@@ -107,8 +107,8 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
             col.label(text=active_nodetree.blender_version, icon="BLENDER")
             col.label(text=active_nodetree.an_version, icon="ONIONSKIN_ON")
             col.label(text=active_nodetree.category, icon="FILE_FOLDER")
-            col.label(text=active_nodetree.hash, icon="RNA")
-            col.label(text=active_nodetree.file_url, icon="URL")
+            # col.label(text=active_nodetree.hash, icon="RNA")
+            # col.label(text=active_nodetree.file_url, icon="URL")
             
             col.label(text="Tags :", icon="VIEWZOOM")
             limit = 3
