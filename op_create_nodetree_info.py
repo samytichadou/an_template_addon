@@ -19,8 +19,8 @@ def draw_nodetree_info_properties(prop_container, layout, tags_coll):
     layout.prop(prop_container, "readme_url")
     layout.prop(prop_container, "tags")
 
-    coll = layout.column(align=True)
-    coll.label(text="Existing Tags : ")
+    col = layout.column(align=True)
+    col.label(text="Existing Tags : ")
     limit = 3
     ct = 0
     tag_reformat = ""
@@ -28,11 +28,14 @@ def draw_nodetree_info_properties(prop_container, layout, tags_coll):
         tag_reformat += tag.name
         ct += 1
         if ct == limit:
-            coll.label(text=tag_reformat)
+            col.label(text=tag_reformat)
             tag_reformat = ""
             ct = 0
         else:
             tag_reformat += ", "
+    if ct != 0:
+        tag_reformat = tag_reformat[:-2]
+        col.label(text=tag_reformat)
 
 
 class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):

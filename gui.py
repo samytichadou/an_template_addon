@@ -135,6 +135,9 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
                     ct = 0
                 else:
                     tag_reformat += ", "
+            if ct != 0:
+                tag_reformat = tag_reformat[:-2]
+                col.label(text=tag_reformat)
 
 
 class ANTEMPLATES_PT_settings_panel(bpy.types.Panel):
