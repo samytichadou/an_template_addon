@@ -3,7 +3,7 @@ import os
 
 
 from .addon_prefs import get_addon_preferences
-from .global_variables import manifest_file#, addon_print_prefix
+from .global_variables import manifest_file
 from .print_functions import print_and_report
 
 
@@ -15,7 +15,6 @@ def empty_directory(self, filepath):
             os.remove(os.path.join(filepath, f))
 
     print_and_report(self, "Successfully emptied %s " % filepath, "INFO")
-    #print (addon_print_prefix + "Successfully emptied %s " % filepath) #debug
 
 
 class ANTEMPLATES_OT_clear_downloads(bpy.types.Operator):
@@ -49,6 +48,5 @@ class ANTEMPLATES_OT_clear_downloads(bpy.types.Operator):
 
         else:
             print_and_report(self, "Download directory does not exist : %s" % download_folder, "WARNING")
-            #print(addon_print_prefix + "Download directory does not exist : %s" % download_folder) #debug
 
         return {'FINISHED'}

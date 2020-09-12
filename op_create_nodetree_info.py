@@ -3,7 +3,6 @@ import os
 
 
 from .json_functions import create_json_file
-from .global_variables import addon_print_prefix
 from .op_create_manifest import generate_hash
 from .print_functions import print_and_report
 
@@ -83,7 +82,6 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
 
         if not os.path.isdir(os.path.dirname(json_path)):
             print_and_report(self, "Incorrect Output Path", "WARNING")
-            #print(addon_print_prefix + "Incorrect Output Path") #debug
             return {'FINISHED'}
 
         if not json_path.endswith(".json"):
@@ -103,11 +101,12 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
         datas["readme_url"] =           self.readme_url
         datas["hash"] =                 generate_hash(10)
 
-        print_and_report(self, "Creating Nodetree Info File : ", "INFO") #debug
-        #print(addon_print_prefix + "Creating Nodetree Info File : " + json_path) #debug
+        print_and_report(None, "Creating Nodetree Info File : ", "INFO") #debug
 
         print(datas) #debug
 
         create_json_file(datas, json_path)
+
+        print_and_report(self, "Nodetree Info File Successfully Created", "INFO") #debug
 
         return {'FINISHED'}

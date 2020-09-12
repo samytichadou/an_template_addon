@@ -15,4 +15,4 @@ from .op_refresh_templates import load_manifest
 @persistent
 def ant_startup_handler(scene):
     
-    load_manifest()
+    load_manifest(None)

@@ -2,10 +2,10 @@ import bpy
 import os
 
 
-from .global_variables import addon_print_prefix
 from .addon_prefs import get_addon_preferences
 from .file_functions import create_directory
 from .internet_functions import is_connected, download_file
+from .print_functions import print_and_report
 
 
 # clear lib user
@@ -18,7 +18,6 @@ def clearDataUsers(lib):
             datas.user_clear()
 
     except AttributeError:
-        print("F")
         pass
 
     lib.user_clear()
@@ -40,7 +39,7 @@ def return_an_collection(target_scene):
     return an_coll
 
 
-def link_nodetree(filepath, name, context):
+def link_nodetree(filepath, name, self, context):
     active_scene = context.scene
     properties_coll = context.window_manager.an_templates_properties
     original_scene = properties_coll.import_original_scene
@@ -48,7 +47,7 @@ def link_nodetree(filepath, name, context):
     collection_behavior = properties_coll.original_objects_collection
 
     imported = []
-    obj_linked = []
+
     lib = bpy.data.libraries.load(filepath, link=False, relative=True)
 
 
@@ -90,7 +89,7 @@ def link_nodetree(filepath, name, context):
                 imported.append(new_node)
             elif name + ".00" in new_node.name:
                 bpy.data.node_groups.remove(bpy.data.node_groups[new_node.name])
-                print(addon_print_prefix + "Nodetree already exists, remove it") #debug
+                print_and_report(None, "Nodetree already exists, remove it", "WARNING") #debug
             else:
                 bpy.data.node_groups.remove(bpy.data.node_groups[new_node.name])
 
@@ -234,7 +233,7 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
         # create download folder if needed
         if not os.path.isdir(download_folder):
             if not create_directory(download_folder):
-                print(addon_print_prefix + "Unable to Create Download Directory") #debug
+                print_and_report(self, "Unable to Create Download Directory", "WARNING") #debug
                 return {'FINISHED'}
 
         nodetree_filepath = os.path.join(download_folder, nodetree.hash)
@@ -244,29 +243,29 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
 
             # check for connection
             if not is_connected():
-                print(addon_print_prefix + "No Internet Connection") #debug
+                print_and_report(self, "No Internet Connection", "WARNING") #debug
                 return {'FINISHED'}
             
             # download file
-            print(addon_print_prefix + "Downloading File") #debug
+            print_and_report(None, "Downloading File", "INFO") #debug
             download_file(nodetree.file_url ,nodetree_filepath)
             
             if not os.path.isfile(nodetree_filepath):
-                print(addon_print_prefix + "Unable to Download File") #debug
+                print_and_report(self, "Unable to Download File", "WARNING") #debug
                 return {'FINISHED'}
 
         else:
-            print(addon_print_prefix + "Nodetree Already Downloaded") #debug    
+            print_and_report(None, "Nodetree Already Downloaded", "INFO") #debug
 
-        print(addon_print_prefix + "Importing : " + nodetree.name) #debug
+        print_and_report(None, "Importing : " + nodetree.name, "INFO") #debug
 
         # import nodetree
-        if link_nodetree(nodetree_filepath, nodetree.name, context):
+        if link_nodetree(nodetree_filepath, nodetree.name, self, context):
 
-            print(addon_print_prefix + "Nodetree Successfully Imported") #debug
+            print_and_report(self, "Nodetree Successfully Imported", "INFO") #debug
 
         else:
 
-            print(addon_print_prefix + "Unable to Import Nodetree") #debug
+            print_and_report(self, "Unable to Import Nodetree", "WARNING") #debug
 
         return {'FINISHED'}

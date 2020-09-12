@@ -17,11 +17,3 @@ def create_directory(filepath):
         return True
 
 
-# empty directory
-def empty_directory(filepath):
-
-    for f in os.listdir(filepath):
-        if f != manifest_file:
-            os.remove(os.path.join(filepath, f))
-
-    print (addon_print_prefix + "Successfully emptied %s " % filepath) #debug

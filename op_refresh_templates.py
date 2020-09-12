@@ -3,34 +3,35 @@ import os
 
 
 from .addon_prefs import get_addon_preferences
-from .global_variables import addon_print_prefix, manifest_file
+from .global_variables import manifest_file
 from .file_functions import create_directory
 from .internet_functions import is_connected, download_file, read_manifest
 from .json_functions import set_nodetrees_from_json, set_properties_from_json, read_json
+from .print_functions import print_and_report
 
 
 # load manifest function
-def load_manifest():
-
-    print(addon_print_prefix + "Loading") #debug
+def load_manifest(self):
+    
+    print_and_report(None, "Loading", "INFO") #debug
 
     prefs = get_addon_preferences()
 
     manifest_path = os.path.join(prefs.download_folder, manifest_file)
 
     if not os.path.isdir(prefs.download_folder):
-        print(addon_print_prefix + "Creating Download Folder") #debug
+        print_and_report(None, "Creating Download Folder", "INFO") #debug
         create_directory(prefs.download_folder)
 
     if not is_connected():
 
-        print(addon_print_prefix + "No Internet Connection, Trying to Load Old Manifest") #debug
+        print_and_report(None, "No Internet Connection, Trying to Load Old Manifest", "INFO") #debug
 
     else:
 
-        print(addon_print_prefix + "Internet Connection Available") #debug
+        print_and_report(None, "Internet Connection Available", "INFO") #debug
 
-        print(addon_print_prefix + "Downloading Manifest") #debug
+        print_and_report(None, "Downloading Manifest", "INFO") #debug
         download_file(prefs.manifest_url, manifest_path)
 
     try:
@@ -38,15 +39,15 @@ def load_manifest():
         manifest_dataset = read_json(manifest_path)
 
     except FileNotFoundError:
-
-        print(addon_print_prefix + "No Existing Manifest File") #debug
+        print_and_report(self, "No Existing Manifest File", "WARNING") #debug
         return False
 
-    print(addon_print_prefix + "Loading Manifest") #debug
+    print_and_report(None, "Loading Manifest", "INFO") #debug
+
     set_nodetrees_from_json(manifest_dataset)
     set_properties_from_json(manifest_dataset)
 
-    print(addon_print_prefix + "Manifest Successfully Loaded") #debug
+    print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
 
     return True
 
@@ -68,12 +69,12 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
         manifest_dataset = read_manifest(prefs.manifest_url)
 
         if not os.path.isfile(os.path.join(prefs.download_folder, manifest_file)):
-            load_manifest()
+            load_manifest(self)
 
         elif manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
-            print(addon_print_prefix + "Manifest Up to Date, Aborting")
+            print_and_report(self, "Manifest Up to Date, Aborting", "INFO") #debug
 
         else:
-            load_manifest()
+            load_manifest(self)
 
         return {'FINISHED'}
