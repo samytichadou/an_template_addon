@@ -42,7 +42,7 @@ from .startup_handler import ant_startup_handler
 
 from .properties import *
 
-from .op_open_url import ANTEMPLATES_OT_open_url
+from .op_open_url import ANTEMPLATES_OT_open_url, ANTEMPLATES_OT_open_url_image, ANTEMPLATES_OT_open_url_video, ANTEMPLATES_OT_open_url_readme
 from .op_empty_download_dir import ANTEMPLATES_OT_clear_downloads
 from .op_create_manifest import ANTEMPLATES_OT_create_manifest
 from .op_create_nodetree_info import ANTEMPLATES_OT_create_nodetree_info
@@ -68,6 +68,9 @@ classes = (
             ANTemplatesProperties,
 
             ANTEMPLATES_OT_open_url,
+            ANTEMPLATES_OT_open_url_image,
+            ANTEMPLATES_OT_open_url_video,
+            ANTEMPLATES_OT_open_url_readme,
             ANTEMPLATES_OT_clear_downloads,
             ANTEMPLATES_OT_create_manifest,
             ANTEMPLATES_OT_create_nodetree_info,

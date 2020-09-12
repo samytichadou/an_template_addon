@@ -34,15 +34,8 @@ class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
         row.operator("antemplates.search_tag_menu_caller", text="", icon="COLLAPSEMENU")
         col.prop(properties_coll, "nodetree_categories_enum", text="", icon="FILE_FOLDER")
         col.template_list("ANTEMPLATES_UL_panel_ui_list", "", winman, "an_templates_nodetrees", properties_coll, "nodetrees_index", rows = 5)
-        
-        idx = winman.an_templates_properties.nodetrees_index
 
         row = layout.row(align=True)
-        
-        active_nodetree = None
-
-        if idx in range(0, len(winman.an_templates_nodetrees)):
-            active_nodetree = winman.an_templates_nodetrees[winman.an_templates_properties.nodetrees_index]
 
         row.operator("antemplates.import_nodetree", text="", icon="IMPORT")
 
@@ -50,14 +43,9 @@ class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
 
         row.label(text="", icon="URL")
 
-        op1 = row.operator('antemplates.open_url', text="", icon='IMAGE')
-        op2 = row.operator('antemplates.open_url', text="", icon='FILE_MOVIE')
-        op3 = row.operator('antemplates.open_url', text="", icon='HELP')
-
-        if active_nodetree is not None:
-            op1.url = active_nodetree.image_preview_url
-            op2.url = active_nodetree.video_preview_url
-            op3.url = active_nodetree.readme_url
+        row.operator('antemplates.open_url_image', text="", icon='IMAGE')
+        row.operator('antemplates.open_url_video', text="", icon='FILE_MOVIE')
+        row.operator('antemplates.open_url_readme', text="", icon='HELP')
 
 
 class ANTEMPLATES_PT_import_options_subpanel(bpy.types.Panel):
