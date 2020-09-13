@@ -50,7 +50,7 @@ class ANTEMPLATES_OT_add_tag(bpy.types.Operator):
 
         tag_field = properties_call.submission_tags
 
-        if not tag_field.strip().endswith(","):
+        if tag_field and not tag_field.strip().endswith(","):
             properties_call.submission_tags += ","
 
         properties_call.submission_tags += self.tag
