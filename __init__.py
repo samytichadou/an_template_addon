@@ -49,6 +49,7 @@ from .op_create_nodetree_info import ANTEMPLATES_OT_create_nodetree_info
 from .op_edit_nodetree_info import ANTEMPLATES_OT_edit_nodetree_info
 from .op_import_nodetree import ANTEMPLATES_OT_import_nodetree
 from .op_tag_search import ANTEMPLATES_MT_search_tag_menu, ANTEMPLATES_OT_search_tag_menu_caller, ANTEMPLATES_OT_search_tag
+from .op_tag_add import ANTEMPLATES_MT_add_tag_menu, ANTEMPLATES_OT_add_tag_menu_caller, ANTEMPLATES_OT_add_tag
 from .op_refresh_templates import ANTEMPLATES_OT_refresh_templates
 from .op_submit_template import ANTEMPLATES_OT_submit_template
 
@@ -80,6 +81,9 @@ classes = (
             ANTEMPLATES_MT_search_tag_menu,
             ANTEMPLATES_OT_search_tag_menu_caller,
             ANTEMPLATES_OT_search_tag,
+            ANTEMPLATES_MT_add_tag_menu,
+            ANTEMPLATES_OT_add_tag_menu_caller,
+            ANTEMPLATES_OT_add_tag,
             ANTEMPLATES_OT_refresh_templates,
             ANTEMPLATES_OT_submit_template,
 

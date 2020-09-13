@@ -176,6 +176,7 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
 
         col = layout.column(align=True)
         col.label(text="Please fill all the fields carefully")
+        col.label(text="* Try to use existing tags *")
         col.label(text="* Notes are optional *")
 
         col.separator()
@@ -183,7 +184,11 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         col.prop(properties_coll, "submission_nodetree", text="", icon="NODETREE")
         col.prop(properties_coll, "submission_readme", text="")
         col.prop(properties_coll, "submission_category", text="", icon="FILE_FOLDER")
-        col.prop(properties_coll, "submission_tags", text="Tags")
+
+        row = col.row(align=True)
+        row.prop(properties_coll, "submission_tags", text="Tags")
+        row.operator("antemplates.add_tag_menu_caller", text="", icon="PLUS")
+
         col.prop(properties_coll, "submission_small_description", text="Infos")
         col.prop(properties_coll, "submission_author_mail", text="Mail")
         col.prop(properties_coll, "submission_author_name", text="Name")
