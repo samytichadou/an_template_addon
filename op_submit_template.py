@@ -16,7 +16,7 @@ from .global_variables import submission_mail_subject
 from .global_k import k, w
 from .addon_prefs import get_addon_preferences
 from .internet_functions import is_connected
-from .op_create_manifest import generate_hash
+from .op_create_manifest import generate_hash, get_separated_tags
 from .lib_enc1 import dec_k
 from .lib_enc2 import dec
 
@@ -44,7 +44,7 @@ def get_os():
    
 
 # format message
-def format_message_submission(self, context):
+def format_message_submission(context):
 
     properties_coll = context.window_manager.an_templates_properties
 
@@ -78,7 +78,7 @@ def format_message_submission(self, context):
 
 
 # get screenshot
-def get_screenshot(self, context):
+def get_screenshot(context):
 
     properties_coll = context.window_manager.an_templates_properties
 
@@ -90,7 +90,7 @@ def get_screenshot(self, context):
 
 
 # create submission json
-def create_submission_json(self, context):
+def create_submission_json(context):
 
     properties_coll = context.window_manager.an_templates_properties
 
@@ -188,6 +188,17 @@ def send_email_submission(self, body, subject, filepath_list, author_mail):
     s.quit() 
 
 
+# add category to submission tags
+def add_category_to_submission_tags(context):
+
+    properties_coll = context.window_manager.an_templates_properties
+
+    if properties_coll.submission_category not in get_separated_tags(properties_coll.submission_tags):
+        if not properties_coll.submission_tags.strip().endswith(","):
+            properties_coll.submission_tags += ","
+        properties_coll.submission_tags += properties_coll.submission_category.lower()
+
+
 # Submission
 class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
     """Submit Opened Blend File as Template for the Library"""
@@ -240,17 +251,20 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
         print_and_report(None, "Saving Blend File", "INFO") #debug
         bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
 
+        # add category tag if needed
+        add_category_to_submission_tags(context)
+
         # format body and get subject
         print_and_report(None, "Formatting Submission Text", "INFO") #debug
-        body, subject = format_message_submission(self, context)
+        body, subject = format_message_submission(context)
 
         print_and_report(None, "Creating Additional Submission Files", "INFO") #debug
 
         # screenshot
-        screenshot_filepath = get_screenshot(self, context)
+        screenshot_filepath = get_screenshot(context)
 
         # json
-        json_filepath = create_submission_json(self, context)
+        json_filepath = create_submission_json(context)
 
         # send email
         print_and_report(None, "Sending Submission - Please Wait", "INFO") #debug
