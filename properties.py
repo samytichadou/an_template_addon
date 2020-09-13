@@ -96,7 +96,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     nodetree_tag_search : bpy.props.BoolProperty(name="Tag Search Toggle", default = True)
 
     submission_nodetree : bpy.props.EnumProperty(name="Nodetree", description="Submitted NodeTree", items = get_an_nodetree_callback)
-    submission_readme : bpy.props.PointerProperty(name="Readme", type=bpy.types.Text)
+    submission_readme : bpy.props.PointerProperty(name="Readme", description="Extensive Description of the Nodetree and How to use it in a Text Block", type=bpy.types.Text)
     submission_tags : bpy.props.StringProperty(name="Tags, Comma Separated")
     submission_category : bpy.props.EnumProperty(name="Category", items = get_categories_only_callback)
     submission_small_description : bpy.props.StringProperty(name="Small Description")
