@@ -201,7 +201,7 @@ def add_category_to_submission_tags(context):
 
 # Submission
 class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
-    """Submit Opened Blend File as Template for the Library"""
+    """Submit Opened Blend File as Template for the Library, File has to be Saved"""
     bl_idname = "antemplates.submit_template"
     bl_label = "Submit Template"
     bl_options = {'REGISTER', 'INTERNAL'}
