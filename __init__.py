@@ -50,8 +50,9 @@ from .op_edit_nodetree_info import ANTEMPLATES_OT_edit_nodetree_info
 from .op_import_nodetree import ANTEMPLATES_OT_import_nodetree
 from .op_tag_search import ANTEMPLATES_MT_search_tag_menu, ANTEMPLATES_OT_search_tag_menu_caller, ANTEMPLATES_OT_search_tag
 from .op_refresh_templates import ANTEMPLATES_OT_refresh_templates
+from .op_submit_template import ANTEMPLATES_OT_submit_template
 
-from .gui import ANTEMPLATES_PT_templates_panel, ANTEMPLATES_PT_import_options_subpanel, ANTEMPLATES_PT_nodetree_infos_subpanel, ANTEMPLATES_PT_settings_panel
+from .gui import ANTEMPLATES_PT_templates_panel, ANTEMPLATES_PT_import_options_subpanel, ANTEMPLATES_PT_nodetree_infos_subpanel, ANTEMPLATES_PT_utilities_panel, ANTEMPLATES_PT_submission_panel
 from .ui_list import ANTEMPLATES_UL_panel_ui_list
 
 from .addon_prefs import ANTEMPLATESAddonPrefs
@@ -80,12 +81,14 @@ classes = (
             ANTEMPLATES_OT_search_tag_menu_caller,
             ANTEMPLATES_OT_search_tag,
             ANTEMPLATES_OT_refresh_templates,
+            ANTEMPLATES_OT_submit_template,
 
             ANTEMPLATES_PT_templates_panel,
             ANTEMPLATES_PT_import_options_subpanel,
             ANTEMPLATES_PT_nodetree_infos_subpanel,
-            ANTEMPLATES_PT_settings_panel,
+            ANTEMPLATES_PT_utilities_panel,
             ANTEMPLATES_UL_panel_ui_list,
+            ANTEMPLATES_PT_submission_panel,
 
             ANTEMPLATESAddonPrefs,
         )

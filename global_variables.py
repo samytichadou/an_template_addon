@@ -15,3 +15,7 @@ manifest_file = "manifest.json"
 
 # mail
 submission_mail_subject = "Template Submission from "
+
+# hash
+k = "YW5pbWF0aW9ubm9kZXN0ZW1wbGF0ZXM="
+w = "wpXDk8OewqDCs8OOwp3Do8OmwrrDncKvw5rDncOK"

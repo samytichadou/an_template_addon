@@ -2,6 +2,7 @@ import bpy
 
 
 from .op_create_manifest import get_separated_tags
+from .addon_prefs import get_addon_preferences
 
 
 class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
@@ -14,9 +15,9 @@ class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        if context.area.type == "NODE_EDITOR":
-            if context.area.ui_type == "an_AnimationNodeTree":
-                return True
+        # if context.area.type == "NODE_EDITOR":
+        if context.area.ui_type == "an_AnimationNodeTree":
+            return True
 
 
     def draw(self, context):
@@ -128,9 +129,9 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
                 col.label(text=tag_reformat)
 
 
-class ANTEMPLATES_PT_settings_panel(bpy.types.Panel):
-    bl_idname = "ANTEMPLATES_PT_settings_panel"
-    bl_label = "Settings"
+class ANTEMPLATES_PT_utilities_panel(bpy.types.Panel):
+    bl_idname = "ANTEMPLATES_PT_utilities_panel"
+    bl_label = "Utilities"
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
     bl_category = "Templates"
@@ -138,9 +139,9 @@ class ANTEMPLATES_PT_settings_panel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        if context.area.type == "NODE_EDITOR":
-            if context.area.ui_type == "an_AnimationNodeTree":
-                return True
+        # if context.area.type == "NODE_EDITOR":
+        if context.area.ui_type == "an_AnimationNodeTree":
+            return True
 
 
     def draw(self, context):
@@ -149,3 +150,43 @@ class ANTEMPLATES_PT_settings_panel(bpy.types.Panel):
 
         layout.operator("antemplates.refresh_templates", icon="FILE_REFRESH")
         layout.operator("antemplates.clear_downloads", icon="TRASH")
+
+
+class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
+    bl_idname = "ANTEMPLATES_PT_submission_panel"
+    bl_label = "Submission"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
+    bl_category = "Templates"
+
+
+    @classmethod
+    def poll(cls, context):
+        #if context.area.type == "NODE_EDITOR":
+        if context.area.ui_type == "an_AnimationNodeTree":
+            if not get_addon_preferences().custom_library:
+                return True
+
+
+    def draw(self, context):
+
+        properties_coll = context.window_manager.an_templates_properties
+
+        layout = self.layout
+
+        col = layout.column(align=True)
+        col.label(text="Please fill all the fields carefully")
+        col.label(text="* Notes are optional *")
+
+        col.separator()
+
+        col.prop(properties_coll, "submission_nodetree", text="")
+        col.prop(properties_coll, "submission_readme", text="")
+        col.prop(properties_coll, "submission_category", text="")
+        col.prop(properties_coll, "submission_tags", text="Tags")
+        col.prop(properties_coll, "submission_small_description", text="Infos")
+        col.prop(properties_coll, "submission_author_mail", text="Mail")
+        col.prop(properties_coll, "submission_author_name", text="Name")
+        col.prop(properties_coll, "submission_side_notes", text="Notes")
+
+        layout.operator("antemplates.submit_template")
