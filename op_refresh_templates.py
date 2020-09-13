@@ -8,7 +8,7 @@ from .file_functions import create_directory
 from .internet_functions import is_connected, download_file, read_manifest
 from .json_functions import set_nodetrees_from_json, set_properties_from_json, read_json
 from .print_functions import print_and_report
-from .op_create_manifest import get_k_v
+from .op_create_manifest import get_global_k
 
 
 # load manifest function
@@ -61,7 +61,7 @@ def load_manifest(self):
 
 # load global k if needed
 def reload_global_k(manifest_dataset):
-    if manifest_dataset["k_v"] != get_k_v():
+    if manifest_dataset["k_v"] != get_global_k()[2]:
         print_and_report(None, "Reloading Submission System", "INFO") #debug
         download_file(global_k_url, global_k_filepath)
 

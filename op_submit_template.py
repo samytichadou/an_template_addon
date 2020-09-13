@@ -13,10 +13,9 @@ from email import encoders
 from .print_functions import print_and_report
 from .json_functions import create_json_file
 from .global_variables import submission_mail_subject
-from .global_k import k, w
 from .addon_prefs import get_addon_preferences
 from .internet_functions import is_connected
-from .op_create_manifest import generate_hash, get_separated_tags
+from .op_create_manifest import generate_hash, get_separated_tags, get_global_k
 from .lib_enc1 import dec_k
 from .lib_enc2 import dec
 
@@ -172,7 +171,8 @@ def send_email_submission(self, body, subject, filepath_list, author_mail):
     # start TLS for security 
     s.starttls()
     
-    # Authentication 
+    # Authentication
+    k, w, v = get_global_k()
     s.login(fromaddr, dec_k(dec(k), w))
 
     # Converts the Multipart msg into a string 

@@ -52,9 +52,9 @@ def generate_hash(length):
 
 
 # get k_time
-def get_k_v():
-    from .global_k import v
-    return v
+def get_global_k():
+    datas = read_json(global_k_filepath)
+    return datas["k"], datas["w"], datas["v"]
 
 
 # initialize json manifest datas
@@ -68,7 +68,7 @@ def initialize_json_manifest_datas() :
     datas["categories"] = []
     datas["tags"] = []
     datas["manifest_hash"] = generate_hash(10)
-    datas["k_v"] = get_k_v()
+    datas["k_v"] = get_global_k()[2]
 
     return datas
 
