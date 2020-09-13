@@ -44,7 +44,7 @@ class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
 
         row.label(text="", icon="URL")
 
-        row.operator('antemplates.open_url_image', text="", icon='IMAGE')
+        row.operator('antemplates.open_url_image', text="", icon='FILE_IMAGE')
         row.operator('antemplates.open_url_video', text="", icon='FILE_MOVIE')
         row.operator('antemplates.open_url_readme', text="", icon='HELP')
 
@@ -182,7 +182,7 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
 
         col.prop(properties_coll, "submission_nodetree", text="", icon="NODETREE")
         col.prop(properties_coll, "submission_readme", text="")
-        col.prop(properties_coll, "submission_category", text="")
+        col.prop(properties_coll, "submission_category", text="", icon="FILE_FOLDER")
         col.prop(properties_coll, "submission_tags", text="Tags")
         col.prop(properties_coll, "submission_small_description", text="Infos")
         col.prop(properties_coll, "submission_author_mail", text="Mail")
