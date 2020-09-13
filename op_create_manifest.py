@@ -51,14 +51,10 @@ def generate_hash(length):
     return rd_string
 
 
-# get file modification date
-def get_file_modification_date(filepath):
-    return str(os.path.getmtime(filepath))
-
-
 # get k_time
-def get_k_time():
-    return get_file_modification_date(global_k_filepath)
+def get_k_v():
+    from .global_k import v
+    return v
 
 
 # initialize json manifest datas
@@ -72,7 +68,7 @@ def initialize_json_manifest_datas() :
     datas["categories"] = []
     datas["tags"] = []
     datas["manifest_hash"] = generate_hash(10)
-    datas["k_time"] = get_k_time()
+    datas["k_v"] = get_k_v()
 
     return datas
 

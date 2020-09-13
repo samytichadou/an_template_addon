@@ -104,4 +104,4 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     submission_author_name : bpy.props.StringProperty(name="Your Name")
     submission_side_notes : bpy.props.StringProperty(name="Side Notes")
 
-    k_time : bpy.props.StringProperty()
+    k_v : bpy.props.StringProperty()

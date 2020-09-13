@@ -3,11 +3,12 @@ import os
 
 
 from .addon_prefs import get_addon_preferences
-from .global_variables import manifest_file, manifest_url
+from .global_variables import manifest_file, manifest_url, global_k_url, global_k_filepath
 from .file_functions import create_directory
 from .internet_functions import is_connected, download_file, read_manifest
 from .json_functions import set_nodetrees_from_json, set_properties_from_json, read_json
 from .print_functions import print_and_report
+from .op_create_manifest import get_k_v
 
 
 # load manifest function
@@ -52,9 +53,17 @@ def load_manifest(self):
     set_nodetrees_from_json(manifest_dataset)
     set_properties_from_json(manifest_dataset)
 
-    print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
+    # reload k_time
+    reload_global_k(manifest_dataset)
 
     return True
+
+
+# load global k if needed
+def reload_global_k(manifest_dataset):
+    if manifest_dataset["k_v"] != get_k_v():
+        print_and_report(None, "Reloading Submission System", "INFO") #debug
+        download_file(global_k_url, global_k_filepath)
 
 
 class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
@@ -80,11 +89,15 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
 
         if not os.path.isfile(os.path.join(prefs.download_folder, manifest_file)):
             load_manifest(self)
+            print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
 
         elif manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
+            # reload global_k
+            reload_global_k(manifest_dataset)
             print_and_report(self, "Manifest Up to Date, Aborting", "INFO") #debug
 
         else:
             load_manifest(self)
+            print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
 
         return {'FINISHED'}
