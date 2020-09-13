@@ -180,7 +180,7 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
 
         col.separator()
 
-        col.prop(properties_coll, "submission_nodetree", text="")
+        col.prop(properties_coll, "submission_nodetree", text="", icon="NODETREE")
         col.prop(properties_coll, "submission_readme", text="")
         col.prop(properties_coll, "submission_category", text="")
         col.prop(properties_coll, "submission_tags", text="Tags")

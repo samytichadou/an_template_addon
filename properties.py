@@ -53,6 +53,19 @@ def get_categories_only_callback(scene, context):
     return items
 
 
+def get_an_nodetree_callback(scene, context):
+
+    items = []
+
+    items.append(("CHOOSE_NODETREE", "Choose NodeTree", ""))
+
+    for n in bpy.data.node_groups:
+        if n.bl_idname == "an_AnimationNodeTree":
+            items.append((n.name, n.name, ""))
+
+    return items
+
+
 class ANTemplatesProperties(bpy.types.PropertyGroup) :
     '''name : StringProperty() '''
     blender_versions : bpy.props.CollectionProperty(type = ANTemplatesBlenderVersions, name="Blender Versions")
@@ -82,7 +95,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     nodetree_search : bpy.props.StringProperty(name = "Search", description = "Search for Nodetree and Tags if activated, use a + between Tags", options={'TEXTEDIT_UPDATE','SKIP_SAVE'})
     nodetree_tag_search : bpy.props.BoolProperty(name = "Tag Search Toggle", default = True)
 
-    submission_nodetree : bpy.props.PointerProperty(name="Nodetree", type=bpy.types.NodeTree)
+    submission_nodetree : bpy.props.EnumProperty(name="Nodetree", items = get_an_nodetree_callback)
     submission_readme : bpy.props.PointerProperty(name="Readme", type=bpy.types.Text)
     submission_tags : bpy.props.StringProperty(name="Tags, Comma Separated")
     submission_category : bpy.props.EnumProperty(name="Category", items = get_categories_only_callback)

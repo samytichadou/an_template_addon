@@ -48,7 +48,7 @@ def format_message_submission(self, context):
     properties_coll = context.window_manager.an_templates_properties
 
     body = ""
-    body += "Nodetree Name :\n%s\n\n" % properties_coll.submission_nodetree.name
+    body += "Nodetree Name :\n%s\n\n" % properties_coll.submission_nodetree
     body += "Nodetree Tags :\n%s\n\n" % properties_coll.submission_tags
     body += "Nodetree Category :\n%s\n\n" % properties_coll.submission_category
     body += "Nodetree Small Description :\n%s\n\n" % properties_coll.submission_small_description
@@ -81,7 +81,7 @@ def get_screenshot(self, context):
 
     properties_coll = context.window_manager.an_templates_properties
 
-    screenshot_filepath = os.path.join(get_addon_preferences().download_folder, properties_coll.submission_nodetree.name + "_preview.png")
+    screenshot_filepath = os.path.join(get_addon_preferences().download_folder, properties_coll.submission_nodetree + "_preview.png")
 
     bpy.ops.screen.screenshot(filepath=screenshot_filepath, hide_props_region=True, check_existing=False, full=True)
 
@@ -93,12 +93,12 @@ def create_submission_json(self, context):
 
     properties_coll = context.window_manager.an_templates_properties
 
-    json_filepath = os.path.join(get_addon_preferences().download_folder, properties_coll.submission_nodetree.name + "_infos.json")
+    json_filepath = os.path.join(get_addon_preferences().download_folder, properties_coll.submission_nodetree + "_infos.json")
 
     # create dataset
     datas = {}
 
-    datas["name"] =                 properties_coll.submission_nodetree.name
+    datas["name"] =                 properties_coll.submission_nodetree
     datas["description"] =          properties_coll.submission_small_description
     datas["blender_version"] =      bpy.app.version_string
     datas["an_version"] =           get_an_version()
@@ -201,15 +201,14 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
         if bpy.data.is_saved:
             if not get_addon_preferences().custom_library:
                 properties_coll = context.window_manager.an_templates_properties
-                if properties_coll.submission_nodetree:
-                    if properties_coll.submission_nodetree.bl_idname == "an_AnimationNodeTree":
-                        if properties_coll.submission_readme:
-                            if properties_coll.submission_tags:
-                                if properties_coll.submission_category:
-                                    if properties_coll.submission_small_description:
-                                        if properties_coll.submission_author_mail:
-                                            if properties_coll.submission_author_name:
-                                                return True
+                if properties_coll.submission_nodetree != "CHOOSE_NODETREE":
+                    if properties_coll.submission_readme:
+                        if properties_coll.submission_tags:
+                            if properties_coll.submission_category:
+                                if properties_coll.submission_small_description:
+                                    if properties_coll.submission_author_mail:
+                                        if properties_coll.submission_author_name:
+                                            return True
 
 
     def invoke(self, context, event):
@@ -225,7 +224,7 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
         col.label(text="This blend file will be saved.")
         col.label(text="A screenshot of blender will be taken for preview.")
         col.label(text="A copy of the submission will be sent to you by mail.")
-        layout.label(text="Please check all needed informations are complete.")
+        col.label(text="Please check all needed informations are complete.")
         layout.label(text="Continue ?")
 
 
