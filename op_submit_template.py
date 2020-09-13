@@ -233,13 +233,18 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
 
         # check internet connection
         if not is_connected:
+            print_and_report(self, "No Internet Connection", "WARNING") #debug
             return {"FINISHED"}
 
         # save
+        print_and_report(None, "Saving Blend File", "INFO") #debug
         bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
 
         # format body and get subject
+        print_and_report(None, "Formatting Submission Text", "INFO") #debug
         body, subject = format_message_submission(self, context)
+
+        print_and_report(None, "Creating Additional Submission Files", "INFO") #debug
 
         # screenshot
         screenshot_filepath = get_screenshot(self, context)
@@ -248,10 +253,14 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
         json_filepath = create_submission_json(self, context)
 
         # send email
+        print_and_report(None, "Sending Submission - Please Wait", "INFO") #debug
         send_email_submission(self, body, subject, [bpy.data.filepath, screenshot_filepath, json_filepath], context.window_manager.an_templates_properties.submission_author_mail)
 
         # remove temporary files
+        print_and_report(None, "Removing Additional Submission Files", "INFO") #debug
         os.remove(screenshot_filepath)
         os.remove(json_filepath)
+
+        print_and_report(self, "Submission Successfully Sent", "INFO") #debug
 
         return {'FINISHED'}
