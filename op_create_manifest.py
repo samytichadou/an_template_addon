@@ -5,7 +5,7 @@ import random
 
 
 from .json_functions import read_json, create_json_file
-from .global_variables import nodetree_infos
+from .global_variables import nodetree_infos, global_k_filepath
 from .addon_prefs import get_addon_preferences
 from .print_functions import print_and_report
 
@@ -51,6 +51,16 @@ def generate_hash(length):
     return rd_string
 
 
+# get file modification date
+def get_file_modification_date(filepath):
+    return str(os.path.getmtime(filepath))
+
+
+# get k_time
+def get_k_time():
+    return get_file_modification_date(global_k_filepath)
+
+
 # initialize json manifest datas
 def initialize_json_manifest_datas() :
 
@@ -62,6 +72,7 @@ def initialize_json_manifest_datas() :
     datas["categories"] = []
     datas["tags"] = []
     datas["manifest_hash"] = generate_hash(10)
+    datas["k_time"] = get_k_time()
 
     return datas
 
