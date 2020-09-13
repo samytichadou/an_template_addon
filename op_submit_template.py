@@ -12,7 +12,8 @@ from email import encoders
 
 from .print_functions import print_and_report
 from .json_functions import create_json_file
-from .global_variables import submission_mail_subject, k, w
+from .global_variables import submission_mail_subject
+from .global_k import k, w
 from .addon_prefs import get_addon_preferences
 from .internet_functions import is_connected
 from .op_create_manifest import generate_hash
