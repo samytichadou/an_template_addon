@@ -13,6 +13,7 @@ class ANTemplatesNodetrees(bpy.types.PropertyGroup) :
     video_preview_url : bpy.props.StringProperty(name="Video Preview")
     file_url : bpy.props.StringProperty(name="File URL")
     readme_url : bpy.props.StringProperty(name="Readme URL")
+    downloaded : bpy.props.BoolProperty(name="Available Offline")
 
 
 class ANTemplatesBlenderVersions(bpy.types.PropertyGroup) :
@@ -100,6 +101,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     submission_tags : bpy.props.StringProperty(name="Tags, Comma Separated")
     submission_category : bpy.props.EnumProperty(name="Category", items = get_categories_only_callback)
     submission_small_description : bpy.props.StringProperty(name="Small Description")
+    submission_video_preview_url : bpy.props.StringProperty(name="Video Preview URL")
     submission_author_mail : bpy.props.StringProperty(name="Your Mail")
     submission_author_name : bpy.props.StringProperty(name="Your Name")
     submission_side_notes : bpy.props.StringProperty(name="Side Notes")

@@ -52,6 +52,10 @@ def format_message_submission(context):
     body += "Nodetree Tags :\n%s\n\n" % properties_coll.submission_tags
     body += "Nodetree Category :\n%s\n\n" % properties_coll.submission_category
     body += "Nodetree Small Description :\n%s\n\n" % properties_coll.submission_small_description
+
+    if properties_coll.submission_video_preview_url:
+        body += "Nodetree Video URL :\n%s\n\n" % properties_coll.submission_video_preview_url
+
     body += "Author Name :\n%s\n\n" % properties_coll.submission_author_name
     body += "Author Mail :\n%s\n\n" % properties_coll.submission_author_mail
     body += "Blender Version:\n%s\n\n" % bpy.app.version_string
@@ -104,7 +108,11 @@ def create_submission_json(context):
     datas["an_version"] =           get_an_version()
     datas["tags"] =                 properties_coll.submission_tags
     datas["image_preview_url"] =    ""
-    datas["video_preview_url"] =    ""
+    if properties_coll.submission_video_preview_url:
+        video = properties_coll.submission_video_preview_url
+    else:
+        video = ""
+    datas["video_preview_url"] =    video
     datas["file_url"] =             ""
     datas["readme_url"] =           ""
     datas["hash"] =                 generate_hash(10)

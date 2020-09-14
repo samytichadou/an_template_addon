@@ -176,8 +176,8 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
 
         col = layout.column(align=True)
         col.label(text="Please fill all the fields carefully")
-        col.label(text="* Try to use existing tags *")
-        col.label(text="* Notes are optional *")
+        col.label(text="Try to use existing tags")
+        col.label(text="* are optional")
 
         col.separator()
 
@@ -190,8 +190,11 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         row.operator("antemplates.add_tag_menu_caller", text="", icon="PLUS")
 
         col.prop(properties_coll, "submission_small_description", text="Infos")
+        col.prop(properties_coll, "submission_video_preview_url", text="* Video")
+        
         col.prop(properties_coll, "submission_author_mail", text="Mail")
         col.prop(properties_coll, "submission_author_name", text="Name")
-        col.prop(properties_coll, "submission_side_notes", text="Notes")
+        
+        col.prop(properties_coll, "submission_side_notes", text="* Notes")
 
         layout.operator("antemplates.submit_template")

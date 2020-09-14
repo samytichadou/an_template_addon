@@ -11,6 +11,22 @@ from .print_functions import print_and_report
 from .op_create_manifest import get_global_k
 
 
+# check offline available nodetrees
+def check_downloaded_nodetrees():
+
+    winman = bpy.data.window_managers[0]
+    nodetrees_coll = winman.an_templates_nodetrees
+
+    download_folder = get_addon_preferences().download_folder
+    
+    for item in os.listdir(download_folder):
+        if item != manifest_file:
+            for nt in nodetrees_coll:
+                if nt.hash == item:
+                    nt.downloaded = True
+                    break
+
+
 # load manifest function
 def load_manifest(self):
     
@@ -53,7 +69,11 @@ def load_manifest(self):
     set_nodetrees_from_json(manifest_dataset)
     set_properties_from_json(manifest_dataset)
 
-    # reload k_time
+    # check available downloaded nodetrees
+    print_and_report(None, "Checking Downloaded Nodetrees", "INFO") #debug
+    check_downloaded_nodetrees()
+
+    # reload k
     reload_global_k(manifest_dataset)
 
     return True

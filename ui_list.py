@@ -42,16 +42,23 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
 
     nodetree_blender_versions_enum : bpy.props.EnumProperty(name="Blender Versions", items = get_blender_versions_callback)
     nodetree_an_versions_enum : bpy.props.EnumProperty(name="Animation Nodes Versions", items = get_an_versions_callback)
+    display_downloaded : bpy.props.BoolProperty(name="Downloaded", description="Display an icon to know if a NodeTree is available offline")
 
 
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 
+        icon="FILE"
+
         if self.layout_type in {'DEFAULT', 'COMPACT'}: 
             layout.label(text = item.name)
+            if self.display_downloaded and item.downloaded:
+                layout.label(text="", icon=icon)
             
         elif self.layout_type in {'GRID'}: 
             layout.alignment = 'CENTER' 
             layout.label(text = item.name)
+            if self.display_downloaded and item.downloaded:
+                layout.label(text="", icon=icon)
 
 
     def draw_filter(self, context, layout):
@@ -74,6 +81,9 @@ class ANTEMPLATES_UL_panel_ui_list(bpy.types.UIList):
         else:
             icon="SORT_ASC"
         row.prop(self, "use_filter_sort_reverse", text="", icon=icon)
+
+        row.separator()
+        row.prop(self, "display_downloaded", text="", icon="FILE")
 
         col.prop(self, "nodetree_blender_versions_enum", text="", icon="BLENDER")
         col.prop(self, "nodetree_an_versions_enum", text="", icon="ONIONSKIN_ON")

@@ -254,6 +254,9 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
                 print_and_report(self, "Unable to Download File", "WARNING") #debug
                 return {'FINISHED'}
 
+            else:
+                nodetree.downloaded = True
+
         else:
             print_and_report(None, "Nodetree Already Downloaded", "INFO") #debug
 
