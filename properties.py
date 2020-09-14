@@ -101,6 +101,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     submission_tags : bpy.props.StringProperty(name="Tags, Comma Separated")
     submission_category : bpy.props.EnumProperty(name="Category", items = get_categories_only_callback)
     submission_small_description : bpy.props.StringProperty(name="Small Description")
+    submission_image_preview_url : bpy.props.StringProperty(name="Image Preview URL", description="Add Custom Image Preview, if Empty, a blender screenshot will be used", subtype="FILE_PATH")
     submission_video_preview_url : bpy.props.StringProperty(name="Video Preview URL")
     submission_author_mail : bpy.props.StringProperty(name="Your Mail")
     submission_author_name : bpy.props.StringProperty(name="Your Name")

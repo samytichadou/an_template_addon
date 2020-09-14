@@ -168,7 +168,7 @@ def send_email_submission(self, body, subject, filepath_list, author_mail):
         # encode into base64 
         encoders.encode_base64(p) 
         
-        p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
+        p.add_header('Content-Disposition', "attachment", filename=filename) 
         
         # attach the instance 'p' to instance 'msg' 
         msg.attach(p) 
@@ -242,7 +242,7 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
         layout.label(text="You are about to submit a new template.", icon="QUESTION")
         col = layout.column(align=True)
         col.label(text="This blend file will be saved.")
-        col.label(text="A screenshot of blender will be taken for preview.")
+        col.label(text="A screenshot of blender may be taken for preview.")
         col.label(text="A copy of the submission will be sent to you by mail.")
         col.label(text="Please check all needed informations are complete.")
         layout.label(text="Continue ?")
@@ -269,18 +269,26 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
         print_and_report(None, "Creating Additional Submission Files", "INFO") #debug
 
         # screenshot
-        screenshot_filepath = get_screenshot(context)
+        properties_coll = context.window_manager.an_templates_properties
+        if properties_coll.submission_image_preview_url:
+            screenshot_filepath = bpy.path.abspath(properties_coll.submission_image_preview_url)
+        else:
+            screenshot_filepath = get_screenshot(context)
 
         # json
         json_filepath = create_submission_json(context)
 
+        # check for size
+        files_to_send = [bpy.data.filepath, screenshot_filepath, json_filepath]
+
         # send email
         print_and_report(None, "Sending Submission - Please Wait", "INFO") #debug
-        send_email_submission(self, body, subject, [bpy.data.filepath, screenshot_filepath, json_filepath], context.window_manager.an_templates_properties.submission_author_mail)
+        send_email_submission(self, body, subject, files_to_send, context.window_manager.an_templates_properties.submission_author_mail)
 
         # remove temporary files
         print_and_report(None, "Removing Additional Submission Files", "INFO") #debug
-        os.remove(screenshot_filepath)
+        if not properties_coll.submission_image_preview_url:
+            os.remove(screenshot_filepath)
         os.remove(json_filepath)
 
         print_and_report(self, "Submission Successfully Sent", "INFO") #debug

@@ -182,14 +182,19 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         col.separator()
 
         col.prop(properties_coll, "submission_nodetree", text="", icon="NODETREE")
-        col.prop(properties_coll, "submission_readme", text="")
         col.prop(properties_coll, "submission_category", text="", icon="FILE_FOLDER")
+        col.prop(properties_coll, "submission_readme", text="")
+
+        col.separator()
 
         row = col.row(align=True)
         row.prop(properties_coll, "submission_tags", text="Tags")
         row.operator("antemplates.add_tag_menu_caller", text="", icon="PLUS")
 
+        col.separator()
+
         col.prop(properties_coll, "submission_small_description", text="Infos")
+        col.prop(properties_coll, "submission_image_preview_url", text="* Image")
         col.prop(properties_coll, "submission_video_preview_url", text="* Video")
         
         col.prop(properties_coll, "submission_author_mail", text="Mail")
