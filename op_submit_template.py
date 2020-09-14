@@ -207,6 +207,19 @@ def add_category_to_submission_tags(context):
         properties_coll.submission_tags += properties_coll.submission_category.lower()
 
 
+# check attachments size
+def check_attachment_size(file_list):
+    total_size = 0
+    for f in file_list:
+        total_size += os.path.getsize(f)
+
+    if total_size > 25000000:
+        return True
+
+    else:
+        return False
+
+
 # Submission
 class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
     """Submit Opened Blend File as Template for the Library, File has to be Saved"""
@@ -280,6 +293,15 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
 
         # check for size
         files_to_send = [bpy.data.filepath, screenshot_filepath, json_filepath]
+        if check_attachment_size(files_to_send):
+            # remove temporary files
+            if not properties_coll.submission_image_preview_url:
+                os.remove(screenshot_filepath)
+            os.remove(json_filepath)
+
+            print_and_report(self, "Attachment Files too Large for Submission, Please try to keep it under 25MB", "WARNING") #debug
+
+            return {'FINISHED'}
 
         # send email
         print_and_report(None, "Sending Submission - Please Wait", "INFO") #debug
