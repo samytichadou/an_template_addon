@@ -55,6 +55,6 @@ class ANTEMPLATES_OT_add_tag(bpy.types.Operator):
 
         properties_call.submission_tags += self.tag
 
-        #context.area.tag_redraw()
+        context.area.tag_redraw()
 
         return {'FINISHED'}
