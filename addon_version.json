@@ -1,5 +1,5 @@
 {
-    "version" : "0.1.0",
-    "download_url" : "",
-    "message" : "New version !"
+    "version" : "0.1.1",
+    "download_url" : "https://github.com/samytichadou/an_template_addon/archive/master.zip",
+    "message" : "v0.1.1"
 }
