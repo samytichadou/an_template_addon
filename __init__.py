@@ -23,10 +23,10 @@ bl_info = {
  "author": "Samy Tichadou (tonton)",  
  "version": (0, 1, 0),  
  "blender": (2, 83, 5), 
- "location": "",  
- "description": "",  
- "wiki_url": "",  
- "tracker_url": "",
+ "location": "Animation Nodes Editor > Side Panel",  
+ "description": "Animation Nodes Templates Online Library",  
+ "wiki_url": "https://github.com/samytichadou/an_template_addon/blob/master/README.md",  
+ "tracker_url": "https://github.com/samytichadou/an_template_addon/issues/new",
  "category": "Node",
  "warning": "Beta version, use at your own risks"
  }
