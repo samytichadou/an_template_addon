@@ -1,7 +1,6 @@
 import bpy
 import os
 
-from . import addon_updater_ops
 
 addon_name = os.path.basename(os.path.dirname(__file__))
 
@@ -35,40 +34,6 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         subtype="FILE_PATH"
         )
 
-    # auto-updater
-    auto_check_update : bpy.props.BoolProperty(
-		name="Auto-check for Update",
-		description="If enabled, auto-check for updates using an interval",
-		default=False,
-		)
-    updater_intrval_months : bpy.props.IntProperty(
-		name='Months',
-		description="Number of months between checking for updates",
-		default=0,
-		min=0
-		)
-    updater_intrval_days : bpy.props.IntProperty(
-		name='Days',
-		description="Number of days between checking for updates",
-		default=7,
-		min=0,
-		max=31
-		)
-    updater_intrval_hours : bpy.props.IntProperty(
-		name='Hours',
-		description="Number of hours between checking for updates",
-		default=0,
-		min=0,
-		max=23
-		)
-    updater_intrval_minutes : bpy.props.IntProperty(
-		name='Minutes',
-		description="Number of minutes between checking for updates",
-		default=0,
-		min=0,
-		max=59
-		)
-
 
     def draw(self, context):
         winman = context.window_manager
@@ -100,9 +65,6 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         col.prop(properties_coll, "output_nodetree_info_file", text="")
         col.operator("antemplates.create_nodetree_info")
         col.operator("antemplates.edit_nodetree_info")
-
-        # auto-updater
-        addon_updater_ops.update_settings_ui(self,context)
 
 
 # get addon preferences

@@ -34,9 +34,6 @@ bl_info = {
 
 import bpy
 
-# auto-updater
-from . import addon_updater_ops
-
 
 # IMPORT SPECIFICS
 ##################################
@@ -102,9 +99,6 @@ classes = (
 
 def register():
 
-    # auto-updater
-    addon_updater_ops.register(bl_info)
-
     ### OPERATORS ###
     from bpy.utils import register_class
     for cls in classes :
@@ -122,9 +116,6 @@ def register():
 
 
 def unregister():
-
-    # auto updater
-    addon_updater_ops.unregister()
    
     ### OPERATORS ###
     from bpy.utils import unregister_class
