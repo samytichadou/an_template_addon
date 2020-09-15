@@ -174,6 +174,7 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
 
         col = layout.column(align=True)
         col.label(text="Please fill all the fields carefully")
+        col.label(text="Keep submitted file size < 25MB")
         col.label(text="Try to use existing tags")
         col.label(text="* are optional")
 
