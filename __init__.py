@@ -21,14 +21,14 @@ Created by Samy Tichadou (tonton)
 bl_info = {  
  "name": "AN templates",  
  "author": "Samy Tichadou (tonton)",  
- "version": (0, 1),  
- "blender": (2, 90, 0), 
+ "version": (0, 1, 0),  
+ "blender": (2, 83, 5), 
  "location": "",  
  "description": "",  
  "wiki_url": "",  
  "tracker_url": "",
  "category": "Node",
- "warning": "Alpha version, use at your own risks"
+ "warning": "Beta version, use at your own risks"
  }
 
 
