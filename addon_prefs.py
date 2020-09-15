@@ -36,11 +36,12 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
 
 
     def draw(self, context):
-        print(addon_name)
+        
         winman = context.window_manager
         properties_coll = winman.an_templates_properties
 
         layout = self.layout
+
         layout.prop(self, "custom_library")
         row = layout.row()
         if not self.custom_library:
@@ -50,7 +51,7 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
 
         bigbox = layout.box()
 
-        bigbox.label(text="Developpers", icon="SCRIPT")
+        bigbox.label(text="Developpers", icon="FILE_SCRIPT")
 
         box = bigbox.box()
         col = box.column(align=True)

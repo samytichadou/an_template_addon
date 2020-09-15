@@ -5,17 +5,6 @@ from .op_create_manifest import get_separated_tags
 from .addon_prefs import get_addon_preferences
 
 
-# new version warning
-def addon_new_version_warning(container, context):
-    properties_coll = context.window_manager.an_templates_properties
-    if properties_coll.update_needed:
-        box = container.box()
-        box.label(text="New Version of the Addon Available", icon="QUESTION")
-        col = box.column(align=True)
-        col.label(text=properties_coll.update_message)
-        col.operator("antemplates.open_url", text="Download It").url=properties_coll.update_download_url
-
-
 class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
     bl_idname = "ANTEMPLATES_PT_templates_panel"
     bl_label = "Templates"
@@ -26,7 +15,6 @@ class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        # if context.area.type == "NODE_EDITOR":
         if context.area.ui_type == "an_AnimationNodeTree":
             return True
 
@@ -37,9 +25,6 @@ class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
         properties_coll = winman.an_templates_properties
 
         layout = self.layout
-
-        # update warning
-        addon_new_version_warning(layout, context)
 
         col = layout.column(align=True)
 
@@ -153,7 +138,6 @@ class ANTEMPLATES_PT_utilities_panel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        # if context.area.type == "NODE_EDITOR":
         if context.area.ui_type == "an_AnimationNodeTree":
             return True
 
@@ -162,11 +146,9 @@ class ANTEMPLATES_PT_utilities_panel(bpy.types.Panel):
 
         layout = self.layout
 
-        # update warning
-        addon_new_version_warning(layout, context)
-
         layout.operator("antemplates.refresh_templates", icon="FILE_REFRESH")
         layout.operator("antemplates.clear_downloads", icon="TRASH")
+        layout.operator("antemplates.refresh_addon_version", icon="FILE_SCRIPT")
 
 
 class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
@@ -179,7 +161,6 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        #if context.area.type == "NODE_EDITOR":
         if context.area.ui_type == "an_AnimationNodeTree":
             if not get_addon_preferences().custom_library:
                 return True
@@ -190,9 +171,6 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         properties_coll = context.window_manager.an_templates_properties
 
         layout = self.layout
-
-        # update warning
-        addon_new_version_warning(layout, context)
 
         col = layout.column(align=True)
         col.label(text="Please fill all the fields carefully")
@@ -223,3 +201,35 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         col.prop(properties_coll, "submission_side_notes", text="* Notes")
 
         layout.operator("antemplates.submit_template")
+
+
+class ANTEMPLATES_PT_updater_subpanel(bpy.types.Panel):
+    bl_idname = "ANTEMPLATES_PT_updater_subpanel"
+    bl_label = "Addon Update"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
+    bl_parent_id = "ANTEMPLATES_PT_utilities_panel"
+
+
+    @classmethod
+    def poll(cls, context):
+        if context.window_manager.an_templates_properties.update_needed:
+            return True
+
+
+    def draw_header(self, context):
+
+        self.layout.label(text="", icon="INFO")
+
+
+    def draw(self, context):
+
+        properties_coll = context.window_manager.an_templates_properties
+
+        layout = self.layout
+        
+        layout.operator("antemplates.open_url", text="Download", icon="IMPORT").url=properties_coll.update_download_url
+
+        col = layout.column(align=True)
+        col.label(text=properties_coll.update_message)
+        col.label(text="Remove Previous Before Installing", icon="ERROR")

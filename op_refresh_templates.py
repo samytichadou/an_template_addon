@@ -31,7 +31,7 @@ def check_downloaded_nodetrees():
 # load manifest function
 def load_manifest(self):
     
-    print_and_report(None, "Loading", "INFO") #debug
+    print_and_report(None, "Getting Manifest", "INFO") #debug
 
     prefs = get_addon_preferences()
 
@@ -85,30 +85,6 @@ def reload_global_k(manifest_dataset):
     if manifest_dataset["k_v"] != get_global_k()[2]:
         print_and_report(None, "Reloading Submission System", "INFO") #debug
         download_file(global_k_url, global_k_filepath)
-
-
-# check for addon new version
-def check_addon_version(context):
-
-    print_and_report(None, "Checking for Addon New Version", "INFO") #debug
-
-    if context:
-        properties_coll = context.window_manager.an_templates_properties
-    else:
-        properties_coll = bpy.data.window_managers[0].an_templates_properties
-
-    new_addon_infos = read_online_json(addon_version_url)
-
-    if new_addon_infos["version"] != get_addon_version("AN templates"):
-        properties_coll.update_needed = True
-        properties_coll.update_message = new_addon_infos["message"]
-        properties_coll.update_download_url = new_addon_infos["download_url"]
-
-        print_and_report(None, "New Version of the Addon Found", "INFO") #debug
-
-        return True
-
-    return False
 
 
 class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
