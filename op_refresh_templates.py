@@ -3,12 +3,13 @@ import os
 
 
 from .addon_prefs import get_addon_preferences
-from .global_variables import manifest_file, manifest_url, global_k_url, global_k_filepath
+from .global_variables import manifest_file, manifest_url, global_k_url, global_k_filepath, addon_version_url
 from .file_functions import create_directory
-from .internet_functions import is_connected, download_file, read_manifest
+from .internet_functions import is_connected, download_file, read_online_json
 from .json_functions import set_nodetrees_from_json, set_properties_from_json, read_json
 from .print_functions import print_and_report
 from .op_create_manifest import get_global_k
+from .op_submit_template import get_addon_version
 
 
 # check offline available nodetrees
@@ -86,6 +87,30 @@ def reload_global_k(manifest_dataset):
         download_file(global_k_url, global_k_filepath)
 
 
+# check for addon new version
+def check_addon_version(context):
+
+    print_and_report(None, "Checking for Addon New Version", "INFO") #debug
+
+    if context:
+        properties_coll = context.window_manager.an_templates_properties
+    else:
+        properties_coll = bpy.data.window_managers[0].an_templates_properties
+
+    new_addon_infos = read_online_json(addon_version_url)
+
+    if new_addon_infos["version"] != get_addon_version("AN templates"):
+        properties_coll.update_needed = True
+        properties_coll.update_message = new_addon_infos["message"]
+        properties_coll.update_download_url = new_addon_infos["download_url"]
+
+        print_and_report(None, "New Version of the Addon Found", "INFO") #debug
+
+        return True
+
+    return False
+
+
 class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
     """Refresh Template List From Internet"""
     bl_idname = "antemplates.refresh_templates"
@@ -105,7 +130,7 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
         else:
             specific_manifest_url = manifest_url
 
-        manifest_dataset = read_manifest(specific_manifest_url)
+        manifest_dataset = read_online_json(specific_manifest_url)
 
         if not os.path.isfile(os.path.join(prefs.download_folder, manifest_file)):
             load_manifest(self)

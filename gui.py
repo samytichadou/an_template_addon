@@ -5,6 +5,17 @@ from .op_create_manifest import get_separated_tags
 from .addon_prefs import get_addon_preferences
 
 
+# new version warning
+def addon_new_version_warning(container, context):
+    properties_coll = context.window_manager.an_templates_properties
+    if properties_coll.update_needed:
+        box = container.box()
+        box.label(text="New Version of the Addon Available", icon="QUESTION")
+        col = box.column(align=True)
+        col.label(text=properties_coll.update_message)
+        col.operator("antemplates.open_url", text="Download It").url=properties_coll.update_download_url
+
+
 class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
     bl_idname = "ANTEMPLATES_PT_templates_panel"
     bl_label = "Templates"
@@ -26,6 +37,9 @@ class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
         properties_coll = winman.an_templates_properties
 
         layout = self.layout
+
+        # update warning
+        addon_new_version_warning(layout, context)
 
         col = layout.column(align=True)
 
@@ -148,6 +162,9 @@ class ANTEMPLATES_PT_utilities_panel(bpy.types.Panel):
 
         layout = self.layout
 
+        # update warning
+        addon_new_version_warning(layout, context)
+
         layout.operator("antemplates.refresh_templates", icon="FILE_REFRESH")
         layout.operator("antemplates.clear_downloads", icon="TRASH")
 
@@ -173,6 +190,9 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         properties_coll = context.window_manager.an_templates_properties
 
         layout = self.layout
+
+        # update warning
+        addon_new_version_warning(layout, context)
 
         col = layout.column(align=True)
         col.label(text="Please fill all the fields carefully")

@@ -10,7 +10,7 @@ def is_connected():
     return False
     
 
-def read_manifest(url):
+def read_online_json(url):
     import requests
     
     file_object = requests.get(url)

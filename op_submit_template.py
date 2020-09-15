@@ -21,11 +21,11 @@ from .lib_enc2 import dec
 
 
 # get AN version
-def get_an_version():
+def get_addon_version(addon_name):
 
     for addon in addon_utils.modules():
 
-        if addon.bl_info['name'] == "Animation Nodes":
+        if addon.bl_info['name'] == addon_name:
             addon_version = ""
 
             for n in addon.bl_info.get('version', (-1,-1,-1)):
@@ -60,7 +60,7 @@ def format_message_submission(context):
     body += "Author Mail :\n%s\n\n" % properties_coll.submission_author_mail
     body += "Blender Version:\n%s\n\n" % bpy.app.version_string
 
-    an_version = get_an_version()
+    an_version = get_addon_version("Animation Nodes")
     if an_version is not None:
         body += "Animation Nodes Version:\n%s\n\n" % an_version
 

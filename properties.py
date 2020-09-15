@@ -108,3 +108,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     submission_side_notes : bpy.props.StringProperty(name="Side Notes")
 
     k_v : bpy.props.StringProperty()
+
+    update_needed : bpy.props.BoolProperty()
+    update_message : bpy.props.StringProperty()
+    update_download_url : bpy.props.StringProperty()

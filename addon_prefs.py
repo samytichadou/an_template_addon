@@ -36,6 +36,7 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
 
 
     def draw(self, context):
+        print(addon_name)
         winman = context.window_manager
         properties_coll = winman.an_templates_properties
 
