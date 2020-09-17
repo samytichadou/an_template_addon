@@ -18,8 +18,8 @@ def check_addon_version(self, context):
     print_and_report(None, "Checking for Addon New Version", "INFO") #debug
 
     if not is_connected():
-            print_and_report(self, "No Internet Connection", "WARNING") #debug
-            return False
+        print_and_report(self, "No Internet Connection, unable to check for new version", "WARNING") #debug
+        return False
 
     if context:
         properties_coll = context.window_manager.an_templates_properties
@@ -39,7 +39,7 @@ def check_addon_version(self, context):
 
     print_and_report(self, "Addon Up to Date", "INFO") #debug
     
-    return False
+    return True
 
 
 class ANTEMPLATES_OT_refresh_addon_version(bpy.types.Operator):

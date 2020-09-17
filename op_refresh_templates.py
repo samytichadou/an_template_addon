@@ -29,9 +29,9 @@ def check_downloaded_nodetrees():
 
 
 # load manifest function
-def load_manifest(self):
+def load_manifest(self, internet_connection):
     
-    print_and_report(None, "Getting Manifest", "INFO") #debug
+    print_and_report(None, "Trying to get Manifest", "INFO") #debug
 
     prefs = get_addon_preferences()
 
@@ -46,7 +46,7 @@ def load_manifest(self):
         print_and_report(None, "Creating Download Folder", "INFO") #debug
         create_directory(prefs.download_folder)
 
-    if not is_connected():
+    if not internet_connection:
 
         print_and_report(None, "No Internet Connection, Trying to Load Old Manifest", "INFO") #debug
 
@@ -109,7 +109,7 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
         manifest_dataset = read_online_json(specific_manifest_url)
 
         if not os.path.isfile(os.path.join(prefs.download_folder, manifest_file)):
-            load_manifest(self)
+            load_manifest(self, is_connected())
             print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
 
         elif manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
@@ -118,7 +118,7 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
             print_and_report(self, "Manifest Up to Date, Aborting", "INFO") #debug
 
         else:
-            load_manifest(self)
+            load_manifest(self, is_connected())
             print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
 
         return {'FINISHED'}

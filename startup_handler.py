@@ -14,8 +14,8 @@ def ant_startup_handler(scene):
 
     print_and_report(None, "Loading", "INFO") #debug
     
-    check_addon_version(None, None)
+    internet_connection = check_addon_version(None, None)
 
-    load_manifest(None)
+    load_manifest(None, internet_connection)
 
     print_and_report(None, "Templates Successfully Loaded", "INFO") #debug
