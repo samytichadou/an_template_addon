@@ -17,5 +17,3 @@ def dec(encoded):
     sample_string = sample_string_bytes.decode("ascii")
 
     return sample_string
-
-print(enc("animationnodestemplates"))
