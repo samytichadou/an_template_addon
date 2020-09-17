@@ -75,7 +75,7 @@ def format_message_submission(context):
     for l in properties_coll.submission_readme.lines:
         body += "%s\n" % l.body
 
-    subject = submission_mail_subject + properties_coll.submission_author_name
+    subject = submission_mail_subject + properties_coll.submission_nodetree + " - from " + properties_coll.submission_author_name
     
     return body, subject
 
