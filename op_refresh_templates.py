@@ -31,7 +31,7 @@ def check_downloaded_nodetrees():
 # load manifest function
 def load_manifest(self, internet_connection):
     
-    print_and_report(None, "Trying to get Manifest", "INFO") #debug
+    print_and_report(None, "Getting Manifest", "INFO") #debug
 
     prefs = get_addon_preferences()
 
