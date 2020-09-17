@@ -105,7 +105,7 @@ def create_submission_json(context):
     datas["name"] =                 properties_coll.submission_nodetree
     datas["description"] =          properties_coll.submission_small_description
     datas["blender_version"] =      bpy.app.version_string
-    datas["an_version"] =           get_an_version()
+    datas["an_version"] =           get_addon_version("Animation Nodes")
     datas["tags"] =                 properties_coll.submission_tags
     datas["image_preview_url"] =    ""
     if properties_coll.submission_video_preview_url:
