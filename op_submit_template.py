@@ -39,7 +39,11 @@ def get_addon_version(addon_name):
 
 # get os
 def get_os():
-    return platform.system() + " " + platform.release()
+    if platform.system() == "Darwin":
+        platform_name = "Mac"
+    else:
+        platform_name = platform.system()
+    return platform_name + " " + platform.release()
    
 
 # format message
