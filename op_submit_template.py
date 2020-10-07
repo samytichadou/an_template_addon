@@ -40,7 +40,7 @@ def get_addon_version(addon_name):
 # get os
 def get_os():
     if platform.system() == "Darwin":
-        platform_name = "Mac"
+        platform_name = "Mac OS"
     else:
         platform_name = platform.system()
     return platform_name + " " + platform.release()
