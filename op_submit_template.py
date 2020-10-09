@@ -205,10 +205,12 @@ def add_category_to_submission_tags(context):
 
     properties_coll = context.window_manager.an_templates_properties
 
-    if properties_coll.submission_category.lower() not in get_separated_tags(properties_coll.submission_tags):
-        if not properties_coll.submission_tags.strip().endswith(","):
-            properties_coll.submission_tags += ","
-        properties_coll.submission_tags += properties_coll.submission_category.lower()
+    if properties_coll.submission_category != "NEW_CATEGORY":
+
+        if properties_coll.submission_category.lower() not in get_separated_tags(properties_coll.submission_tags):
+            if not properties_coll.submission_tags.strip().endswith(","):
+                properties_coll.submission_tags += ","
+            properties_coll.submission_tags += properties_coll.submission_category.lower()
 
 
 # check attachments size
