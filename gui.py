@@ -26,6 +26,11 @@ class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
 
         layout = self.layout
 
+        # check if nodetree available
+        if not winman.an_templates_nodetrees:
+            layout.label(text="No Available Templates", icon="ERROR")
+            return
+
         col = layout.column(align=True)
 
         row = col.row(align=True)
@@ -55,6 +60,12 @@ class ANTEMPLATES_PT_import_options_subpanel(bpy.types.Panel):
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
     bl_options = {'DEFAULT_CLOSED'}
+
+
+    @classmethod
+    def poll(cls, context):
+        if context.window_manager.an_templates_nodetrees:
+            return True
 
 
     def draw(self, context):
@@ -88,6 +99,12 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
     bl_options = {'DEFAULT_CLOSED'}
+
+
+    @classmethod
+    def poll(cls, context):
+        if context.window_manager.an_templates_nodetrees:
+            return True
 
 
     def draw(self, context):
@@ -162,8 +179,7 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
     @classmethod
     def poll(cls, context):
         if context.area.ui_type == "an_AnimationNodeTree":
-            if not get_addon_preferences().custom_library:
-                return True
+            return True
 
 
     def draw(self, context):
