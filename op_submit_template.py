@@ -241,7 +241,7 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
                 if properties_coll.submission_nodetree != "CHOOSE_NODETREE":
                     if properties_coll.submission_readme:
                         if properties_coll.submission_tags:
-                            if properties_coll.submission_category:
+                            if properties_coll.submission_category != "CHOOSE_CATEGORY":
                                 if properties_coll.submission_small_description:
                                     if properties_coll.submission_author_mail:
                                         if properties_coll.submission_author_name:

@@ -44,9 +44,12 @@ def get_categories_callback(scene, context):
     return items
 
 
-def get_categories_only_callback(scene, context):
+def get_categories_submission_callback(scene, context):
 
     items = []
+
+    items.append(("CHOOSE_CATEGORY", "Choose Category", ""))
+    items.append(("NEW_CATEGORY", "New Category", ""))
 
     for i in context.window_manager.an_templates_properties.categories:
         items.append((i.name, i.name, ""))
@@ -99,7 +102,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     submission_nodetree : bpy.props.EnumProperty(name="Nodetree", description="Submitted NodeTree", items = get_an_nodetree_callback)
     submission_readme : bpy.props.PointerProperty(name="Readme", description="Extensive Description of the Nodetree and How to use it in a Text Block", type=bpy.types.Text)
     submission_tags : bpy.props.StringProperty(name="Tags, Comma Separated")
-    submission_category : bpy.props.EnumProperty(name="Category", items = get_categories_only_callback)
+    submission_category : bpy.props.EnumProperty(name="Category", items = get_categories_submission_callback)
     submission_small_description : bpy.props.StringProperty(name="Small Description")
     submission_image_preview_url : bpy.props.StringProperty(name="Image Preview URL", description="Add Custom Image Preview, if Empty, a blender screenshot will be used", subtype="FILE_PATH")
     submission_video_preview_url : bpy.props.StringProperty(name="Video Preview URL")
