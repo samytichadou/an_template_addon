@@ -24,7 +24,8 @@ class ANTEMPLATES_OT_add_tag_menu_caller(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return True
+        if context.window_manager.an_templates_properties.tags:
+            return True
 
     def execute(self, context):
         bpy.ops.wm.call_menu(name="ANTEMPLATES_MT_add_tag_menu")
