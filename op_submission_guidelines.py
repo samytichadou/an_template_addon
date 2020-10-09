@@ -15,6 +15,9 @@ guidelines = [
     "",
     "Try to use existing tags",
     "",
+    "Use exising category if possible",
+    "If not, precise the new category in Side Notes"
+    "",
     "If you don't select an image,",
     "a screenshot of the opened blend will be taken",
     "",
