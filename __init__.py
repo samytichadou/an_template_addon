@@ -53,6 +53,7 @@ from .op_tag_add import ANTEMPLATES_MT_add_tag_menu, ANTEMPLATES_OT_add_tag_menu
 from .op_refresh_templates import ANTEMPLATES_OT_refresh_templates
 from .op_submit_template import ANTEMPLATES_OT_submit_template
 from .op_refresh_addon_version import ANTEMPLATES_OT_refresh_addon_version
+from .op_submission_guidelines import ANTEMPLATES_OT_submission_guidelines
 
 from .gui import (
                     ANTEMPLATES_PT_templates_panel,
@@ -95,6 +96,7 @@ classes = (
             ANTEMPLATES_OT_refresh_templates,
             ANTEMPLATES_OT_submit_template,
             ANTEMPLATES_OT_refresh_addon_version,
+            ANTEMPLATES_OT_submission_guidelines,
 
             ANTEMPLATES_PT_templates_panel,
             ANTEMPLATES_PT_import_options_subpanel,

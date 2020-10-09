@@ -173,10 +173,8 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         layout = self.layout
 
         col = layout.column(align=True)
-        col.label(text="Please fill all the fields carefully")
-        col.label(text="Keep submitted file size < 25MB")
-        col.label(text="Try to use existing tags")
-        col.label(text="* are optional")
+        col.label(text="Please Read the Guidelines")
+        col.operator("antemplates.submission_guidelines", text="Guidelines", icon="INFO")
 
         col.separator()
 
@@ -193,13 +191,17 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         col.separator()
 
         col.prop(properties_coll, "submission_small_description", text="Infos")
-        col.prop(properties_coll, "submission_image_preview_url", text="* Image")
-        col.prop(properties_coll, "submission_video_preview_url", text="* Video")
         
         col.prop(properties_coll, "submission_author_mail", text="Mail")
         col.prop(properties_coll, "submission_author_name", text="Name")
         
-        col.prop(properties_coll, "submission_side_notes", text="* Notes")
+        col.separator()
+
+        col.label(text="Optional")
+
+        col.prop(properties_coll, "submission_image_preview_url", text="Image")
+        col.prop(properties_coll, "submission_video_preview_url", text="Video")
+        col.prop(properties_coll, "submission_side_notes", text="Notes")
 
         layout.operator("antemplates.submit_template")
 
