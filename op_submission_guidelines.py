@@ -4,6 +4,8 @@ import bpy
 guidelines = [
     "Please fill all the fields carefully",
     "",
+    "The blend file has to be saved to submit",
+    "",
     "Keep the blend file as lighter as possible",
     "by removing all useless datas",
     "The blend file size must be under 25MB",
