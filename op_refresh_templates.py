@@ -115,7 +115,7 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
         elif manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
             # reload global_k
             reload_global_k(manifest_dataset)
-            print_and_report(self, "Manifest Up to Date, Aborting", "INFO") #debug
+            print_and_report(self, "Manifest Up to Date", "INFO") #debug
 
         else:
             load_manifest(self, is_connected())
