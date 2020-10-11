@@ -270,7 +270,7 @@ class ANTEMPLATES_OT_submit_template(bpy.types.Operator):
     def execute(self, context):
 
         # check internet connection
-        if not is_connected:
+        if not is_connected():
             print_and_report(self, "No Internet Connection", "WARNING") #debug
             return {"FINISHED"}
 
