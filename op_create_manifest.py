@@ -92,7 +92,8 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         prefs = get_addon_preferences()
-        return prefs.output_manifest_file != "" and os.path.isdir(prefs.template_folder)
+        if os.path.isdir(bpy.path.abspath(prefs.template_folder)):
+            return prefs.output_manifest_file
 
 
     def execute(self, context):
@@ -101,9 +102,9 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
         
         # check and correct output path
 
-        json_path = prefs.output_manifest_file
+        json_path = bpy.path.abspath(prefs.output_manifest_file)
 
-        template_folder = prefs.template_folder
+        template_folder = bpy.path.abspath(prefs.template_folder)
 
         if not os.path.isdir(os.path.dirname(json_path)):
             print_and_report(self, "Incorrect Output Path", "WARNING") #debug
