@@ -158,7 +158,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
 
         print_and_report(None, "Creating Manifest : %s" % json_path, "INFO") #debug
 
-        print(manifest_datas) #debug
+        #print(manifest_datas) #debug
 
         create_json_file(manifest_datas, json_path)
 

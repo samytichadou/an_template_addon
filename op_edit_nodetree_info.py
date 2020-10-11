@@ -86,7 +86,7 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
 
         print_and_report(None, "Creating Nodetree Info File : " + json_path, "INFO") #debug
 
-        print(datas) #debug
+        #print(datas) #debug
 
         create_json_file(datas, json_path)
 
