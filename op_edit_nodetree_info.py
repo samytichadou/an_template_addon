@@ -31,13 +31,14 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
     def poll(cls, context):
         winman = bpy.data.window_managers[0]
         properties_coll = winman.an_templates_properties
-        return os.path.isfile(properties_coll.output_nodetree_info_file)
+        if os.path.isfile(bpy.path.abspath(properties_coll.output_nodetree_info_file)):
+            return True
 
 
     def invoke(self, context, event):
 
         winman = context.window_manager
-        json_path = winman.an_templates_properties.output_nodetree_info_file
+        json_path = bpy.path.abspath(winman.an_templates_properties.output_nodetree_info_file)
         datas = read_json(json_path)
         
         # fill properties from json
@@ -67,7 +68,7 @@ class ANTEMPLATES_OT_edit_nodetree_info(bpy.types.Operator):
     def execute(self, context):
 
         winman = context.window_manager
-        json_path = winman.an_templates_properties.output_nodetree_info_file
+        json_path = bpy.path.abspath(winman.an_templates_properties.output_nodetree_info_file)
 
         # create dataset
         datas = {}

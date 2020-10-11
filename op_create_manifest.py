@@ -93,7 +93,7 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
     def poll(cls, context):
         prefs = get_addon_preferences()
         if os.path.isdir(bpy.path.abspath(prefs.template_folder)):
-            return prefs.output_manifest_file
+            return prefs.output_manifest_file != ""
 
 
     def execute(self, context):

@@ -60,7 +60,8 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
     def poll(cls, context):
         winman = bpy.data.window_managers[0]
         properties_coll = winman.an_templates_properties
-        return properties_coll.output_nodetree_info_file != ""
+        if properties_coll.output_nodetree_info_file != "":
+            return not os.path.isdir(bpy.path.abspath(properties_coll.output_nodetree_info_file))
 
 
     def invoke(self, context, event):
@@ -78,13 +79,14 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
         
         # check and correct output path
 
-        json_path = properties_coll.output_nodetree_info_file
+        json_path = bpy.path.abspath(properties_coll.output_nodetree_info_file)
 
         if not os.path.isdir(os.path.dirname(json_path)):
             print_and_report(self, "Incorrect Output Path", "WARNING")
             return {'FINISHED'}
 
         if not json_path.endswith(".json"):
+            properties_coll.output_nodetree_info_file += ".json"
             json_path += ".json"
 
         # create dataset
