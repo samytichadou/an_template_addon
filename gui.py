@@ -213,7 +213,7 @@ class ANTEMPLATES_PT_submission_panel(bpy.types.Panel):
         
         col.separator()
 
-        col.label(text="Optional")
+        col.label(text="Optional :")
 
         col.prop(properties_coll, "submission_image_preview_url", text="Image")
         col.prop(properties_coll, "submission_video_preview_url", text="Video")
