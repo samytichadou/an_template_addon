@@ -99,6 +99,11 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
 
     def execute(self, context):
 
+        # check internet connection
+        if not is_connected():
+            print_and_report(self, "No Internet Connection, unable to refresh templates", "WARNING") #debug
+            return {"FINISHED"}
+
         prefs = get_addon_preferences()
 
         if prefs.custom_library:
