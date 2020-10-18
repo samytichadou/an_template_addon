@@ -113,17 +113,15 @@ class ANTEMPLATES_OT_refresh_templates(bpy.types.Operator):
 
         manifest_dataset = read_online_json(specific_manifest_url)
 
-        if not os.path.isfile(os.path.join(prefs.download_folder, manifest_file)):
-            load_manifest(self, is_connected())
-            print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
-
-        elif manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
+        if manifest_dataset["manifest_hash"] == context.window_manager.an_templates_properties.manifest_hash:
             # reload global_k
             reload_global_k(manifest_dataset)
             print_and_report(self, "Manifest Up to Date", "INFO") #debug
 
         else:
-            load_manifest(self, is_connected())
-            print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
+            if load_manifest(self, is_connected()):
+                print_and_report(self, "Templates Successfully Loaded", "INFO") #debug
+            else:
+                print_and_report(self, "Unable to Load Templates", "WARNING") #debug
 
         return {'FINISHED'}
