@@ -20,4 +20,4 @@ def ant_startup_handler(scene):
         print_and_report(None, "Templates Successfully Loaded", "INFO") #debug
 
     else:
-        print_and_report(None, "Unable to Load Templates", "INFO") #debug
+        print_and_report(None, "Unable to Load Templates", "WARNING") #debug
