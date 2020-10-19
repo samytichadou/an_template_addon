@@ -7,6 +7,7 @@ def is_connected():
     #except OSError:
     #    pass
     #return False
+    print("Bypassing Internet Connection Check")
     return True
     
 
