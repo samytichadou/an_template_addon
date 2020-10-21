@@ -1,12 +1,13 @@
-def is_connected():
+def is_connected(host="8.8.8.8", port=53, timeout=3):
     import socket
+
     try:
-        # connect to the host -- tells us if the host is actually reachable
-        socket.create_connection(("1.1.1.1", 53))
+        socket.setdefaulttimeout(timeout)
+        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
         return True
-    except OSError:
-        pass
-    return False
+    except socket.error as ex:
+        print(ex)
+        return False
     
 
 def read_online_json(url):

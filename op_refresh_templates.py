@@ -61,7 +61,6 @@ def load_manifest(self, internet_connection):
         print_and_report(self, "No Existing Manifest File", "WARNING") #debug
         return False
 
-    print_and_report(None, "Trying to Load : " + manifest_path, "INFO") #debug
     manifest_dataset = read_json(manifest_path)
 
     print_and_report(None, "Loading Manifest", "INFO") #debug
