@@ -21,7 +21,7 @@ Created by Samy Tichadou (tonton)
 bl_info = {  
  "name": "AN templates",  
  "author": "Samy Tichadou (tonton)",  
- "version": (0, 2, 0),  
+ "version": (0, 2, 1),  
  "blender": (2, 83, 5), 
  "location": "Animation Nodes Editor > Side Panel",  
  "description": "Animation Nodes Templates Online Library",  
