@@ -1,14 +1,16 @@
+import bpy
 import os
+
+from .addon_prefs import get_addon_preferences
 
 # nodetrees
 image_preview = "image_preview.png"
 readme = "readme.md"
 nodetree_infos = "nodetree_infos.json"
 
-# github
-raw_github_prefix = "https://raw.githubusercontent.com"
+# github libraries
 manifest_url = "https://raw.githubusercontent.com/samytichadou/animation_nodes_examples/master/library/manifest.json"
-global_k_url = "https://raw.githubusercontent.com/samytichadou/an_template_addon/master/global_k.json"
+global_k_url = "https://raw.githubusercontent.com/samytichadou/animation_nodes_examples/master/library/global_k.json"
 addon_version_url = "https://raw.githubusercontent.com/samytichadou/an_template_addon/master/addon_version.json"
 
 # global k

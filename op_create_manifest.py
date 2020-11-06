@@ -5,9 +5,10 @@ import random
 
 
 from .json_functions import read_json, create_json_file
-from .global_variables import nodetree_infos, global_k_filepath
+from .global_variables import nodetree_infos, global_k_filepath, global_k_url
 from .addon_prefs import get_addon_preferences
 from .print_functions import print_and_report
+from .internet_functions import download_file
 
 
 # return direct subfolders
@@ -53,12 +54,14 @@ def generate_hash(length):
 
 # get k_time
 def get_global_k():
+    if not os.path.isfile(global_k_filepath):
+        return None
     datas = read_json(global_k_filepath)
     return datas["k"], datas["w"], datas["v"]
 
 
 # initialize json manifest datas
-def initialize_json_manifest_datas() :
+def initialize_json_manifest_datas():
 
     datas = {}
 

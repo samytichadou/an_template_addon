@@ -80,7 +80,7 @@ def load_manifest(self, internet_connection):
 
 # load global k if needed
 def reload_global_k(manifest_dataset):
-    if manifest_dataset["k_v"] != get_global_k()[2]:
+    if not get_global_k() or read_online_json(global_k_url)["v"] != get_global_k()[2]:
         print_and_report(None, "Reloading Submission System", "INFO") #debug
         download_file(global_k_url, global_k_filepath)
 
