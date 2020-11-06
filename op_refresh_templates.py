@@ -3,13 +3,14 @@ import os
 
 
 from .addon_prefs import get_addon_preferences
-from .global_variables import manifest_file, manifest_url, global_k_url, global_k_filepath, addon_version_url
+from .global_variables import manifest_file, manifest_url, global_k_url, global_k_filepath, addon_version_url, newsfeed_url, newsfeed_file
 from .file_functions import create_directory
 from .internet_functions import is_connected, download_file, read_online_json
 from .json_functions import set_nodetrees_from_json, set_properties_from_json, read_json
 from .print_functions import print_and_report
 from .op_create_manifest import get_global_k
 from .op_submit_template import get_addon_version
+from .newsfeed_functions import reload_newsfeed
 
 
 # check offline available nodetrees
@@ -75,12 +76,15 @@ def load_manifest(self, internet_connection):
     # reload k
     reload_global_k(manifest_dataset)
 
+    # get newsfeed
+    reload_newsfeed(manifest_dataset)
+
     return True
 
 
 # load global k if needed
 def reload_global_k(manifest_dataset):
-    if not get_global_k() or read_online_json(global_k_url)["v"] != get_global_k()[2]:
+    if not get_global_k() or manifest_dataset["k_v"] != get_global_k()[2]:
         print_and_report(None, "Reloading Submission System", "INFO") #debug
         download_file(global_k_url, global_k_filepath)
 
