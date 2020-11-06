@@ -27,4 +27,5 @@ an_lib_github = "https://raw.githubusercontent.com/samytichadou/animation_nodes_
 manifest_url = an_lib_github + manifest_file
 global_k_url = an_lib_github + global_k_file
 news_feed_url = an_lib_github + newsfeed_file
+
 addon_version_url = "https://raw.githubusercontent.com/samytichadou/an_template_addon/master/addon_version.json"
