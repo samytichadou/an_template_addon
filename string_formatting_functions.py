@@ -5,8 +5,6 @@ def split_string_on_spaces(string, char_limit):
 
     words = string.split()
 
-    print(words)
-
     line = ""
     for w in words:
         if len(line) < char_limit:
