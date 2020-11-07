@@ -39,6 +39,8 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         subtype="FILE_PATH"
         )
 
+    display_developper_tools : bpy.props.BoolProperty(name = "Display Developper Tools")
+
 
     def draw(self, context):
         
@@ -54,29 +56,40 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         row.prop(self, "manifest_url")
         layout.prop(self, "download_folder")
 
+
+        # DEV TOOLS
+
         bigbox = layout.box()
 
-        bigbox.label(text="Developpers", icon="FILE_SCRIPT")
+        if self.display_developper_tools:
+            icon = "DISCLOSURE_TRI_DOWN"
+        else:
+            icon = "DISCLOSURE_TRI_RIGHT"
+        row = bigbox.row(align=True)
+        row.prop(self, "display_developper_tools", text="", icon=icon, emboss=False)
+        row.label(text="Developpers", icon="FILE_SCRIPT")
 
-        box = bigbox.box()
-        col = box.column(align=True)
-        col.label(text="Manifest")
-        col.prop(self, "template_folder", text="Templates")
-        col.prop(self, "output_manifest_file", text="Manifest")
-        col.operator("antemplates.create_manifest")
+        if self.display_developper_tools:
 
-        box = bigbox.box()
-        col = box.column(align=True)
-        col.label(text="Nodetree Infos")
-        col.prop(properties_coll, "output_nodetree_info_file", text="")
-        col.operator("antemplates.create_nodetree_info")
-        col.operator("antemplates.edit_nodetree_info")
+            box = bigbox.box()
+            col = box.column(align=True)
+            col.label(text="Manifest")
+            col.prop(self, "template_folder", text="Templates")
+            col.prop(self, "output_manifest_file", text="Manifest")
+            col.operator("antemplates.create_manifest")
 
-        box = bigbox.box()
-        col = box.column(align=True)
-        col.label(text="Newsfeed")
-        col.prop(self, "output_newsfeed_file", text="")
-        col.operator("antemplates.create_newsfeed")
+            box = bigbox.box()
+            col = box.column(align=True)
+            col.label(text="Nodetree Infos")
+            col.prop(properties_coll, "output_nodetree_info_file", text="")
+            col.operator("antemplates.create_nodetree_info")
+            col.operator("antemplates.edit_nodetree_info")
+
+            box = bigbox.box()
+            col = box.column(align=True)
+            col.label(text="Newsfeed")
+            col.prop(self, "output_newsfeed_file", text="")
+            col.operator("antemplates.create_newsfeed")
 
 
 # get addon preferences
