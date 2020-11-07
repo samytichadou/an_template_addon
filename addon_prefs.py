@@ -34,6 +34,11 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         subtype="FILE_PATH"
         )
 
+    output_newsfeed_file : bpy.props.StringProperty(
+        name="Output Newsfeed", 
+        subtype="FILE_PATH"
+        )
+
 
     def draw(self, context):
         
@@ -58,7 +63,6 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         col.label(text="Manifest")
         col.prop(self, "template_folder", text="Templates")
         col.prop(self, "output_manifest_file", text="Manifest")
-
         col.operator("antemplates.create_manifest")
 
         box = bigbox.box()
@@ -67,6 +71,12 @@ class ANTEMPLATESAddonPrefs(bpy.types.AddonPreferences):
         col.prop(properties_coll, "output_nodetree_info_file", text="")
         col.operator("antemplates.create_nodetree_info")
         col.operator("antemplates.edit_nodetree_info")
+
+        box = bigbox.box()
+        col = box.column(align=True)
+        col.label(text="Newsfeed")
+        col.prop(self, "output_newsfeed_file", text="")
+        col.operator("antemplates.create_newsfeed")
 
 
 # get addon preferences

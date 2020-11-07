@@ -103,7 +103,7 @@ class ANTEMPLATES_OT_create_nodetree_info(bpy.types.Operator):
         datas["readme_url"] =           self.readme_url
         datas["hash"] =                 generate_hash(10)
 
-        print_and_report(None, "Creating Nodetree Info File : ", "INFO") #debug
+        print_and_report(None, "Creating Nodetree Info File", "INFO") #debug
 
         #print(datas) #debug
 

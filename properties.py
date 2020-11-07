@@ -124,3 +124,4 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     #newsfeed
     newsfeed_hash : bpy.props.StringProperty(name="Newsfeed Hash")
     news : bpy.props.CollectionProperty(type = ANTemplatesNews, name="News")
+    temp_news : bpy.props.CollectionProperty(type = ANTemplatesNews, name="News")
