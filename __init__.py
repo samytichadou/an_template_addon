@@ -21,8 +21,8 @@ Created by Samy Tichadou (tonton)
 bl_info = {  
  "name": "AN templates",  
  "author": "Samy Tichadou (tonton)",  
- "version": (0, 2, 1),  
- "blender": (2, 83, 5), 
+ "version": (0, 3, 0),  
+ "blender": (2, 83, 7), 
  "location": "Animation Nodes Editor > Side Panel",  
  "description": "Animation Nodes Templates Online Library",  
  "wiki_url": "https://github.com/samytichadou/an_template_addon/blob/master/README.md",  
