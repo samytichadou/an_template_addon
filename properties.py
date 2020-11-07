@@ -32,6 +32,11 @@ class ANTemplatesTags(bpy.types.PropertyGroup) :
     '''name : StringProperty() '''
 
 
+class ANTemplatesNews(bpy.types.PropertyGroup) :
+    '''name : StringProperty() '''
+    url : bpy.props.StringProperty(name="News URL")
+
+
 def get_categories_callback(scene, context):
 
     items = []
@@ -115,3 +120,7 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     update_needed : bpy.props.BoolProperty()
     update_message : bpy.props.StringProperty()
     update_download_url : bpy.props.StringProperty()
+
+    #newsfeed
+    newsfeed_hash : bpy.props.StringProperty(name="Newsfeed Hash")
+    news : bpy.props.CollectionProperty(type = ANTemplatesNews, name="News")

@@ -76,6 +76,7 @@ classes = (
             ANTemplatesANVersions,
             ANTemplatesCategories,
             ANTemplatesTags,
+            ANTemplatesNews,
             ANTemplatesProperties,
 
             ANTEMPLATES_OT_open_url,
