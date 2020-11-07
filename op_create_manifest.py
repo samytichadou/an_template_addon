@@ -5,7 +5,7 @@ import random
 
 
 from .json_functions import read_json, create_json_file
-from .global_variables import nodetree_infos, global_k_filepath, global_k_url
+from .global_variables import nodetree_infos, global_k_filepath, global_k_url, global_k_file, newsfeed_file
 from .addon_prefs import get_addon_preferences
 from .print_functions import print_and_report
 from .internet_functions import download_file
@@ -71,7 +71,8 @@ def initialize_json_manifest_datas():
     datas["categories"] = []
     datas["tags"] = []
     datas["manifest_hash"] = generate_hash(10)
-    datas["k_v"] = get_global_k()[2]
+    datas["k_v"] = ""
+    datas["newsfeed_hash"] = ""
 
     return datas
 
@@ -83,6 +84,24 @@ def get_separated_tags(tag_line):
         for t in tag_line.split(","):
             tags.append(t.strip())
     return tags
+
+
+# get k_v from folder
+def get_k_v(folder):
+    k_v_filepath = os.path.join(folder, global_k_file)
+    if os.path.isfile(k_v_filepath):
+        return read_json(k_v_filepath)["v"]
+    else:
+        return None
+
+
+# get newsfeed_v from folder
+def get_newsfeed_hash(folder):
+    newsfeed_hash_filepath = os.path.join(folder, newsfeed_file)
+    if os.path.isfile(newsfeed_hash_filepath):
+        return read_json(newsfeed_hash_filepath)["newsfeed_hash"]
+    else:
+        return None
 
 
 class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
@@ -125,6 +144,21 @@ class ANTEMPLATES_OT_create_manifest(bpy.types.Operator):
         tag_list = []
 
         manifest_datas = initialize_json_manifest_datas()
+
+        # set k_v and newsfeed_v
+
+        k_v = get_k_v(template_folder)
+        if k_v is not None:
+            manifest_datas["k_v"] = k_v
+        else:
+            print_and_report(None, "No global_k file found", "WARNING") #debug
+
+        newsfeed_hash = get_newsfeed_hash(template_folder)
+        if newsfeed_hash is not None:
+            manifest_datas["newsfeed_hash"] = newsfeed_hash
+        else:
+            print_and_report(None, "No newsfeed file found", "WARNING") #debug
+
         
         for folder in return_direct_subfolders(template_folder):
 
