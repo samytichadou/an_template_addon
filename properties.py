@@ -35,6 +35,7 @@ class ANTemplatesTags(bpy.types.PropertyGroup) :
 class ANTemplatesNews(bpy.types.PropertyGroup) :
     '''name : StringProperty() '''
     url : bpy.props.StringProperty(name="News URL")
+    nodetree_name : bpy.props.StringProperty(name="Nodetree Name")
 
 
 def get_categories_callback(scene, context):
@@ -124,4 +125,5 @@ class ANTemplatesProperties(bpy.types.PropertyGroup) :
     #newsfeed
     newsfeed_hash : bpy.props.StringProperty(name="Newsfeed Hash")
     news : bpy.props.CollectionProperty(type = ANTemplatesNews, name="News")
-    temp_news : bpy.props.CollectionProperty(type = ANTemplatesNews, name="News")
+    temp_news : bpy.props.CollectionProperty(type = ANTemplatesNews, name="Temp News")
+    active_news : bpy.props.IntProperty()

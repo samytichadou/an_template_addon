@@ -3,6 +3,7 @@ import bpy
 
 from .op_create_manifest import get_separated_tags
 from .addon_prefs import get_addon_preferences
+from .string_formatting_functions import split_string_on_spaces
 
 
 class ANTEMPLATES_PT_templates_panel(bpy.types.Panel):
@@ -143,6 +144,50 @@ class ANTEMPLATES_PT_nodetree_infos_subpanel(bpy.types.Panel):
             if ct != 0:
                 tag_reformat = tag_reformat[:-2]
                 col.label(text=tag_reformat)
+
+
+class ANTEMPLATES_PT_news_panel(bpy.types.Panel):
+    bl_idname = "ANTEMPLATES_PT_news_panel"
+    bl_label = "News"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
+    bl_category = "Templates"
+
+
+    @classmethod
+    def poll(cls, context):
+        if context.area.ui_type == "an_AnimationNodeTree":
+            return True
+
+
+    def draw(self, context):
+
+        properties_coll = context.window_manager.an_templates_properties
+
+        active_news = properties_coll.news[properties_coll.active_news]
+
+        count = str(properties_coll.active_news + 1) + "/" + str(len(properties_coll.news))
+
+        layout = self.layout
+
+        row = layout.row(align=True)
+        row.label(text=count)
+        row.operator("antemplates.newsfeed_actions", text="", icon="TRIA_LEFT").action = "PREV"
+        row.operator("antemplates.newsfeed_actions", text="", icon="TRIA_RIGHT").action = "NEXT"
+        
+        col = layout.column(align=True)
+
+        for line in split_string_on_spaces(active_news.name, 25):
+            col.label(text=line)
+
+        col.separator()
+
+        if active_news.url != "":
+            col.operator("antemplates.open_url", text="URL", icon="URL").url = active_news.url
+
+        if active_news.nodetree_name != "":
+            col.operator("antemplates.search_select_nodetree", text="Select", icon="RESTRICT_SELECT_OFF").name = active_news.nodetree_name
+            col.operator("antemplates.import_nodetree", text="Import", icon="IMPORT").from_name = active_news.nodetree_name
 
 
 class ANTEMPLATES_PT_utilities_panel(bpy.types.Panel):

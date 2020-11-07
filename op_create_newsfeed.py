@@ -57,6 +57,7 @@ class ANTEMPLATES_OT_create_newsfeed(bpy.types.Operator):
                 new_news = temp_news.add()
                 new_news.name = n["name"]
                 new_news.url = n["url"]
+                new_news.nodetree_name = n["nodetree_name"]
                 
         return context.window_manager.invoke_props_dialog(self)
 
@@ -75,6 +76,7 @@ class ANTEMPLATES_OT_create_newsfeed(bpy.types.Operator):
             op.action = "DEL"
             op.index = idx
             col.prop(n, "url", text="", icon="URL")
+            col.prop(n, "nodetree_name", text="", icon="NODETREE")
             idx += 1
 
         layout.operator("antemplates.news_temp_actions", text="Create News", icon="ADD").action = "ADD"
@@ -107,6 +109,7 @@ class ANTEMPLATES_OT_create_newsfeed(bpy.types.Operator):
             new_news = {}
             new_news["name"] = n.name
             new_news["url"] = n.url
+            new_news["nodetree_name"] = n.nodetree_name
             datas["news"].append(new_news)
 
         datas["newsfeed_hash"] = generate_hash(10)

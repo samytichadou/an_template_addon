@@ -55,11 +55,14 @@ from .op_refresh_templates import ANTEMPLATES_OT_refresh_templates
 from .op_submit_template import ANTEMPLATES_OT_submit_template
 from .op_refresh_addon_version import ANTEMPLATES_OT_refresh_addon_version
 from .op_submission_guidelines import ANTEMPLATES_OT_submission_guidelines
+from .op_newsfeed_actions import ANTEMPLATES_OT_newsfeed_actions
+from .op_search_select_nodetree import ANTEMPLATES_OT_search_select_nodetree
 
 from .gui import (
                     ANTEMPLATES_PT_templates_panel,
                     ANTEMPLATES_PT_import_options_subpanel,
                     ANTEMPLATES_PT_nodetree_infos_subpanel,
+                    ANTEMPLATES_PT_news_panel,
                     ANTEMPLATES_PT_utilities_panel,
                     ANTEMPLATES_PT_submission_panel,
                     ANTEMPLATES_PT_updater_subpanel,
@@ -101,10 +104,13 @@ classes = (
             ANTEMPLATES_OT_submit_template,
             ANTEMPLATES_OT_refresh_addon_version,
             ANTEMPLATES_OT_submission_guidelines,
+            ANTEMPLATES_OT_newsfeed_actions,
+            ANTEMPLATES_OT_search_select_nodetree,
 
             ANTEMPLATES_PT_templates_panel,
             ANTEMPLATES_PT_import_options_subpanel,
             ANTEMPLATES_PT_nodetree_infos_subpanel,
+            ANTEMPLATES_PT_news_panel,
             ANTEMPLATES_PT_utilities_panel,
             ANTEMPLATES_UL_panel_ui_list,
             ANTEMPLATES_PT_submission_panel,

@@ -209,6 +209,7 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
     bl_label = "Import Nodetree"
     bl_options = {'REGISTER', 'INTERNAL'}
 
+    from_name : bpy.props.StringProperty(default="")
 
     @classmethod
     def poll(cls, context):
@@ -224,7 +225,16 @@ class ANTEMPLATES_OT_import_nodetree(bpy.types.Operator):
         winman = context.window_manager
         nodetree_collection = winman.an_templates_nodetrees
         properties_coll = winman.an_templates_properties
-        nodetree = nodetree_collection[properties_coll.nodetrees_index]
+
+        if self.from_name:
+            try:
+                nodetree = nodetree_collection[self.from_name]
+            except KeyError:
+                print_and_report(self, "Unable to Find Nodetree : " + self.from_name, "WARNING") #debug
+                return {'FINISHED'}
+
+        else:
+            nodetree = nodetree_collection[properties_coll.nodetrees_index]
 
         prefs = get_addon_preferences()
 

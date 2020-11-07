@@ -10,7 +10,7 @@ from .json_functions import set_nodetrees_from_json, set_properties_from_json, r
 from .print_functions import print_and_report
 from .op_create_manifest import get_global_k
 from .op_submit_template import get_addon_version
-from .newsfeed_functions import reload_newsfeed
+from .newsfeed_functions import download_newsfeed, reload_newsfeed
 
 
 # check offline available nodetrees
@@ -73,11 +73,15 @@ def load_manifest(self, internet_connection):
     print_and_report(None, "Checking Downloaded Nodetrees", "INFO") #debug
     check_downloaded_nodetrees()
 
-    # reload k
-    reload_global_k(manifest_dataset)
+    if internet_connection:
 
-    # get newsfeed
-    reload_newsfeed(manifest_dataset)
+        # reload k
+        reload_global_k(manifest_dataset)
+
+        # get newsfeed
+        print_and_report(None, "Checking Newsfeed", "INFO") #debug
+        download_newsfeed(manifest_dataset)
+        reload_newsfeed()
 
     return True
 
