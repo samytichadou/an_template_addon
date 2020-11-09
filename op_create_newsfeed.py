@@ -49,7 +49,7 @@ class ANTEMPLATES_OT_create_newsfeed(bpy.types.Operator):
 
     def invoke(self, context, event):
         newsfeed_filepath = get_addon_preferences().output_newsfeed_file
-        temp_news = context.window_manager.an_templates_properties.temp_news
+        temp_news = context.window_manager.an_templates_properties.temp_news      
 
         if os.path.isfile(newsfeed_filepath):
             datas = read_json(newsfeed_filepath)
@@ -126,3 +126,9 @@ class ANTEMPLATES_OT_create_newsfeed(bpy.types.Operator):
         print_and_report(self, "Newsfeed File Successfully Created", "INFO") #debug
 
         return {'FINISHED'}
+
+
+    def cancel(self, context): 
+
+        print_and_report(None, "Cleaning Temporary News Collection", "INFO") #debug
+        context.window_manager.an_templates_properties.temp_news.clear()
